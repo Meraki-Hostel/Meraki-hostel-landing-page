@@ -99,6 +99,18 @@ export function FlowSocialProof() {
               </span>
             </div>
           </div>
+
+          {/* Wispr Flow style continuous infinite ticker */}
+          <div className="mt-8 border-t border-white/15 pt-5 overflow-hidden">
+            <div className="flex items-center gap-8 text-caption font-medium text-white/70 whitespace-nowrap animate-pulse">
+              <span>● KOTA RAJASTHAN (STUDENT DORMITORIES)</span>
+              <span>● BENGALURU ELECTRONIC CITY &amp; HSR (WORKING PGs)</span>
+              <span>● SOUTH DELHI HAUZ KHAS &amp; LAJPAT NAGAR</span>
+              <span>● PUNE HINJEWADI &amp; VIMAN NAGAR</span>
+              <span>● GREATER NOIDA KNOWLEDGE PARK</span>
+              <span>● HYDERABAD GACHIBOWLI &amp; MADHAPUR</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -7,49 +7,64 @@ import { content } from "@/config/site-content";
  * straddling the band's bottom edge (half on dark, half on canvas).
  */
 export function Hero() {
-  const { lead, note } = content.hero;
+  const { note } = content.hero;
   return (
     <section
       id="hero"
       aria-labelledby="hero-title"
       className="relative bg-canvas pt-[calc(var(--spacing-nav-offset)+2rem)] pb-16 md:pb-24 overflow-hidden"
     >
-      {/* Decorative winding dotted thread matching Flow aesthetic */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-full w-full stroke-ink/20 [stroke-dasharray:6_6]"
-        fill="none"
-        viewBox="0 0 1200 600"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M-50,80 C150,20 180,240 80,260 C-20,280 20,420 220,400 C450,380 500,490 600,480 C700,470 850,380 980,450 C1100,510 1150,420 1250,490"
-          strokeWidth="1.5"
-        />
-      </svg>
+      {/* Wispr Flow signature animated text ribbon */}
+      <div className="pointer-events-none absolute inset-x-0 top-16 h-72 w-full overflow-hidden opacity-60">
+        <svg
+          id="hero-ribbon-svg"
+          width="100%"
+          height="100%"
+          viewBox="0 0 1200 240"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            id="curve-ribbon"
+            d="M-100,160 C150,60 300,220 550,140 C800,60 950,210 1300,120"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeDasharray="6 6"
+            className="text-ink/20"
+          />
+          <text className="font-mono text-[11px] font-semibold tracking-wider">
+            <textPath href="#curve-ribbon" className="fill-ink/35">
+              Room 101 occupied &middot; Aarav Sharma paid November rent ₹8,500 via UPI &middot; Bed 103-B vacant ₹7,500/mo &middot; Move-out scheduled for 15 Nov &middot; Meter reading recorded &middot; Priya Nair verified KYC &middot; Room 201-C overdue follow-up &middot;
+              <animate attributeName="startOffset" from="0%" to="-50%" dur="30s" repeatCount="indefinite" />
+            </textPath>
+          </text>
+        </svg>
+      </div>
 
       <div className="container-page relative z-10 flex flex-col items-center text-center">
         {/* Playful pill eyebrow */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-4 py-1.5 backdrop-blur-xs">
           <span className="size-2 rounded-full bg-purple-600 animate-pulse" />
-          <span className="text-caption font-medium text-ink">
-            Simpler Hostel &amp; PG Management
+          <span className="text-caption font-medium text-ink uppercase tracking-wider">
+            {brand.name} Hostel Management
           </span>
         </div>
 
         {/* Serif headline with italic emphasis */}
         <h1
           id="hero-title"
-          className="mx-auto max-w-[16ch] font-display text-[2.75rem] leading-[1.08] tracking-[-0.03em] text-ink sm:text-[3.5rem] md:text-[4.75rem] lg:text-[5.25rem]"
+          className="mx-auto max-w-[16ch] font-display text-[2.75rem] leading-[1.08] tracking-[-0.03em] text-ink sm:text-[3.5rem] md:text-[4.75rem] lg:text-[5.5rem]"
         >
-          Run your hostel,{" "}
+          Don&apos;t chase rent,
+          <br />
           <em className="font-serif italic font-normal text-purple-900">
-            not your paperwork
+            just manage.
           </em>
         </h1>
 
         <p className="mt-6 max-w-[34rem] text-lead text-ink-muted md:text-[1.25rem] md:leading-relaxed">
-          {lead}
+          The hostel &amp; PG management platform that turns daily operational chaos into clear, effortless control.
         </p>
 
         {/* CTA Button Group with soft lilac pill */}

@@ -4,6 +4,7 @@ import { brand } from "@/config/brand";
 import { getPublicEnv } from "@/lib/env";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { FlowBottomBar } from "@/components/layout/FlowBottomBar";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <FlowBottomBar />
       </body>
     </html>
   );

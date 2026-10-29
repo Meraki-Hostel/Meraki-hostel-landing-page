@@ -1,7 +1,26 @@
+"use client";
+
+import { useState } from "react";
 import { brand } from "@/config/brand";
 import { sample, PREVIEW_CAPTION } from "@/config/site-content";
 
+type FilterMode = "all" | "vacant" | "dues";
+
 export function FlowHeroCard() {
+  const [filter, setFilter] = useState<FilterMode>("all");
+  const [recordedRooms, setRecordedRooms] = useState<Record<string, boolean>>({});
+
+  const toggleRecorded = (room: string) => {
+    setRecordedRooms((prev) => ({ ...prev, [room]: !prev[room] }));
+  };
+
+  const filteredRooms = sample.rooms.filter((roomItem) => {
+    const hasVacant = roomItem.beds.some((b) => b === "vacant");
+    if (filter === "vacant") return hasVacant;
+    if (filter === "dues") return roomItem.room === "103" || roomItem.room === "201";
+    return true;
+  });
+
   return (
     <section className="bg-canvas pb-16 md:pb-24">
       <div className="container-page">
@@ -28,8 +47,7 @@ export function FlowHeroCard() {
             </h2>
 
             <p className="mt-4 text-lead text-on-dark-muted">
-              Replace scattered registers, lost WhatsApp payment screenshots,
-              and confusing spreadsheets with a single live operational ledger.
+              Replace scattered registers, lost WhatsApp payment screenshots, and confusing spreadsheets with a single live operational ledger.
             </p>
 
             <div className="mt-8 flex justify-center">
@@ -90,20 +108,51 @@ export function FlowHeroCard() {
           {/* Interactive live mockup window */}
           <div className="relative z-10 mx-auto mt-8 max-w-4xl overflow-hidden rounded-2xl border border-white/15 bg-black/40 shadow-2xl backdrop-blur-xl">
             {/* Window header */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3 gap-3">
               <div className="flex items-center gap-2">
                 <span className="size-3 rounded-full bg-rose-500/80" />
                 <span className="size-3 rounded-full bg-amber-500/80" />
                 <span className="size-3 rounded-full bg-emerald-500/80" />
                 <span className="ml-2 font-mono text-caption text-white/50">
-                  meraki-hostel-dashboard.internal
+                  meraki-hostel-console.internal
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[11px] font-medium text-emerald-300">
-                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Live Floorplan
-                </span>
+
+              {/* Interactive filter pills */}
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setFilter("all")}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
+                    filter === "all"
+                      ? "bg-purple-600 text-white"
+                      : "bg-white/10 text-white/70 hover:bg-white/15"
+                  }`}
+                >
+                  All Rooms
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFilter("vacant")}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
+                    filter === "vacant"
+                      ? "bg-purple-600 text-white"
+                      : "bg-white/10 text-white/70 hover:bg-white/15"
+                  }`}
+                >
+                  Vacant Only
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFilter("dues")}
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
+                    filter === "dues"
+                      ? "bg-purple-600 text-white"
+                      : "bg-white/10 text-white/70 hover:bg-white/15"
+                  }`}
+                >
+                  Dues Attention
+                </button>
               </div>
             </div>
 
@@ -115,31 +164,25 @@ export function FlowHeroCard() {
               </div>
               <div className="rounded-xl border border-white/5 bg-white/[0.03] p-3 text-center sm:text-left">
                 <span className="text-[11px] text-white/60">Occupied</span>
-                <p className="font-display text-h3 text-emerald-400">
-                  41{" "}
-                  <span className="text-xs font-sans text-white/60">(85%)</span>
-                </p>
+                <p className="font-display text-h3 text-emerald-400">41 <span className="text-xs font-sans text-white/60">(85%)</span></p>
               </div>
               <div className="rounded-xl border border-white/5 bg-white/[0.03] p-3 text-center sm:text-left">
                 <span className="text-[11px] text-white/60">Vacant Beds</span>
                 <p className="font-display text-h3 text-amber-300">7</p>
               </div>
               <div className="rounded-xl border border-white/5 bg-white/[0.03] p-3 text-center sm:text-left">
-                <span className="text-[11px] text-white/60">
-                  Dues Outstanding
-                </span>
+                <span className="text-[11px] text-white/60">Dues Outstanding</span>
                 <p className="font-display text-h3 text-rose-300">₹38,000</p>
               </div>
             </div>
 
             {/* Room cards grid */}
             <div className="grid gap-3 p-4 sm:grid-cols-2 sm:gap-4 md:p-6">
-              {sample.rooms.slice(0, 4).map((roomItem) => {
+              {filteredRooms.slice(0, 4).map((roomItem) => {
                 const totalBeds = roomItem.beds.length;
-                const occupiedBeds = roomItem.beds.filter(
-                  (b) => b === "occupied",
-                ).length;
+                const occupiedBeds = roomItem.beds.filter((b) => b === "occupied").length;
                 const vacantBeds = totalBeds - occupiedBeds;
+                const isPaid = recordedRooms[roomItem.room];
 
                 return (
                   <div
@@ -155,15 +198,28 @@ export function FlowHeroCard() {
                           {totalBeds} Sharing
                         </span>
                       </div>
-                      <span
-                        className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
-                          vacantBeds > 0
-                            ? "bg-amber-400/20 text-amber-300"
-                            : "bg-emerald-400/20 text-emerald-300"
-                        }`}
-                      >
-                        {vacantBeds > 0 ? `${vacantBeds} Vacant` : "Full"}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
+                            vacantBeds > 0
+                              ? "bg-amber-400/20 text-amber-300"
+                              : "bg-emerald-400/20 text-emerald-300"
+                          }`}
+                        >
+                          {vacantBeds > 0 ? `${vacantBeds} Vacant` : "Full"}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => toggleRecorded(roomItem.room)}
+                          className={`rounded-md px-2 py-0.5 text-[10px] font-medium transition ${
+                            isPaid
+                              ? "bg-emerald-500 text-white"
+                              : "bg-white/15 text-white/80 hover:bg-white/25"
+                          }`}
+                        >
+                          {isPaid ? "Paid ✓" : "Quick Log"}
+                        </button>
+                      </div>
                     </div>
 
                     {/* Beds visual dots */}
@@ -177,8 +233,7 @@ export function FlowHeroCard() {
                               : "border border-dashed border-amber-400/50 bg-amber-400/10 text-amber-300"
                           }`}
                         >
-                          Bed {String.fromCharCode(65 + bedIdx)}:{" "}
-                          {bed === "occupied" ? "Occupied" : "Vacant"}
+                          Bed {String.fromCharCode(65 + bedIdx)}: {bed === "occupied" ? "Occupied" : "Vacant"}
                         </div>
                       ))}
                     </div>
