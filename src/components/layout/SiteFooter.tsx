@@ -15,20 +15,30 @@ export function SiteFooter() {
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-gap-main">
           <div className="lg:col-span-4">
-            <p className="font-display text-[2.5rem] leading-none tracking-[-0.02em]">{brand.name}</p>
-            <p className="mt-4 max-w-[30ch] text-small text-ink-muted">{content.footer.statement}</p>
+            <p className="font-display text-[2.5rem] leading-none tracking-[-0.02em]">
+              {brand.name}
+            </p>
+            <p className="mt-4 max-w-[30ch] text-small text-ink-muted">
+              {content.footer.statement}
+            </p>
             {contact.email || contact.phone ? (
               <ul className="mt-4 space-y-1 text-small">
                 {contact.email ? (
                   <li>
-                    <a href={`mailto:${contact.email}`} className={`${linkClass} gap-2`}>
+                    <a
+                      href={`mailto:${contact.email}`}
+                      className={`${linkClass} gap-2`}
+                    >
                       <Icon name="mail" size={16} /> {contact.email}
                     </a>
                   </li>
                 ) : null}
                 {contact.phone ? (
                   <li>
-                    <a href={`tel:${contact.phone.replace(/[\s-]/g, "")}`} className={`${linkClass} gap-2`}>
+                    <a
+                      href={`tel:${contact.phone.replace(/[\s-]/g, "")}`}
+                      className={`${linkClass} gap-2`}
+                    >
                       <Icon name="phone" size={16} /> {contact.phone}
                     </a>
                   </li>
@@ -36,10 +46,15 @@ export function SiteFooter() {
               </ul>
             ) : null}
           </div>
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7 lg:col-start-6">
+          <nav
+            aria-label="Footer"
+            className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7 lg:col-start-6"
+          >
             {content.footer.columns.map((column) => (
               <div key={column.title}>
-                <h2 className="font-sans text-small font-medium text-ink-muted">{column.title}</h2>
+                <h2 className="font-sans text-small font-medium text-ink-muted">
+                  {column.title}
+                </h2>
                 <ul className="mt-3 space-y-1">
                   {column.links.map((link) => (
                     <li key={link.label}>
@@ -53,7 +68,24 @@ export function SiteFooter() {
             ))}
           </nav>
         </div>
-        <div className="mt-16 flex flex-col gap-3 text-small text-ink-muted md:mt-24 lg:flex-row lg:justify-between">
+
+        {/* Giant Flow-style brand wordmark */}
+        <div className="mt-16 md:mt-24 pt-12 border-t border-line/60">
+          <div className="flex items-center gap-4 text-[4rem] sm:text-[6rem] md:text-[8rem] font-display font-bold tracking-tight text-ink select-none leading-none">
+            <span
+              className="flex items-center gap-2 sm:gap-3"
+              aria-hidden="true"
+            >
+              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+            </span>
+            <span>{brand.name}</span>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 text-small text-ink-muted md:mt-16 lg:flex-row lg:justify-between">
           <p>
             © <CopyrightYear /> {brand.name}. All rights reserved.
           </p>
@@ -61,10 +93,18 @@ export function SiteFooter() {
             Stock photos from Unsplash by{" "}
             {photoCredits.map((credit, index) => (
               <span key={credit.name}>
-                <a href={credit.url} className="underline transition-colors duration-(--dur-base) hover:text-ink" rel="noopener">
+                <a
+                  href={credit.url}
+                  className="underline transition-colors duration-(--dur-base) hover:text-ink"
+                  rel="noopener"
+                >
                   {credit.name}
                 </a>
-                {index < photoCredits.length - 2 ? ", " : index === photoCredits.length - 2 ? " and " : "."}
+                {index < photoCredits.length - 2
+                  ? ", "
+                  : index === photoCredits.length - 2
+                    ? " and "
+                    : "."}
               </span>
             ))}
           </p>

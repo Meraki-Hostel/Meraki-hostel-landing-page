@@ -1,32 +1,31 @@
 import { Hero } from "@/components/sections/Hero";
-import { Problem } from "@/components/sections/Problem";
-import { Outcomes } from "@/components/sections/Outcomes";
-import { Platform } from "@/components/sections/Platform";
-import { Attention } from "@/components/sections/Attention";
-import { Features } from "@/components/sections/Features";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { GettingStarted } from "@/components/sections/GettingStarted";
-import { WhyMeraki } from "@/components/sections/WhyMeraki";
+import { FlowHeroCard } from "@/components/sections/FlowHeroCard";
+import { FlowSocialProof } from "@/components/sections/FlowSocialProof";
+import { FlowSpeedShowcase } from "@/components/sections/FlowSpeedShowcase";
+import { FlowMadeForYou } from "@/components/sections/FlowMadeForYou";
+import { FlowSplitSpotlight } from "@/components/sections/FlowSplitSpotlight";
+import { FlowBentoGrid } from "@/components/sections/FlowBentoGrid";
+import { FlowLavenderBanner } from "@/components/sections/FlowLavenderBanner";
+import { FlowLoveLetters } from "@/components/sections/FlowLoveLetters";
 import { EarlyAccess } from "@/components/sections/EarlyAccess";
-import { Faq } from "@/components/sections/Faq";
-import { FinalCta } from "@/components/sections/FinalCta";
+import { FlowHeroCta } from "@/components/sections/FlowHeroCta";
+import { FlowFaqAndBanner } from "@/components/sections/FlowFaqAndBanner";
 
-// Section order and ids: specs/01 §7.
 export default function Home() {
   return (
     <>
       <Hero />
-      <Problem />
-      <Outcomes />
-      <Platform />
-      <Attention />
-      <Features />
-      <HowItWorks />
-      <GettingStarted />
-      <WhyMeraki />
+      <FlowHeroCard />
+      <FlowSocialProof />
+      <FlowSpeedShowcase />
+      <FlowMadeForYou />
+      <FlowSplitSpotlight />
+      <FlowBentoGrid />
+      <FlowLavenderBanner />
+      <FlowLoveLetters />
       <EarlyAccess />
-      <Faq />
-      <FinalCta />
+      <FlowHeroCta />
+      <FlowFaqAndBanner />
     </>
   );
 }

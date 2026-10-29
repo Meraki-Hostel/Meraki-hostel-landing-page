@@ -1,10 +1,5 @@
 import { brand } from "@/config/brand";
 import { content } from "@/config/site-content";
-import { ButtonLink } from "@/components/ui/Button";
-import { DashboardPreview } from "@/components/preview/DashboardPreview";
-import { Marquee } from "@/components/ui/Marquee";
-import Image from "next/image";
-import { photos } from "@/config/images";
 
 /**
  * Ref: Clarion hero. Full-bleed photo under a top-to-bottom accent gradient, with the centred
@@ -12,64 +7,71 @@ import { photos } from "@/config/images";
  * straddling the band's bottom edge (half on dark, half on canvas).
  */
 export function Hero() {
-  const { title, lead, note, ticker, tickerLabel } = content.hero;
+  const { lead, note } = content.hero;
   return (
-    <section id="hero" aria-labelledby="hero-title" className="bg-canvas">
-      <div
-        data-surface="dark"
-        className="relative isolate flex min-h-[min(95svh,58rem)] flex-col justify-end overflow-hidden bg-accent-900 pt-[calc(var(--spacing-nav-offset)+3rem)] pb-14 md:pb-16"
+    <section
+      id="hero"
+      aria-labelledby="hero-title"
+      className="relative bg-canvas pt-[calc(var(--spacing-nav-offset)+2rem)] pb-16 md:pb-24 overflow-hidden"
+    >
+      {/* Decorative winding dotted thread matching Flow aesthetic */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-full w-full stroke-ink/20 [stroke-dasharray:6_6]"
+        fill="none"
+        viewBox="0 0 1200 600"
+        preserveAspectRatio="none"
       >
-        <Image
-          src={photos.hero.src}
-          alt={photos.hero.alt}
-          fill
-          priority
-          sizes="100vw"
-          placeholder="blur"
-          className="-z-20 object-cover object-[50%_35%]"
+        <path
+          d="M-50,80 C150,20 180,240 80,260 C-20,280 20,420 220,400 C450,380 500,490 600,480 C700,470 850,380 980,450 C1100,510 1150,420 1250,490"
+          strokeWidth="1.5"
         />
-        {/* Clarion overlay: transparent 18% → solid 92%. Kept denser at the top so text stays ≥4.5:1. */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-accent-900)_45%,transparent)_0%,color-mix(in_srgb,var(--color-accent-900)_70%,transparent)_35%,var(--color-accent-900)_88%)]"
-        />
-        <div className="container-page flex flex-col items-center text-center">
-          <h1 id="hero-title" className="max-w-[12em] text-h1">
-            {title.split(/(?<=\.)\s+/).map((sentence) => (
-              <span key={sentence} className="block">
-                {sentence}
-              </span>
-            ))}
-          </h1>
-          <p className="mt-6 max-w-[36rem] text-lead text-on-dark-muted">{lead}</p>
-          <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-btn-group">
-            <ButtonLink href={brand.primaryCta.href} variant="primary-light" fullWidthMobile>
-              {brand.primaryCta.label}
-            </ButtonLink>
-            <ButtonLink href={brand.secondaryCta.href} variant="ghost-on-dark" fullWidthMobile>
-              {brand.secondaryCta.label}
-            </ButtonLink>
-          </div>
-          <p className="mt-6 text-small text-on-dark-muted">{note}</p>
+      </svg>
+
+      <div className="container-page relative z-10 flex flex-col items-center text-center">
+        {/* Playful pill eyebrow */}
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-4 py-1.5 backdrop-blur-xs">
+          <span className="size-2 rounded-full bg-purple-600 animate-pulse" />
+          <span className="text-caption font-medium text-ink">
+            Simpler Hostel &amp; PG Management
+          </span>
         </div>
-        {/* Clarion's hero logo marquee (100s linear, 60% opacity); here it shows planned capabilities, not logos. */}
-        <Marquee
-          label={tickerLabel}
-          duration={100}
-          onDark
-          className="mt-12 pr-12 opacity-60 md:mt-14"
+
+        {/* Serif headline with italic emphasis */}
+        <h1
+          id="hero-title"
+          className="mx-auto max-w-[16ch] font-display text-[2.75rem] leading-[1.08] tracking-[-0.03em] text-ink sm:text-[3.5rem] md:text-[4.75rem] lg:text-[5.25rem]"
         >
-          {ticker.map((item) => (
-            <li key={item} className="flex flex-none items-center gap-16 pr-16 font-display text-[1.5rem] leading-none whitespace-nowrap">
-              {item}
-              <span aria-hidden="true" className="size-1.5 rounded-full bg-on-dark" />
-            </li>
-          ))}
-        </Marquee>
-      </div>
-      <div className="bg-[linear-gradient(180deg,var(--color-accent-900)_50%,var(--color-canvas)_50%)]">
-        <div className="container-page">
-          <DashboardPreview className="mx-auto max-w-[70rem] [&>figcaption]:text-ink-muted" />
+          Run your hostel,{" "}
+          <em className="font-serif italic font-normal text-purple-900">
+            not your paperwork
+          </em>
+        </h1>
+
+        <p className="mt-6 max-w-[34rem] text-lead text-ink-muted md:text-[1.25rem] md:leading-relaxed">
+          {lead}
+        </p>
+
+        {/* CTA Button Group with soft lilac pill */}
+        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row">
+          <a
+            href={brand.primaryCta.href}
+            className="btn btn-lilac btn-lg rounded-full px-8 py-3.5 text-body font-medium shadow-sm transition-transform duration-200 hover:scale-[1.02]"
+          >
+            {brand.primaryCta.label}
+          </a>
+          <a
+            href={brand.secondaryCta.href}
+            className="btn btn-ghost-on-light btn-lg rounded-full px-6 py-3.5 text-body"
+          >
+            {brand.secondaryCta.label}
+          </a>
+        </div>
+
+        {/* Forest green badge indicator */}
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-forest px-4 py-1.5 text-caption font-medium text-on-dark shadow-xs">
+          <span className="size-2 rounded-full bg-emerald-400" />
+          <span>{note}</span>
         </div>
       </div>
     </section>

@@ -29,7 +29,9 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
   useEffect(() => {
     if (!open) return;
     const root = document.documentElement;
-    const behind = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    const behind = Array.from(
+      document.querySelectorAll<HTMLElement>("main, footer"),
+    );
     root.style.overflow = "hidden";
     behind.forEach((el) => (el.inert = true));
     sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
@@ -59,7 +61,9 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
   const trapFocus = (event: React.KeyboardEvent<HTMLElement>) => {
     if (!open || event.key !== "Tab" || !headerRef.current) return;
     const focusable = Array.from(
-      headerRef.current.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
+      headerRef.current.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])",
+      ),
     ).filter((el) => el.offsetParent !== null);
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -81,17 +85,30 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
       className="fixed inset-x-0 top-2 z-50 px-4 md:px-6"
     >
       <div className="relative mx-auto flex h-14 max-w-[54.5rem] items-center justify-between rounded-nav border border-line bg-surface pr-2 pl-4 lg:pr-2.5 lg:pl-6">
-        <a href={href("#hero")} className="inline-flex min-h-11 items-center rounded-sm font-display text-[1.375rem] leading-none text-ink no-underline" aria-label={`${name} home`}>
-          {name}
+        <a
+          href={href("#hero")}
+          className="inline-flex min-h-11 items-center gap-2 rounded-sm font-display text-[1.375rem] font-medium leading-none text-ink no-underline tracking-tight"
+          aria-label={`${name} home`}
+        >
+          <span className="flex items-center gap-1 text-ink" aria-hidden="true">
+            <span className="size-1.5 rounded-full bg-ink" />
+            <span className="size-1.5 rounded-full bg-ink" />
+            <span className="size-1.5 rounded-full bg-ink" />
+            <span className="size-1.5 rounded-full bg-ink" />
+          </span>
+          <span>{name}</span>
         </a>
 
-        <nav aria-label="Primary" className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+        <nav
+          aria-label="Primary"
+          className="absolute left-1/2 hidden -translate-x-1/2 lg:block"
+        >
           <ul className="flex gap-1">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={href(link.href)}
-                  className="inline-flex items-center rounded-full px-4 py-[11px] text-body leading-none font-medium text-ink no-underline transition-colors duration-(--dur-base) ease-out-quart hover:bg-line pointer-coarse:min-h-11"
+                  className="inline-flex items-center rounded-full px-4 py-[11px] text-body leading-none font-medium text-ink/80 no-underline transition-colors duration-(--dur-base) ease-out-quart hover:text-ink hover:bg-line/60 pointer-coarse:min-h-11"
                 >
                   {link.label}
                 </a>
@@ -101,7 +118,10 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
         </nav>
 
         <div className="flex items-center gap-1">
-          <a href={href(cta.href)} className="btn btn-primary-dark">
+          <a
+            href={href(cta.href)}
+            className="btn btn-lilac rounded-full px-4 py-2 text-small font-medium shadow-xs"
+          >
             {cta.label}
           </a>
           <button
@@ -119,7 +139,11 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
                   key={bar}
                   className={[
                     "absolute left-0 h-[1.5px] w-5 bg-ink transition duration-(--dur-base) ease-out-quart",
-                    bar === 0 ? "top-0" : bar === 1 ? "top-[6px]" : "top-[12px]",
+                    bar === 0
+                      ? "top-0"
+                      : bar === 1
+                        ? "top-[6px]"
+                        : "top-[12px]",
                     open && bar === 0 ? "translate-y-[6px] rotate-45" : "",
                     open && bar === 1 ? "opacity-0" : "",
                     open && bar === 2 ? "-translate-y-[6px] -rotate-45" : "",

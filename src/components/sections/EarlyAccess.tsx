@@ -1,32 +1,52 @@
 import { brand, getContact } from "@/config/brand";
 import { content } from "@/config/site-content";
 import { isLeadCaptureEnabled } from "@/lib/lead-config";
-import { Section } from "@/components/ui/Section";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { EarlyAccessForm } from "@/components/sections/EarlyAccessForm";
 
-/** Intro beside the form card (Clarion modal card styling, placed inline). */
 export function EarlyAccess() {
   const copy = content.earlyAccess;
   const contact = getContact();
   return (
-    <Section id="early-access" labelledBy="early-access-title">
-      <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-gap-main">
-        <div className="lg:col-span-5">
-          <SectionHeader title={copy.title} titleId="early-access-title" lead={copy.lead} align="start" className="mb-6" />
-          <p className="max-w-[36rem] text-ink-muted">{copy.afterSubmit}</p>
-        </div>
-        <div className="lg:col-span-6 lg:col-start-7">
-          <div className="mx-auto max-w-form rounded-form border border-line bg-surface p-6 sm:p-10">
-            <EarlyAccessForm
-              copy={copy}
-              submitLabel={brand.submitLabel}
-              enabled={isLeadCaptureEnabled()}
-              contact={{ email: contact.email, phone: contact.phone }}
-            />
+    <section
+      id="early-access"
+      aria-labelledby="early-access-title"
+      className="bg-canvas pb-16 md:pb-24"
+    >
+      <div className="container-page">
+        <div className="rounded-[2.5rem] border border-line bg-canvas-tint p-8 sm:p-12 lg:p-16 shadow-sm">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
+            <div className="lg:col-span-5">
+              <div className="inline-flex rounded-full border border-line bg-surface px-4 py-1 text-caption font-medium text-purple-900 mb-4">
+                Early Access Program
+              </div>
+              <h2
+                id="early-access-title"
+                className="font-display text-h2 text-ink"
+              >
+                {copy.title}
+              </h2>
+              <p className="mt-4 text-lead text-ink-muted leading-relaxed">
+                {copy.lead}
+              </p>
+              <div className="mt-6 rounded-2xl border border-line bg-surface/80 p-5 text-small text-ink-muted shadow-2xs">
+                <p className="font-medium text-ink mb-1">Personal Follow-Up</p>
+                <p>{copy.afterSubmit}</p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="mx-auto rounded-3xl border border-line bg-surface p-6 sm:p-10 shadow-sm">
+                <EarlyAccessForm
+                  copy={copy}
+                  submitLabel={brand.submitLabel}
+                  enabled={isLeadCaptureEnabled()}
+                  contact={{ email: contact.email, phone: contact.phone }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

@@ -11,8 +11,8 @@
   --breakpoint-xl: 75rem;
 
   /* colour */
-  --color-canvas: #faf9f6;
-  --color-canvas-tint: #f3f1ea;
+  --color-canvas: #faf8f2;
+  --color-canvas-tint: #f3eee3;
   --color-surface: #ffffff;
   --color-line: #e4e0d5;
   --color-line-strong: #8c8476;
@@ -22,6 +22,15 @@
   --color-accent-900: #172a46;
   --color-accent-800: #1f375c;
   --color-accent-tint: #dce6f2;
+  --color-lilac: #e6d4fc;
+  --color-lilac-tint: #f1e6ff;
+  --color-lilac-ink: #2b0c59;
+  --color-forest: #0c3728;
+  --color-forest-dark: #07251b;
+  --color-forest-light: #164f3b;
+  --color-dark-card: #121315;
+  --color-dark-card-tint: #1b1c1e;
+  --color-dark-card-border: #26272b;
   --color-primary: #1f1b16;
   --color-primary-hover: #3a332a;
   --color-on-dark: #faf9f6;
@@ -248,6 +257,36 @@
     background-color: var(--color-primary);
     color: var(--color-on-dark);
   }
+  .btn-lilac {
+    background-color: var(--color-lilac);
+    color: var(--color-lilac-ink);
+    border-color: var(--color-lilac);
+    font-weight: 500;
+  }
+  .btn-lilac:hover {
+    background-color: var(--color-lilac-tint);
+    border-color: var(--color-lilac-tint);
+  }
+  .btn-forest {
+    background-color: var(--color-forest);
+    color: var(--color-on-dark);
+    border-color: var(--color-forest);
+    font-weight: 500;
+  }
+  .btn-forest:hover {
+    background-color: var(--color-forest-light);
+    border-color: var(--color-forest-light);
+  }
+  .btn-white {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    border-color: var(--color-surface);
+    font-weight: 500;
+  }
+  .btn-white:hover {
+    background-color: var(--color-canvas-tint);
+    border-color: var(--color-line);
+  }
   .btn:disabled,
   .btn[aria-disabled="true"] {
     background-color: var(--color-line);
@@ -402,10 +441,14 @@
   grid-area: 1 / 1;
 }
 .tab-panel {
-  transition: opacity var(--dur-out) linear, visibility 0s linear var(--dur-out);
+  transition:
+    opacity var(--dur-out) linear,
+    visibility 0s linear var(--dur-out);
 }
 .tab-panel[data-active="true"] {
-  transition: opacity var(--dur-base) var(--ease-out-quart), visibility 0s;
+  transition:
+    opacity var(--dur-base) var(--ease-out-quart),
+    visibility 0s;
 }
 .tab-panel[data-active="false"] {
   opacity: 0;
@@ -449,7 +492,13 @@
 }
 .marquee {
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, #000 5rem, #000 calc(100% - 5rem), transparent);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 5rem,
+    #000 calc(100% - 5rem),
+    transparent
+  );
 }
 .marquee-track {
   display: flex;
