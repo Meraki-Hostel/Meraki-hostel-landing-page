@@ -1,0 +1,470 @@
+@import "tailwindcss";
+
+/* Design tokens: specs/05 §19 is canonical. All values Provisional (owner decision D-5). */
+@theme {
+  --breakpoint-*: initial;
+  --shadow-*: initial;
+
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 62rem;
+  --breakpoint-xl: 75rem;
+
+  /* colour */
+  --color-canvas: #faf9f6;
+  --color-canvas-tint: #f3f1ea;
+  --color-surface: #ffffff;
+  --color-line: #e4e0d5;
+  --color-line-strong: #8c8476;
+  --color-rule: rgb(31 27 22 / 0.16);
+  --color-ink: #1f1b16;
+  --color-ink-muted: #5e574d;
+  --color-accent-900: #172a46;
+  --color-accent-800: #1f375c;
+  --color-accent-tint: #dce6f2;
+  --color-primary: #1f1b16;
+  --color-primary-hover: #3a332a;
+  --color-on-dark: #faf9f6;
+  --color-on-dark-muted: rgb(250 249 246 / 0.78);
+  --color-highlight: #c98a2b; /* dark surfaces only */
+  --color-success: #2f6b4f;
+  --color-success-tint: #e6f0ea;
+  --color-warning: #8a5a12;
+  --color-warning-tint: #f8eedc;
+  --color-danger: #a23b2a;
+  --color-danger-tint: #f7e6e2;
+
+  /* type */
+  --text-h1: clamp(2.5rem, 1.75rem + 2.34vw, 4rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 400;
+  --text-h2: clamp(2.25rem, 1.79rem + 1.89vw, 3rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 300;
+  --text-cta: clamp(2.5rem, 2.19rem + 1.26vw, 3rem);
+  --text-cta--line-height: 1.2;
+  --text-cta--letter-spacing: -0.03em;
+  --text-cta--font-weight: 400;
+  --text-tab: clamp(1.5rem, 1.19rem + 1.26vw, 2rem);
+  --text-tab--line-height: 1.1;
+  --text-tab--letter-spacing: -0.03em;
+  --text-tab--font-weight: 400;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.1;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 400;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.01em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-body--letter-spacing: -0.01em;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-small--letter-spacing: -0.01em;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--font-weight: 500;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.1em;
+  --text-eyebrow--font-weight: 500;
+  --text-preview: 0.8125rem;
+  --text-preview--line-height: 1.4;
+  --text-preview-num: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --text-preview-num--line-height: 1.1;
+  --text-preview-num--letter-spacing: -0.02em;
+
+  /* spacing & layout */
+  --spacing-section: clamp(3rem, 1.79rem + 4.95vw, 6.25rem);
+  --spacing-gutter: clamp(1.25rem, 0.75rem + 2.2vw, 2.5rem);
+  --spacing-gap-main: 2.5rem;
+  --spacing-gap-md: 1.25rem;
+  --spacing-gap-sm: 0.5rem;
+  --spacing-card: 1.5rem;
+  --spacing-stack: 1rem;
+  --spacing-btn-group: 1rem;
+  --container-site: 87.5rem;
+  --container-form: 35rem;
+  --container-narrow: 48rem;
+
+  /* radii */
+  --radius-pill: 2.5rem;
+  --radius-nav: 8.5rem;
+  --radius-sheet: 1rem;
+  --radius-form: 1rem;
+  --radius-input: 0.75rem;
+  --radius-preview: 0.75rem;
+  --radius-checkbox: 0.25rem;
+
+  /* motion */
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@theme inline {
+  --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-out: 100ms;
+  --focus-ring: var(--color-accent-900);
+  --spacing-nav-offset: 5.5rem;
+  --spacing-header: 2.5rem;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --spacing-header: 3.5rem;
+  }
+}
+
+[data-surface="dark"] {
+  --focus-ring: var(--color-on-dark);
+  color: var(--color-on-dark);
+}
+
+@utility container-page {
+  width: min(100% - 2 * var(--spacing-gutter), var(--container-site));
+  margin-inline: auto;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    letter-spacing: var(--text-body--letter-spacing);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  [id] {
+    scroll-margin-top: var(--spacing-nav-offset);
+  }
+
+  ::selection {
+    background-color: var(--color-accent-tint);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+}
+
+@layer components {
+  /* Buttons: specs/05 §9 */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-height: 42px;
+    padding: 0.5625rem 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition-property: background-color, color, border-color;
+    transition-duration: var(--dur-base);
+    transition-timing-function: var(--ease-out-quart);
+  }
+  @media (pointer: coarse) {
+    .btn {
+      min-height: 44px;
+    }
+  }
+  .btn-lg {
+    min-height: 48px;
+    padding: 0.75rem 1.5rem;
+  }
+  .btn-primary-dark {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-dark);
+  }
+  .btn-primary-dark:hover {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+  .btn-primary-light {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+  .btn-primary-light:hover {
+    background-color: var(--color-line);
+  }
+  .btn-ghost-on-dark {
+    background-color: transparent;
+    color: var(--color-on-dark);
+    border-color: rgb(250 249 246 / 0.5);
+  }
+  .btn-ghost-on-dark:hover {
+    background-color: var(--color-canvas-tint);
+    color: var(--color-ink);
+  }
+  .btn-ghost-on-light {
+    background-color: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+  .btn-ghost-on-light:hover {
+    background-color: var(--color-primary);
+    color: var(--color-on-dark);
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    background-color: var(--color-line);
+    border-color: transparent;
+    color: var(--color-ink-muted);
+    cursor: not-allowed;
+  }
+  .btn-full-mobile {
+    width: 100%;
+  }
+  @media (width >= 30rem) {
+    .btn-full-mobile {
+      width: auto;
+    }
+  }
+
+  /* Form controls: specs/05 §10 */
+  .field-label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: var(--text-small);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+  .field-required {
+    font-weight: 400;
+    color: var(--color-ink-muted);
+  }
+  .field-control {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-input);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+    transition: border-color var(--dur-fast) var(--ease-out-quart);
+  }
+  .field-control::placeholder {
+    color: var(--color-ink-muted);
+    opacity: 1;
+  }
+  .field-control:hover {
+    border-color: var(--color-ink-muted);
+  }
+  .field-control:focus-visible {
+    border-color: var(--color-accent-900);
+  }
+  .field-control[aria-invalid="true"] {
+    border: 2px solid var(--color-danger);
+    padding: calc(0.75rem - 1px) calc(1rem - 1px);
+  }
+  .field-control:disabled {
+    background-color: var(--color-canvas-tint);
+    border-color: var(--color-line);
+    color: var(--color-ink-muted);
+    cursor: not-allowed;
+  }
+  select.field-control {
+    appearance: none;
+    padding-right: 2.75rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f1b16' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 20px;
+  }
+  textarea.field-control {
+    min-height: 7.5rem;
+    resize: vertical;
+  }
+  .field-error {
+    display: flex;
+    gap: 0.375rem;
+    margin-top: 0.375rem;
+    font-size: var(--text-small);
+    line-height: 1.4;
+    color: var(--color-danger);
+  }
+  .field-help {
+    margin-top: 0.375rem;
+    font-size: var(--text-small);
+    color: var(--color-ink-muted);
+  }
+  .checkbox {
+    appearance: none;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    border: 1.5px solid var(--color-line-strong);
+    border-radius: var(--radius-checkbox);
+    background-color: var(--color-surface);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+    cursor: pointer;
+  }
+  .checkbox:checked {
+    border-color: var(--color-accent-900);
+    background-color: var(--color-accent-900);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23faf9f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E");
+  }
+  .checkbox[aria-invalid="true"] {
+    border: 2px solid var(--color-danger);
+  }
+  .checkbox:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-canvas-tint);
+    border-color: var(--color-line);
+  }
+
+  /* Status chips used in previews: specs/05 §13 */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .chip-paid {
+    background-color: var(--color-success-tint);
+    color: var(--color-success);
+  }
+  .chip-due {
+    background-color: var(--color-warning-tint);
+    color: var(--color-warning);
+  }
+  .chip-overdue {
+    background-color: var(--color-danger-tint);
+    color: var(--color-danger);
+  }
+  .chip-neutral {
+    background-color: var(--color-canvas-tint);
+    color: var(--color-ink-muted);
+  }
+}
+
+/* Platform tab panels crossfade in one grid cell, so height never jumps (specs/05 §17). */
+.tab-stack {
+  display: grid;
+}
+.tab-stack > * {
+  grid-area: 1 / 1;
+}
+.tab-panel {
+  transition: opacity var(--dur-out) linear, visibility 0s linear var(--dur-out);
+}
+.tab-panel[data-active="true"] {
+  transition: opacity var(--dur-base) var(--ease-out-quart), visibility 0s;
+}
+.tab-panel[data-active="false"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Marquees (ref: Clarion hero 100s linear; integration rows 60s LTR / 44s RTL).
+   Two identical groups; the loop shifts exactly one group, so there is no jump. */
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 5rem, #000 calc(100% - 5rem), transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-rtl var(--marquee-duration, 100s) linear infinite;
+}
+.marquee-track[data-direction="ltr"] {
+  animation-name: marquee-ltr;
+}
+.marquee:hover .marquee-track,
+.marquee[data-paused="true"] .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+  }
+}
