@@ -1,10 +1,11 @@
 import { brand } from "@/config/brand";
 import { content } from "@/config/site-content";
+import { HeroFlowAnimation } from "@/components/sections/HeroFlowAnimation";
 
 /**
- * Ref: Clarion hero. Full-bleed photo under a top-to-bottom accent gradient, with the centred
- * headline anchored to the bottom and the marquee beneath it. The illustrative dashboard follows,
- * straddling the band's bottom edge (half on dark, half on canvas).
+ * Ref: Wispr Flow signature Hero.
+ * Displays bold serif headline, pill eyebrow, lilac CTA, and the dual looping animated text ribbons
+ * with central flow toasts & waveform animation connecting raw speech to structured records.
  */
 export function Hero() {
   const { note } = content.hero;
@@ -12,36 +13,8 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-title"
-      className="relative bg-canvas pt-[calc(var(--spacing-nav-offset)+2rem)] pb-16 md:pb-24 overflow-hidden"
+      className="relative bg-canvas pt-[calc(var(--spacing-nav-offset)+2rem)] pb-8 md:pb-12 overflow-hidden"
     >
-      {/* Wispr Flow signature animated text ribbon */}
-      <div className="pointer-events-none absolute inset-x-0 top-16 h-72 w-full overflow-hidden opacity-60">
-        <svg
-          id="hero-ribbon-svg"
-          width="100%"
-          height="100%"
-          viewBox="0 0 1200 240"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-        >
-          <path
-            id="curve-ribbon"
-            d="M-100,160 C150,60 300,220 550,140 C800,60 950,210 1300,120"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeDasharray="6 6"
-            className="text-ink/20"
-          />
-          <text className="font-mono text-[11px] font-semibold tracking-wider">
-            <textPath href="#curve-ribbon" className="fill-ink/35">
-              Room 101 occupied &middot; Aarav Sharma paid November rent ₹8,500 via UPI &middot; Bed 103-B vacant ₹7,500/mo &middot; Move-out scheduled for 15 Nov &middot; Meter reading recorded &middot; Priya Nair verified KYC &middot; Room 201-C overdue follow-up &middot;
-              <animate attributeName="startOffset" from="0%" to="-50%" dur="30s" repeatCount="indefinite" />
-            </textPath>
-          </text>
-        </svg>
-      </div>
-
       <div className="container-page relative z-10 flex flex-col items-center text-center">
         {/* Playful pill eyebrow */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 px-4 py-1.5 backdrop-blur-xs">
@@ -88,6 +61,11 @@ export function Hero() {
           <span className="size-2 rounded-full bg-emerald-400" />
           <span>{note}</span>
         </div>
+      </div>
+
+      {/* Wispr Flow Signature Dual Looping Ribbons & Center Animation Engine */}
+      <div className="relative mt-2 md:mt-4">
+        <HeroFlowAnimation />
       </div>
     </section>
   );

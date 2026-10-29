@@ -3,6 +3,7 @@ import { content } from "@/config/site-content";
 import { CopyrightYear } from "@/components/layout/CopyrightYear";
 import { Icon } from "@/components/ui/Icon";
 import { photoCredits } from "@/config/images";
+import { FooterLottie } from "@/components/layout/FooterLottie";
 
 /** Minimal footer (specs/05 §12.3, ref: Clarion footer). Contact links render only when configured. */
 export function SiteFooter() {
@@ -69,19 +70,22 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        {/* Giant Flow-style brand wordmark */}
+        {/* Giant Flow-style brand wordmark with animated soundwave */}
         <div className="mt-16 md:mt-24 pt-12 border-t border-line/60">
-          <div className="flex items-center gap-4 text-[4rem] sm:text-[6rem] md:text-[8rem] font-display font-bold tracking-tight text-ink select-none leading-none">
-            <span
-              className="flex items-center gap-2 sm:gap-3"
-              aria-hidden="true"
-            >
-              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
-              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
-              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
-              <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
-            </span>
-            <span>{brand.name}</span>
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <div className="flex items-center gap-4 text-[3.5rem] sm:text-[5.5rem] md:text-[7.5rem] font-display font-bold tracking-tight text-ink select-none leading-none">
+              <span
+                className="flex items-center gap-2 sm:gap-3"
+                aria-hidden="true"
+              >
+                <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+                <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+                <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+                <span className="size-3 sm:size-4 md:size-5 rounded-full bg-ink" />
+              </span>
+              <span>{brand.name}</span>
+            </div>
+            <FooterLottie />
           </div>
         </div>
 

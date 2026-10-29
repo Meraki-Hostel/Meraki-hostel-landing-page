@@ -114,7 +114,7 @@ export function FlowHeroCard() {
                 <span className="size-3 rounded-full bg-amber-500/80" />
                 <span className="size-3 rounded-full bg-emerald-500/80" />
                 <span className="ml-2 font-mono text-caption text-white/50">
-                  meraki-hostel-console.internal
+                  hostel-console.internal
                 </span>
               </div>
 

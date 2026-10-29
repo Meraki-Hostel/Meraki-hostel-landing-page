@@ -517,3 +517,95 @@
     animation: none !important;
   }
 }
+
+/* Wispr Flow Signature Hero Ribbons & Lottie Engine */
+.hero_animation-wrapper-v2 {
+  z-index: 10;
+  transform-origin: 50% 100%;
+  margin-top: -6vw;
+  margin-bottom: 2rem;
+  display: flex;
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  transform: scale(1.05);
+}
+
+@media (min-width: 640px) {
+  .hero_animation-wrapper-v2 {
+    margin-top: -10vw;
+    transform: scale(1.18);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero_animation-wrapper-v2 {
+    margin-top: -13vw;
+    transform: scale(1.3);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero_animation-wrapper-v2 {
+    margin-top: -15vw;
+    transform: scale(1.38);
+  }
+}
+
+.hero_animation {
+  width: 50%;
+  display: flex;
+  position: relative;
+}
+
+.hero_animation.is-left {
+  margin-top: -9px;
+}
+
+#marquee-text-hero1 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  fill: var(--color-ink);
+  baseline-shift: -30%;
+}
+
+#marquee-text-hero2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  fill: var(--color-on-dark);
+  baseline-shift: -30%;
+}
+
+.hero_animation-lottie {
+  z-index: 20;
+  width: 18%;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  inset: auto 0% 5%;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .hero_animation-lottie {
+    width: 13%;
+    bottom: 3.5%;
+  }
+}
+
+.hero_animation-lottie-bg {
+  z-index: 15;
+  background-color: var(--color-lilac);
+  filter: blur(14px);
+  border-radius: 100%;
+  width: 10%;
+  height: 5rem;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  inset: auto 0% 4%;
+  opacity: 0.9;
+}
+
