@@ -136,7 +136,7 @@ export function SiteHeader({
         <div className="flex items-center gap-2">
           <a
             href={href(cta.href)}
-            className="btn btn-primary rounded-btn font-medium"
+            className="btn btn-primary hidden rounded-btn font-medium sm:inline-flex"
           >
             {cta.label}
           </a>
@@ -195,6 +195,14 @@ export function SiteHeader({
             ))}
           </ul>
         </nav>
+        {/* Below 480px the header CTA is hidden so the wordmark isn't squeezed; it lives here instead. */}
+        <a
+          href={href(cta.href)}
+          onClick={() => close(false)}
+          className="btn btn-primary mt-3 w-full justify-center font-medium sm:hidden"
+        >
+          {cta.label}
+        </a>
       </div>
     </header>
   );

@@ -2,8 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Figtree, Fraunces } from "next/font/google";
 import { brand } from "@/config/brand";
 import { getPublicEnv } from "@/lib/env";
+import { getSiteUrl } from "@/lib/site-url";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { StickyMobileCta } from "@/components/layout/StickyMobileCta";
+import { ConsentManager } from "@/components/analytics/ConsentManager";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -18,8 +21,6 @@ const figtree = Figtree({
   display: "swap",
 });
 
-const siteUrl = getPublicEnv().siteUrl;
-
 export const metadata: Metadata = {
   title: {
     default: `${brand.name} — ${brand.title}`,
@@ -27,10 +28,9 @@ export const metadata: Metadata = {
   },
   description: brand.description,
   applicationName: brand.name,
-  // No domain is known yet: canonical and metadataBase only when NEXT_PUBLIC_SITE_URL is set.
-  ...(siteUrl
-    ? { metadataBase: new URL(siteUrl), alternates: { canonical: "/" } }
-    : {}),
+  metadataBase: new URL(getSiteUrl()),
+  // No canonical here: it would be inherited by every page and point them all
+  // at the homepage. Each page sets its own (see src/lib/metadata.ts).
   openGraph: {
     type: "website",
     siteName: brand.name,
@@ -68,6 +68,8 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        <StickyMobileCta />
+        <ConsentManager measurementId={getPublicEnv().gaMeasurementId} />
       </body>
     </html>
   );

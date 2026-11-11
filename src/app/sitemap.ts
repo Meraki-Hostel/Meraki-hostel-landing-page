@@ -1,11 +1,21 @@
 import type { MetadataRoute } from "next";
-import { getPublicEnv } from "@/lib/env";
+import { absoluteUrl } from "@/lib/site-url";
 
-// Sitemaps need absolute URLs, so entries exist only once NEXT_PUBLIC_SITE_URL is set.
+/** Indexable pages only: /checkout and /thank-you are noindex and left out on purpose. */
+export const SITEMAP_PATHS = [
+  "/",
+  "/pricing",
+  "/about",
+  "/contact",
+  "/privacy",
+  "/terms",
+  "/refund-policy",
+] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = getPublicEnv().siteUrl;
-  if (!siteUrl) return [];
-  return ["/", "/privacy", "/terms"].map((path) => ({
-    url: new URL(path, siteUrl).toString(),
+  return SITEMAP_PATHS.map((path) => ({
+    url: absoluteUrl(path),
+    changeFrequency: path === "/" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : 0.6,
   }));
 }

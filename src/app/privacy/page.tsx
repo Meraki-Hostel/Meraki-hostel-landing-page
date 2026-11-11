@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { getContact } from "@/config/brand";
 import { legal } from "@/config/legal";
 import { LegalPage } from "@/components/legal/LegalPage";
 
 const privacy = legal.privacy;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy Policy",
   description:
-    "Privacy Policy for StayPookie property management software. Placeholder — needs legal review before launch.",
-};
+    "How StayPookie collects, uses and protects your information when you visit the site, contact us or buy a plan.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   const { email } = getContact();

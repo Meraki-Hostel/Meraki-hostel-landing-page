@@ -38,6 +38,8 @@ const siteUrl = z
   .url()
   .refine((value) => /^https?:$/.test(new URL(value).protocol));
 
+const gaId = z.string().regex(/^G-[A-Z0-9]{4,20}$/);
+
 const phone = z.string().regex(/^\+?[0-9][0-9\s-]{6,18}$/);
 
 /** Public values. NEXT_PUBLIC_* references are inlined at build time. */
@@ -52,6 +54,11 @@ export function getPublicEnv() {
       "NEXT_PUBLIC_CONTACT_PHONE",
       process.env.NEXT_PUBLIC_CONTACT_PHONE,
       phone,
+    ),
+    gaMeasurementId: read(
+      "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+      gaId,
     ),
     siteUrl: read(
       "NEXT_PUBLIC_SITE_URL",

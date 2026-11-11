@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { getContact } from "@/config/brand";
 import { flags, pricingFallbackLabel } from "@/config/flags";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Pricing Plans",
   description:
     "Predictable, transparent subscription plans for hostel and PG owners across India. 3 tiers with assisted onboarding within 24 hours.",
-};
+  path: "/pricing",
+});
 
 type PlanDefinition = {
   id: "starter" | "growth" | "portfolio";
@@ -521,13 +522,20 @@ export default function PricingPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-              <a
-                href={`tel:${contact.phone.replace(/[\s-]/g, "")}`}
-                className="btn btn-outline"
-              >
-                <Icon name="phone" size={16} />
-                <span>Questions? Call us</span>
-              </a>
+              {contact.phone ? (
+                <a
+                  href={`tel:${contact.phone.replace(/[\s-]/g, "")}`}
+                  className="btn btn-outline"
+                >
+                  <Icon name="phone" size={16} />
+                  <span>Questions? Call us</span>
+                </a>
+              ) : (
+                <ButtonLink href="/contact" variant="outline">
+                  <Icon name="mail" size={16} />
+                  <span>Questions? Contact us</span>
+                </ButtonLink>
+              )}
               <ButtonLink href="/checkout?plan=growth" variant="primary">
                 Choose Growth
               </ButtonLink>

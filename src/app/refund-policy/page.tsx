@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { legal } from "@/config/legal";
 import { LegalPage } from "@/components/legal/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Refund & Cancellation Policy",
   description:
-    "Refund and cancellation terms for StayPookie subscription plans. Placeholder — needs legal review before launch.",
-};
+    "Refund and cancellation terms for StayPookie subscription plans.",
+  path: "/refund-policy",
+});
 
 export default function RefundPolicyPage() {
   const refund = legal.refund;
@@ -30,4 +31,3 @@ export default function RefundPolicyPage() {
     </LegalPage>
   );
 }
-

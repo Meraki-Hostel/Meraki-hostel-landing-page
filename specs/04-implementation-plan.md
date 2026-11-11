@@ -68,13 +68,13 @@ The hero shows this literal text to real visitors. Replace with a real illustrat
 "Talk to Setup Team" (homepage) and "Talk to us" (pricing) link to a `#contact` anchor that may not resolve to a real section id. Either add the id to a real section, or point these links at `/contact` directly.
 
 ### F5 — Placeholder phone number
-`+91 98765 43210` is live on the footer, `/contact`, `/privacy` and `/refund-policy`. Replace with StayPookie's real business number before launch.
+**Partly resolved (2026-11-11).** The fake `+91 98765 43210` is removed from the code; no phone is shown anywhere until `NEXT_PUBLIC_CONTACT_PHONE` is set to a real number (every phone link/row then appears). Still open: set the real number.
 
 ### F6 — Footer copyright typo (resolved)
 Was "...Pvt. Ltd.. All rights reserved." (double period). Fixed by dropping the "Pvt. Ltd." suffix entirely — there is no registered private limited company (see CLAUDE.md "Project identity"); the line now reads "© StayPookie. All rights reserved."
 
 ### F7 — `/refund` vs `/refund-policy`
-Near-duplicate pages (`specs/03` §8.2); only `/refund-policy` is linked anywhere. Delete `/refund` unless something still depends on it.
+**Resolved (2026-11-11).** `/refund` was deleted and now 308-redirects to `/refund-policy` in `next.config.ts`.
 
 ### F8 — Legal review
 `/terms`, `/privacy`, `/refund-policy` are correctly marked "placeholder — needs legal review before launch." Get that real review before launch; don't remove the marking before then.
@@ -83,7 +83,7 @@ Near-duplicate pages (`specs/03` §8.2); only `/refund-policy` is linked anywher
 `/api/lead` and the `earlyAccess` block in `site-content.ts` predate `/checkout`. Confirm nothing in the current UI still links to or renders them; if nothing does, remove them rather than keep dead code.
 
 ### F10 — Confirm `/contact`'s form destination
-Not independently verified in this documentation pass — confirm the contact form actually submits somewhere real, or apply the same "honest disabled state" pattern as the original lead form if it doesn't yet.
+**Resolved (2026-11-11).** The form used to fake a successful send with a timer. It now POSTs to `/api/contact` (same webhook, honeypot, rate limit and `{"ok":true}` acknowledgement rule as `/api/lead`), shows a disabled form with an email fallback while the destination isn't configured, shows field and server error states, and redirects to `/thank-you` only after confirmed delivery. Still open: set `LEAD_WEBHOOK_URL` and flip `legal.privacy.reviewStatus` to `"reviewed"` after legal review.
 
 ### F11 — Homepage design audit findings (`specs/02` §22)
 A 2026-11-11 first-party design audit of the real shipped homepage components (not a Clarion comparison) found 10 design issues — section-template monotony, unused real product photography (`src/assets/photos/`), decorative status-tag/footer overuse, hero mockup density, redundant pricing CTAs, click-gated feature content, front-loaded motion, and undifferentiated role cards. Full findings and suggested fixes are in `specs/02` §22.1–22.2; not yet actioned. Lowest-risk, highest-impact starting point: use the real photos somewhere, trim the repeated card footers, and de-duplicate the four `/pricing` CTA labels.

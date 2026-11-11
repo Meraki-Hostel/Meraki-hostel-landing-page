@@ -24,7 +24,7 @@ export const legal = {
       {
         heading: "2. How We Use Your Information",
         body: [
-          `We use collected information solely to provision and configure your ${name} instance, generate automated rent ledgers and GST tax invoices, deliver login credentials within 24 hours, and provide ongoing operational support.`,
+          `We use collected information solely to provision and configure your ${name} instance, generate automated rent ledgers, deliver login credentials within 24 hours, and provide ongoing operational support.`,
           "We do not sell, rent, or trade your personal or business data to advertisers or third-party brokers under any circumstances.",
         ],
       },
@@ -36,9 +36,16 @@ export const legal = {
         ],
       },
       {
-        heading: "4. Contacting Us",
+        heading: "4. Cookies & Analytics",
         body: [
-          `If you have questions regarding this Privacy Policy or wish to request data updates, please contact our team at ${brand.contact.email} or by phone at ${brand.contactPlaceholder.phone}.`,
+          "With your permission we use Google Analytics to count visits and see which pages are useful. No analytics code is loaded and no analytics cookie is set unless you choose Accept on the cookie banner. You can change your choice at any time with the Cookie settings link in the footer.",
+          "When you pay, Razorpay may set its own cookies to process and secure the payment. We do not control these.",
+        ],
+      },
+      {
+        heading: "5. Contacting Us",
+        body: [
+          `If you have questions regarding this Privacy Policy or wish to request data updates, please contact our team at ${brand.contact.email}.`,
         ],
       },
     ] satisfies LegalSection[],
@@ -120,7 +127,7 @@ export const legal = {
       {
         heading: "4. Requesting a Refund or Cancellation",
         body: [
-          `To submit a refund or cancellation request, please email ${brand.contact.email} with your order confirmation and registered phone number, or reach our support hotline at ${brand.contactPlaceholder.phone}.`,
+          `To submit a refund or cancellation request, please email ${brand.contact.email} with your order confirmation and registered phone number.`,
         ],
       },
     ] satisfies LegalSection[],

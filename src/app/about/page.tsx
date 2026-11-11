@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { brand, getContact } from "@/config/brand";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description: `What ${brand.name} is, who it is for, and how our assisted property management model works across India.`,
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   const contact = getContact();
@@ -168,17 +169,19 @@ export default function AboutPage() {
                 {contact.email}
               </a>
             </div>
-            <div>
-              <span className="font-semibold text-espresso block">
-                Support Phone & WhatsApp
-              </span>
-              <a
-                href={`tel:${contact.phone.replace(/[\s-]/g, "")}`}
-                className="text-clay-600 underline"
-              >
-                {contact.phone}
-              </a>
-            </div>
+            {contact.phone ? (
+              <div>
+                <span className="font-semibold text-espresso block">
+                  Support Phone & WhatsApp
+                </span>
+                <a
+                  href={`tel:${contact.phone.replace(/[\s-]/g, "")}`}
+                  className="text-clay-600 underline"
+                >
+                  {contact.phone}
+                </a>
+              </div>
+            ) : null}
             <div>
               <span className="font-semibold text-espresso block">
                 Operating Market
@@ -201,4 +204,3 @@ export default function AboutPage() {
     </div>
   );
 }
-

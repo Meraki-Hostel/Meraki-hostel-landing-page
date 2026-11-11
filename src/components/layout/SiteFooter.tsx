@@ -4,6 +4,8 @@ import { brand, getContact } from "@/config/brand";
 import { logo, mascots } from "@/config/images";
 import { CopyrightYear } from "@/components/layout/CopyrightYear";
 import { Icon } from "@/components/ui/Icon";
+import { CookieSettingsButton } from "@/components/analytics/CookieSettingsButton";
+import { getPublicEnv } from "@/lib/env";
 
 /**
  * Shared Site Footer
@@ -150,6 +152,13 @@ export function SiteFooter() {
                     </Link>
                   </li>
                 ))}
+                {getPublicEnv().gaMeasurementId ? (
+                  <li>
+                    <CookieSettingsButton
+                      className={`${linkClass} cursor-pointer`}
+                    />
+                  </li>
+                ) : null}
               </ul>
             </div>
           </nav>

@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { legal } from "@/config/legal";
 import { LegalPage } from "@/components/legal/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Terms of Service",
   description:
-    "Terms of Service for StayPookie property management software. Placeholder — needs legal review before launch.",
-};
+    "The terms that govern purchasing, subscribing to and using StayPookie hostel and PG management software.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

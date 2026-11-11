@@ -40,19 +40,16 @@ export const brand = {
   contact: {
     email: "hello@staypookie.com",
   },
-  /** Still pending the real value — see CLAUDE.md "Current state". */
-  contactPlaceholder: {
-    phone: "+91 98765 43210",
-  },
   social: [] as { label: string; href: string }[],
 } as const;
 
-/** Contact details return configured env vars, falling back to the real
- * email and (pending) placeholder phone number above. */
-export function getContact() {
+/** Contact details: the configured email (or the real mailbox above) and a
+ * phone number only when NEXT_PUBLIC_CONTACT_PHONE is set. There is no
+ * fallback number — a fake one must never reach visitors. */
+export function getContact(): { email: string; phone: string | undefined } {
   const { contactEmail, contactPhone } = getPublicEnv();
   return {
     email: contactEmail || brand.contact.email,
-    phone: contactPhone || brand.contactPlaceholder.phone,
+    phone: contactPhone || undefined,
   };
 }
