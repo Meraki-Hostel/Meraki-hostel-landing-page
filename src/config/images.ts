@@ -5,6 +5,9 @@ import stepRequest from "@/assets/photos/step-request.jpg";
 import stepReview from "@/assets/photos/step-review.jpg";
 import stepContact from "@/assets/photos/step-contact.jpg";
 import stepFeedback from "@/assets/photos/step-feedback.jpg";
+import mascotStudent from "@/assets/mascots/student.jpg";
+import mascotOwner from "@/assets/mascots/owner.jpg";
+import mascotSupport from "@/assets/mascots/support.jpg";
 
 // Stock photography from Unsplash (free Unsplash License; downloaded 2026-10-29 via the
 // official download links). These are not customer, staff or property photos.
@@ -54,6 +57,17 @@ export const photos = {
     },
   ],
 } satisfies { hero: Photo; finalCta: Photo; steps: Photo[] };
+
+// Hand-drawn role mascots (owner/student/support), supplied directly as brand
+// illustration — not stock photography, so no attribution entry is needed.
+export const mascots = {
+  student: { src: mascotStudent, alt: "Illustrated mascot of a student" },
+  owner: { src: mascotOwner, alt: "Illustrated mascot of a property owner" },
+  support: {
+    src: mascotSupport,
+    alt: "Illustrated mascot of a support team member",
+  },
+};
 
 /** Unique photographers, for the footer credit line. */
 export const photoCredits = [photos.hero, photos.finalCta, ...photos.steps]

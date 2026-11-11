@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { brand, getContact } from "@/config/brand";
+import { mascots } from "@/config/images";
 import { CopyrightYear } from "@/components/layout/CopyrightYear";
 import { Icon } from "@/components/ui/Icon";
 
@@ -26,10 +28,10 @@ export function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-gap-main">
           {/* Brand & Contact column */}
           <div className="lg:col-span-5">
-            <p className="font-heading text-[2.25rem] font-medium leading-none tracking-tight text-espresso">
+            <p className="font-heading text-h3 font-medium leading-none tracking-tight text-espresso">
               {brand.name}
             </p>
-            <p className="mt-2 font-body text-small font-medium text-bark">
+            <p className="mt-4 font-body text-small font-medium text-bark">
               {brand.companyName}
             </p>
             <p className="mt-3 max-w-[34ch] font-body text-small text-dust leading-relaxed">
@@ -147,9 +149,63 @@ export function SiteFooter() {
             </div>
           </nav>
         </div>
+      </div>
 
+      {/* Giant wordmark: one edge-to-edge gradient-filled sign-off, breaking out
+          of container-page on purpose so it spans the full viewport width.
+          The three role mascots (owner/student/support — same cast as the
+          homepage "Built for every role" section) fill the empty space
+          around it: owner as a small crest above, student/support flanking
+          either side. Decorative only, hidden from assistive tech. */}
+      <div className="relative mt-12 md:mt-16">
+        <div className="flex justify-center" aria-hidden="true">
+          <div className="mascot-fade relative size-20 md:size-24">
+            <Image
+              src={mascots.owner.src}
+              alt=""
+              fill
+              sizes="6rem"
+              className="object-contain"
+            />
+          </div>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="mascot-fade absolute left-2 top-1/2 hidden h-32 w-32 -translate-y-1/2 -rotate-6 opacity-90 lg:block xl:left-10 xl:h-40 xl:w-40"
+        >
+          <Image
+            src={mascots.student.src}
+            alt=""
+            fill
+            sizes="10rem"
+            className="object-contain"
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          className="mascot-fade absolute right-2 top-1/2 hidden h-32 w-32 -translate-y-1/2 rotate-6 opacity-90 lg:block xl:right-10 xl:h-40 xl:w-40"
+        >
+          <Image
+            src={mascots.support.src}
+            alt=""
+            fill
+            sizes="10rem"
+            className="object-contain"
+          />
+        </div>
+
+        <p
+          aria-hidden="true"
+          className="footer-watermark font-heading font-medium tracking-tight"
+        >
+          {brand.name}
+        </p>
+      </div>
+
+      <div className="container-page">
         {/* Bottom copyright & attribution */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-line/80 pt-8 font-body text-small text-dust md:mt-16 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-line/80 pt-8 font-body text-small text-dust lg:flex-row lg:items-center lg:justify-between">
           <p>
             © <CopyrightYear /> {brand.companyName}. All rights reserved.
           </p>
