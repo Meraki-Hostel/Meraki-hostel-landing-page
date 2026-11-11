@@ -30,11 +30,15 @@ export function checkRateLimit(key: string, now = Date.now()) {
 
 /** Platform-trusted client IP; never the first (client-forgeable) X-Forwarded-For hop. */
 export function clientKey(headers: Headers) {
-  const trusted = headers.get("x-real-ip") ?? headers.get("x-nf-client-connection-ip");
+  const trusted =
+    headers.get("x-real-ip") ?? headers.get("x-nf-client-connection-ip");
   if (trusted) return trusted.trim();
   const forwarded = headers.get("x-forwarded-for");
   if (forwarded) {
-    const hops = forwarded.split(",").map((hop) => hop.trim()).filter(Boolean);
+    const hops = forwarded
+      .split(",")
+      .map((hop) => hop.trim())
+      .filter(Boolean);
     if (hops.length) return hops[hops.length - 1];
   }
   return "unknown";

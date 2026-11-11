@@ -8,12 +8,23 @@ const tabs = [
   { id: "b", label: "Tenants", description: "Tenants text" },
   { id: "c", label: "Rent", description: "Rent text" },
 ];
-const panels = { a: <p>Rooms preview</p>, b: <p>Tenants preview</p>, c: <p>Rent preview</p> };
+const panels = {
+  a: <p>Rooms preview</p>,
+  b: <p>Tenants preview</p>,
+  c: <p>Rent preview</p>,
+};
 
 describe("PlatformTabs", () => {
   it("implements the tabs pattern with roving tabindex and arrow keys", async () => {
     const user = userEvent.setup();
-    render(<PlatformTabs title="Platform" tabs={tabs} panels={panels} cta={<a href="#x">CTA</a>} />);
+    render(
+      <PlatformTabs
+        title="Platform"
+        tabs={tabs}
+        panels={panels}
+        cta={<a href="#x">CTA</a>}
+      />,
+    );
 
     const [first, second, third] = screen.getAllByRole("tab");
     expect(first).toHaveAttribute("aria-selected", "true");
@@ -33,12 +44,18 @@ describe("PlatformTabs", () => {
 
   it("swaps both the description and the preview", async () => {
     const user = userEvent.setup();
-    const { container } = render(<PlatformTabs title="Platform" tabs={tabs} panels={panels} cta={null} />);
+    const { container } = render(
+      <PlatformTabs title="Platform" tabs={tabs} panels={panels} cta={null} />,
+    );
     await user.click(screen.getByRole("tab", { name: "Rent" }));
 
-    const activePanel = container.querySelector('[role="tabpanel"][data-active="true"]');
+    const activePanel = container.querySelector(
+      '[role="tabpanel"][data-active="true"]',
+    );
     expect(activePanel?.textContent).toContain("Rent text");
-    const activeMedia = Array.from(container.querySelectorAll('.tab-panel[data-active="true"]')).map((el) => el.textContent);
+    const activeMedia = Array.from(
+      container.querySelectorAll('.tab-panel[data-active="true"]'),
+    ).map((el) => el.textContent);
     expect(activeMedia).toContain("Rent preview");
     expect(activeMedia).not.toContain("Rooms preview");
   });

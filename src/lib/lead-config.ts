@@ -9,6 +9,8 @@ import { getLeadWebhookUrl, getPublicEnv } from "@/lib/env";
  */
 export function isLeadCaptureEnabled() {
   return Boolean(
-    getLeadWebhookUrl() && getPublicEnv().contactEmail && legal.privacy.reviewStatus === "reviewed",
+    getLeadWebhookUrl() &&
+    getPublicEnv().contactEmail &&
+    legal.privacy.reviewStatus === "reviewed",
   );
 }

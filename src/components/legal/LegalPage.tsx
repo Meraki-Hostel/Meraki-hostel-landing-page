@@ -2,20 +2,42 @@ import type { ReactNode } from "react";
 import { legal, type ReviewStatus } from "@/config/legal";
 import { Icon } from "@/components/ui/Icon";
 
-/** Shared shell for /privacy and /terms. Drafts always say so (owner decision D-6). */
-export function LegalPage({ title, status, children }: { title: string; status: ReviewStatus; children: ReactNode }) {
+/**
+ * Shared shell for /privacy, /terms, and /refund-policy.
+ * Each draft page is clearly marked "placeholder — needs legal review before launch."
+ */
+export function LegalPage({
+  title,
+  status = "draft",
+  children,
+}: {
+  title: string;
+  status?: ReviewStatus;
+  children: ReactNode;
+}) {
   return (
-    <article className="mx-auto w-[min(100%-2*var(--spacing-gutter),var(--container-narrow))] pt-[calc(var(--spacing-nav-offset)+3rem)] pb-section">
-      {status === "draft" ? (
-        <p role="note" className="mb-8 flex gap-3 rounded-input bg-warning-tint p-4 text-small">
-          <Icon name="warning" size={20} className="flex-none text-warning" />
-          <span>
-            <strong className="font-medium">{legal.draftNotice}</strong>
-          </span>
-        </p>
-      ) : null}
-      <h1 className="text-h2">{title}</h1>
-      <div className="mt-8 max-w-[65ch] space-y-8">{children}</div>
+    <article className="pt-28 pb-16 md:pt-36 md:pb-24">
+      <div className="container-page max-w-3xl mx-auto">
+        {status === "draft" ? (
+          <div
+            role="note"
+            className="mb-8 flex items-center gap-3 rounded-btn border border-amber/40 bg-sand/50 px-4 py-3 text-small text-bark shadow-xs"
+          >
+            <Icon name="warning" size={18} className="flex-none text-amber" />
+            <span className="font-semibold text-espresso uppercase tracking-wider text-caption">
+              {legal.draftNotice}
+            </span>
+          </div>
+        ) : null}
+
+        <h1 className="font-heading text-h1 font-medium tracking-tight text-espresso leading-[1.1]">
+          {title}
+        </h1>
+
+        <div className="mt-8 space-y-8 font-body text-body text-bark leading-relaxed">
+          {children}
+        </div>
+      </div>
     </article>
   );
 }

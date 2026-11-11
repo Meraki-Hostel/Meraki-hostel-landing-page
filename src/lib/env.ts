@@ -11,7 +11,11 @@ function warnOnce(name: string) {
   console.warn(`[env] ${name} is set but invalid; treating it as unset.`);
 }
 
-function read<T>(name: string, raw: string | undefined, schema: z.ZodType<T>): T | undefined {
+function read<T>(
+  name: string,
+  raw: string | undefined,
+  schema: z.ZodType<T>,
+): T | undefined {
   const value = raw?.trim();
   if (!value) return undefined;
   const parsed = schema.safeParse(value);
@@ -24,19 +28,36 @@ const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1"]);
 
 const webhookUrl = z.url().refine((value) => {
   const url = new URL(value);
-  return url.protocol === "https:" || (url.protocol === "http:" && LOCAL_HOSTS.has(url.hostname));
+  return (
+    url.protocol === "https:" ||
+    (url.protocol === "http:" && LOCAL_HOSTS.has(url.hostname))
+  );
 });
 
-const siteUrl = z.url().refine((value) => /^https?:$/.test(new URL(value).protocol));
+const siteUrl = z
+  .url()
+  .refine((value) => /^https?:$/.test(new URL(value).protocol));
 
 const phone = z.string().regex(/^\+?[0-9][0-9\s-]{6,18}$/);
 
 /** Public values. NEXT_PUBLIC_* references are inlined at build time. */
 export function getPublicEnv() {
   return {
-    contactEmail: read("NEXT_PUBLIC_CONTACT_EMAIL", process.env.NEXT_PUBLIC_CONTACT_EMAIL, z.email()),
-    contactPhone: read("NEXT_PUBLIC_CONTACT_PHONE", process.env.NEXT_PUBLIC_CONTACT_PHONE, phone),
-    siteUrl: read("NEXT_PUBLIC_SITE_URL", process.env.NEXT_PUBLIC_SITE_URL, siteUrl),
+    contactEmail: read(
+      "NEXT_PUBLIC_CONTACT_EMAIL",
+      process.env.NEXT_PUBLIC_CONTACT_EMAIL,
+      z.email(),
+    ),
+    contactPhone: read(
+      "NEXT_PUBLIC_CONTACT_PHONE",
+      process.env.NEXT_PUBLIC_CONTACT_PHONE,
+      phone,
+    ),
+    siteUrl: read(
+      "NEXT_PUBLIC_SITE_URL",
+      process.env.NEXT_PUBLIC_SITE_URL,
+      siteUrl,
+    ),
   };
 }
 

@@ -1,6 +1,11 @@
 import { getLeadWebhookUrl } from "@/lib/env";
 import { isLeadCaptureEnabled } from "@/lib/lead-config";
-import { isHoneypotHit, leadSchema, pickForwardedFields, toFieldErrors } from "@/lib/lead-schema";
+import {
+  isHoneypotHit,
+  leadSchema,
+  pickForwardedFields,
+  toFieldErrors,
+} from "@/lib/lead-schema";
 import { checkRateLimit, clientKey } from "@/lib/rate-limit";
 
 // POST /api/lead — contract in specs/03 §9. Success only after the destination
@@ -9,8 +14,15 @@ import { checkRateLimit, clientKey } from "@/lib/rate-limit";
 const MAX_BODY_BYTES = 8 * 1024;
 const UPSTREAM_TIMEOUT_MS = 8000;
 
-function reply(status: number, body: Record<string, unknown>, headers: Record<string, string> = {}) {
-  return Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
+function reply(
+  status: number,
+  body: Record<string, unknown>,
+  headers: Record<string, string> = {},
+) {
+  return Response.json(body, {
+    status,
+    headers: { "Cache-Control": "no-store", ...headers },
+  });
 }
 
 const invalid = () => reply(400, { ok: false, error: "invalid" });
@@ -20,11 +32,21 @@ export async function POST(request: Request) {
     // 1. Rate limit
     const limit = checkRateLimit(clientKey(request.headers));
     if (!limit.allowed) {
-      return reply(429, { ok: false, error: "rate_limited" }, { "Retry-After": String(limit.retryAfter) });
+      return reply(
+        429,
+        { ok: false, error: "rate_limited" },
+        { "Retry-After": String(limit.retryAfter) },
+      );
     }
 
     // 2. Parse
-    if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return invalid();
+    if (
+      !request.headers
+        .get("content-type")
+        ?.toLowerCase()
+        .startsWith("application/json")
+    )
+      return invalid();
     const raw = await request.text();
     if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) return invalid();
     let json: unknown;
@@ -38,7 +60,11 @@ export async function POST(request: Request) {
     const parsed = leadSchema.safeParse(json);
     if (!parsed.success) {
       if (isHoneypotHit(parsed.error)) return invalid();
-      return reply(400, { ok: false, error: "invalid", fieldErrors: toFieldErrors(parsed.error) });
+      return reply(400, {
+        ok: false,
+        error: "invalid",
+        fieldErrors: toFieldErrors(parsed.error),
+      });
     }
 
     // 4. Config: webhook + contact email + reviewed privacy notice
@@ -52,7 +78,10 @@ export async function POST(request: Request) {
       const upstream = await fetch(webhook, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...pickForwardedFields(parsed.data), submittedAt: new Date().toISOString() }),
+        body: JSON.stringify({
+          ...pickForwardedFields(parsed.data),
+          submittedAt: new Date().toISOString(),
+        }),
         signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
         cache: "no-store",
       });

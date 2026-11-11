@@ -8,7 +8,9 @@ export default defineConfig({
     tsconfigPaths: true,
     alias: {
       // Next resolves `server-only` itself; tests need an explicit stub.
-      "server-only": fileURLToPath(new URL("./src/test/server-only-stub.ts", import.meta.url)),
+      "server-only": fileURLToPath(
+        new URL("./src/test/server-only-stub.ts", import.meta.url),
+      ),
     },
   },
   test: { environment: "jsdom", setupFiles: ["./src/test/setup.ts"] },

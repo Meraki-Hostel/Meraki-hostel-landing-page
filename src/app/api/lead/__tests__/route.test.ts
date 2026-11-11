@@ -1,7 +1,9 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const legalState = vi.hoisted(() => ({ reviewStatus: "draft" as "draft" | "reviewed" }));
+const legalState = vi.hoisted(() => ({
+  reviewStatus: "draft" as "draft" | "reviewed",
+}));
 
 vi.mock("@/config/legal", () => ({
   legal: {
@@ -30,7 +32,11 @@ const lead = {
 function request(body: unknown, headers: Record<string, string> = {}) {
   return new Request("http://localhost/api/lead", {
     method: "POST",
-    headers: { "content-type": "application/json", "x-real-ip": "203.0.113.7", ...headers },
+    headers: {
+      "content-type": "application/json",
+      "x-real-ip": "203.0.113.7",
+      ...headers,
+    },
     body: typeof body === "string" ? body : JSON.stringify(body),
   });
 }
@@ -105,7 +111,9 @@ describe("POST /api/lead", () => {
 
   it("returns 400 for non-JSON and wrong content type", async () => {
     expect((await POST(request("not json"))).status).toBe(400);
-    expect((await POST(request(lead, { "content-type": "text/plain" }))).status).toBe(400);
+    expect(
+      (await POST(request(lead, { "content-type": "text/plain" }))).status,
+    ).toBe(400);
   });
 
   it("returns 200 only after the destination acknowledges with {ok:true}", async () => {
@@ -122,15 +130,26 @@ describe("POST /api/lead", () => {
 
   it("returns 502 when the destination answers 2xx without an ack (e.g. an HTML error page)", async () => {
     configure();
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("<html>error</html>", { status: 200 })));
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValue(new Response("<html>error</html>", { status: 200 })),
+    );
     expect((await POST(request(lead))).status).toBe(502);
   });
 
   it("returns 502 on upstream non-2xx and on network errors", async () => {
     configure();
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ ok: true }, { status: 500 })));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(Response.json({ ok: true }, { status: 500 })),
+    );
     expect((await POST(request(lead))).status).toBe(502);
-    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("fetch failed")));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockRejectedValue(new TypeError("fetch failed")),
+    );
     expect((await POST(request(lead))).status).toBe(502);
   });
 
@@ -143,7 +162,10 @@ describe("POST /api/lead", () => {
 
   it("never logs personal data", async () => {
     configure();
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ ok: false }, { status: 500 })));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(Response.json({ ok: false }, { status: 500 })),
+    );
     await POST(request(lead));
     const logged = vi.mocked(console.error).mock.calls.flat().join(" ");
     expect(logged).not.toContain("Test Owner");

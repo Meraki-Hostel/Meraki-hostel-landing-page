@@ -36,7 +36,8 @@ export const leadSchema = z
       .trim()
       .transform(normalisePhone)
       .refine((value) => value === "" || PHONE_PATTERN.test(value), {
-        message: "Enter a 10-digit Indian mobile number, for example 98765 43210.",
+        message:
+          "Enter a 10-digit Indian mobile number, for example 98765 43210.",
       }),
     email: z
       .string()
@@ -46,20 +47,28 @@ export const leadSchema = z
         message: "Enter an email address like name@example.com.",
       }),
     city: text("city", LIMITS.city),
-    beds: z.enum(BED_OPTIONS, { error: "Choose the approximate number of beds." }),
+    beds: z.enum(BED_OPTIONS, {
+      error: "Choose the approximate number of beds.",
+    }),
     properties: z.union([z.enum(PROPERTY_OPTIONS), z.literal("")]).optional(),
     challenge: z
       .string()
       .trim()
-      .max(LIMITS.challenge, `Keep this under ${LIMITS.challenge + 1} characters.`)
+      .max(
+        LIMITS.challenge,
+        `Keep this under ${LIMITS.challenge + 1} characters.`,
+      )
       .optional(),
-    consent: z.literal(true, { error: "Tick the box to agree before sending." }),
+    consent: z.literal(true, {
+      error: "Tick the box to agree before sending.",
+    }),
     // Honeypot: real visitors never see this field.
     website: z.string().max(0).optional(),
   })
   .superRefine((data, ctx) => {
     if (data.phone === "" && data.email === "") {
-      const message = "Enter a mobile number or an email address so we can reach you.";
+      const message =
+        "Enter a mobile number or an email address so we can reach you.";
       ctx.addIssue({ code: "custom", path: ["phone"], message });
       ctx.addIssue({ code: "custom", path: ["email"], message });
     }
