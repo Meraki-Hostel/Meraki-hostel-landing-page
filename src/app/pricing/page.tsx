@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getContact } from "@/config/brand";
+import { flags, pricingFallbackLabel } from "@/config/flags";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
@@ -227,7 +228,7 @@ export default function PricingPage() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-1.5 rounded-tag bg-sand px-3 py-1 font-body text-caption font-semibold uppercase tracking-wider text-bark shadow-xs">
             <span className="size-1.5 rounded-full bg-clay-600" />
-            Transparent Pricing
+            {flags.showPricing ? "Transparent Pricing" : "Flexible Plans"}
           </span>
 
           <h1 className="mt-4 font-heading text-h1 font-medium tracking-tight text-espresso leading-[1.1]">
@@ -241,13 +242,15 @@ export default function PricingPage() {
           </p>
 
           {/* GST Clarification Banner */}
-          <div className="mt-6 inline-flex items-center gap-2 rounded-btn border border-line bg-cream px-4 py-2 font-body text-small text-dust shadow-xs">
-            <span className="font-semibold text-espresso">GST Note:</span>
-            <span>
-              All prices exclude 18% GST. Billed monthly. Tax invoices provided
-              with GSTIN for input credit.
-            </span>
-          </div>
+          {flags.showPricing ? (
+            <div className="mt-6 inline-flex items-center gap-2 rounded-btn border border-line bg-cream px-4 py-2 font-body text-small text-dust shadow-xs">
+              <span className="font-semibold text-espresso">GST Note:</span>
+              <span>
+                All prices exclude 18% GST. Billed monthly. Tax invoices
+                provided with GSTIN for input credit.
+              </span>
+            </div>
+          ) : null}
         </div>
 
         {/* 3-Tier Pricing Cards Grid */}
@@ -279,9 +282,11 @@ export default function PricingPage() {
                   >
                     {plan.name}
                   </span>
-                  <span className="font-body text-caption font-medium text-dust">
-                    {plan.gstNote}
-                  </span>
+                  {flags.showPricing ? (
+                    <span className="font-body text-caption font-medium text-dust">
+                      {plan.gstNote}
+                    </span>
+                  ) : null}
                 </div>
 
                 <h2 className="mt-4 font-heading text-h2 font-medium text-espresso">
@@ -289,17 +294,27 @@ export default function PricingPage() {
                 </h2>
 
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="font-heading text-price font-medium text-espresso leading-none">
-                    {plan.price}
-                  </span>
-                  <span className="font-body text-small text-dust">
-                    {plan.cadence}
-                  </span>
+                  {flags.showPricing ? (
+                    <>
+                      <span className="font-heading text-price font-medium text-espresso leading-none">
+                        {plan.price}
+                      </span>
+                      <span className="font-body text-small text-dust">
+                        {plan.cadence}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="font-heading text-h3 font-medium text-espresso">
+                      {pricingFallbackLabel}
+                    </span>
+                  )}
                 </div>
 
-                <p className="mt-1 font-body text-caption text-dust">
-                  Prices exclude 18% GST
-                </p>
+                {flags.showPricing ? (
+                  <p className="mt-1 font-body text-caption text-dust">
+                    Prices exclude 18% GST
+                  </p>
+                ) : null}
 
                 {/* Capacity Limits Badge Box */}
                 <div className="mt-6 rounded-btn border border-line/80 bg-sand/40 p-3.5">
@@ -395,8 +410,8 @@ export default function PricingPage() {
               Full 3-Tier Feature Comparison
             </h2>
             <p className="mt-3 font-body text-lead text-dust">
-              Compare limits and capabilities across all plans. Prices exclude
-              18% GST.
+              Compare limits and capabilities across all plans.
+              {flags.showPricing ? " Prices exclude 18% GST." : ""}
             </p>
           </div>
 
@@ -418,15 +433,23 @@ export default function PricingPage() {
                       <div className="font-heading text-h4 font-medium text-espresso">
                         {p.name}
                       </div>
-                      <div className="mt-1 font-heading text-lead font-semibold text-clay-600">
-                        {p.price}
-                        <span className="font-body text-caption text-dust font-normal">
-                          /mo
-                        </span>
-                      </div>
-                      <div className="mt-1 font-body text-micro text-dust">
-                        excl. 18% GST
-                      </div>
+                      {flags.showPricing ? (
+                        <>
+                          <div className="mt-1 font-heading text-lead font-semibold text-clay-600">
+                            {p.price}
+                            <span className="font-body text-caption text-dust font-normal">
+                              /mo
+                            </span>
+                          </div>
+                          <div className="mt-1 font-body text-micro text-dust">
+                            excl. 18% GST
+                          </div>
+                        </>
+                      ) : (
+                        <div className="mt-1 font-heading text-lead font-semibold text-clay-600">
+                          {pricingFallbackLabel}
+                        </div>
+                      )}
                       <div className="mt-4">
                         <ButtonLink
                           href={p.checkoutHref}

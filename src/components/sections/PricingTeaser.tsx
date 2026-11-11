@@ -1,4 +1,5 @@
 import { content } from "@/config/site-content";
+import { flags, pricingFallbackLabel } from "@/config/flags";
 import { ButtonLink } from "@/components/ui/Button";
 
 /**
@@ -25,7 +26,7 @@ export function PricingTeaser() {
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 rounded-tag bg-sand px-3 py-1 font-body text-caption font-semibold uppercase tracking-wider text-bark shadow-xs">
             <span className="size-1.5 rounded-full bg-clay-600" />
-            {pricingTeaser.eyebrow}
+            {flags.showPricing ? pricingTeaser.eyebrow : "Flexible Plans"}
           </span>
 
           <h2
@@ -72,12 +73,20 @@ export function PricingTeaser() {
                 </h3>
 
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="font-heading text-price font-medium text-espresso">
-                    {plan.price}
-                  </span>
-                  <span className="font-body text-small text-dust">
-                    {plan.cadence}
-                  </span>
+                  {flags.showPricing ? (
+                    <>
+                      <span className="font-heading text-price font-medium text-espresso">
+                        {plan.price}
+                      </span>
+                      <span className="font-body text-small text-dust">
+                        {plan.cadence}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="font-heading text-h3 font-medium text-espresso">
+                      {pricingFallbackLabel}
+                    </span>
+                  )}
                 </div>
 
                 <p className="mt-4 font-body text-body text-bark leading-relaxed border-t border-line/60 pt-4">

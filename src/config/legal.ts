@@ -1,4 +1,5 @@
 import { brand } from "@/config/brand";
+import { flags } from "@/config/flags";
 
 export type ReviewStatus = "draft" | "reviewed";
 
@@ -62,7 +63,9 @@ export const legal = {
       {
         heading: "2. Subscription & Billing",
         body: [
-          "Subscription fees are billed monthly in advance for the selected tier (Starter ₹1,999/mo, Growth ₹4,999/mo, or Portfolio ₹14,999/mo). All quoted prices exclude 18% GST.",
+          flags.showPricing
+            ? "Subscription fees are billed monthly in advance for the selected tier (Starter ₹1,999/mo, Growth ₹4,999/mo, or Portfolio ₹14,999/mo). All quoted prices exclude 18% GST."
+            : "Subscription fees are billed monthly in advance for the selected tier. Current pricing is shared directly during onboarding; all quoted prices exclude 18% GST.",
           "A valid GST tax invoice is issued for every monthly billing cycle containing your provided GSTIN for input tax credit.",
         ],
       },

@@ -20,6 +20,8 @@ Persistent guidance for Claude Code and contributors. Keep this file short; deta
 
 ## Pricing & purchase (live on this site)
 
+**Pricing disclosure is currently flagged off** (`src/config/flags.ts`, `flags.showPricing = false`): StayPookie is sourcing design partners rather than selling directly right now, and the ₹ amounts are hidden on the homepage pricing teaser and `/pricing` (cards, comparison table, and the Terms subscription-billing clause), replaced with `pricingFallbackLabel` ("Contact us for pricing"). `/checkout` is intentionally untouched by this flag — a visitor who already has a checkout link must still see the exact charge. Flip `showPricing` back to `true` once prices can be disclosed again; don't hand-edit the individual pages to hide/show prices, they all read from this one flag.
+
 Three real monthly tiers, defined in the real backend's plan catalogue — treat this as the source of truth, and update it here the day pricing changes there:
 
 - **Starter** — ₹1,999/mo: 2 properties, 120 beds, 10 staff.
