@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { brand, type NavLink } from "@/config/brand";
+import { logo } from "@/config/images";
 
 export type SiteHeaderProps = {
   name?: string;
@@ -98,12 +100,19 @@ export function SiteHeader({
       className="fixed inset-x-0 top-3 z-50 px-4 md:px-6"
     >
       <div className="relative mx-auto flex h-16 max-w-[68rem] items-center justify-between rounded-card border border-line bg-cream/95 px-4 shadow-card backdrop-blur-md md:px-6">
-        {/* Wordmark logo in Fraunces serif */}
+        {/* Logo mark + wordmark in Fraunces serif */}
         <a
           href={href("#hero")}
-          className="inline-flex min-h-11 items-center font-heading text-h3 font-medium tracking-tight text-espresso no-underline transition-colors duration-(--dur-ui) ease-standard hover:text-clay-600 focus-visible:rounded-btn"
+          className="inline-flex min-h-11 items-center gap-2 font-heading text-h3 font-medium tracking-tight text-espresso no-underline transition-colors duration-(--dur-ui) ease-standard hover:text-clay-600 focus-visible:rounded-btn"
           aria-label={`${name} home`}
         >
+          <Image
+            src={logo.src}
+            alt=""
+            aria-hidden="true"
+            className="h-8 w-auto"
+            priority
+          />
           {name}
         </a>
 

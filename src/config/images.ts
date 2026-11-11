@@ -8,6 +8,7 @@ import stepFeedback from "@/assets/photos/step-feedback.jpg";
 import mascotStudent from "@/assets/mascots/student.jpg";
 import mascotOwner from "@/assets/mascots/owner.jpg";
 import mascotSupport from "@/assets/mascots/support.jpg";
+import logoMark from "@/assets/logo/mark.png";
 
 // Stock photography from Unsplash (free Unsplash License; downloaded 2026-10-29 via the
 // official download links). These are not customer, staff or property photos.
@@ -67,6 +68,13 @@ export const mascots = {
     src: mascotSupport,
     alt: "Illustrated mascot of a support team member",
   },
+};
+
+// Real brand logo (supplied directly, background removed) — not stock
+// photography, so no attribution entry is needed.
+export const logo = {
+  src: logoMark,
+  alt: "StayPookie logo mark",
 };
 
 /** Unique photographers, for the footer credit line. */

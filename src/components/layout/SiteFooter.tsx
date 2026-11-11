@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { brand, getContact } from "@/config/brand";
-import { mascots } from "@/config/images";
+import { logo, mascots } from "@/config/images";
 import { CopyrightYear } from "@/components/layout/CopyrightYear";
 import { Icon } from "@/components/ui/Icon";
 
@@ -28,13 +28,18 @@ export function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-gap-main">
           {/* Brand & Contact column */}
           <div className="lg:col-span-5">
-            <p className="font-heading text-h3 font-medium leading-none tracking-tight text-espresso">
-              {brand.name}
-            </p>
-            <p className="mt-4 font-body text-small font-medium text-bark">
-              {brand.companyName}
-            </p>
-            <p className="mt-3 max-w-[34ch] font-body text-small text-dust leading-relaxed">
+            <div className="flex items-center gap-2">
+              <Image
+                src={logo.src}
+                alt=""
+                aria-hidden="true"
+                className="h-7 w-auto"
+              />
+              <p className="font-heading text-h3 font-medium leading-none tracking-tight text-espresso">
+                {brand.name}
+              </p>
+            </div>
+            <p className="mt-4 max-w-[34ch] font-body text-small text-dust leading-relaxed">
               {brand.description}
             </p>
 
@@ -207,7 +212,7 @@ export function SiteFooter() {
         {/* Bottom copyright & attribution */}
         <div className="mt-8 flex flex-col gap-3 border-t border-line/80 pt-8 font-body text-small text-dust lg:flex-row lg:items-center lg:justify-between">
           <p>
-            © <CopyrightYear /> {brand.companyName}. All rights reserved.
+            © <CopyrightYear /> {brand.name}. All rights reserved.
           </p>
           <p className="flex items-center gap-2">
             <span>Built for hostel & PG owners in India.</span>
