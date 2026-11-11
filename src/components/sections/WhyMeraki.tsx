@@ -19,13 +19,19 @@ export function WhyMeraki() {
               className="relative min-h-64 overflow-hidden bg-canvas bg-[radial-gradient(120%_80%_at_0%_100%,color-mix(in_srgb,var(--color-accent-tint)_70%,transparent),transparent_60%)] p-5 md:h-80"
             >
               <h3 className="text-h3">{card.title}</h3>
-              <p className="mt-3 max-w-[37ch] text-small text-ink-muted">{card.body}</p>
+              <p className="mt-3 max-w-[37ch] text-small text-ink-muted">
+                {card.body}
+              </p>
               <CornerBadge name={card.icon} />
             </li>
           ))}
         </ul>
         <div className="mt-14 flex justify-center">
-          <ButtonLink href={brand.primaryCta.href} variant="primary-dark" fullWidthMobile>
+          <ButtonLink
+            href={brand.primaryCta.href}
+            variant="primary-dark"
+            fullWidthMobile
+          >
             {brand.primaryCta.label}
           </ButtonLink>
         </div>

@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 
 type Tab = { id: string; label: string; description: string };
 
@@ -51,7 +57,13 @@ export function PlatformTabs({ title, tabs, panels, cta }: PlatformTabsProps) {
     <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2">
       {/* Media: preview for the active tab */}
       <div className="order-2 flex min-w-0 items-center bg-canvas-tint p-6 md:p-10 lg:order-1 lg:p-12">
-        <div className={enhanced ? "tab-stack w-full min-w-0 grid-cols-[minmax(0,1fr)]" : "w-full min-w-0 space-y-10"}>
+        <div
+          className={
+            enhanced
+              ? "tab-stack w-full min-w-0 grid-cols-[minmax(0,1fr)]"
+              : "w-full min-w-0 space-y-10"
+          }
+        >
           {tabs.map((tab, index) => (
             <div
               key={tab.id}
@@ -66,8 +78,15 @@ export function PlatformTabs({ title, tabs, panels, cta }: PlatformTabsProps) {
       </div>
 
       {/* Dark panel: heading, tabs, description, one shared CTA */}
-      <div data-surface="dark" className="order-1 flex min-w-0 flex-col bg-accent-800 px-6 pt-10 pb-4 text-on-dark md:px-8 lg:order-2 lg:p-[60px] lg:pb-[60px]">
-        <h2 id="platform-title" tabIndex={-1} className="text-h2 focus:outline-none">
+      <div
+        data-surface="dark"
+        className="order-1 flex min-w-0 flex-col bg-accent-800 px-6 pt-10 pb-4 text-on-dark md:px-8 lg:order-2 lg:p-[60px] lg:pb-[60px]"
+      >
+        <h2
+          id="platform-title"
+          tabIndex={-1}
+          className="text-h2 focus:outline-none"
+        >
           {title}
         </h2>
 
@@ -114,7 +133,9 @@ export function PlatformTabs({ title, tabs, panels, cta }: PlatformTabsProps) {
                   data-active={String(index === active)}
                   className="tab-panel"
                 >
-                  <p className="max-w-[28.5rem] text-on-dark-muted">{tab.description}</p>
+                  <p className="max-w-[28.5rem] text-on-dark-muted">
+                    {tab.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -124,7 +145,9 @@ export function PlatformTabs({ title, tabs, panels, cta }: PlatformTabsProps) {
             {tabs.map((tab) => (
               <div key={tab.id}>
                 <dt className="font-display text-tab">{tab.label}</dt>
-                <dd className="mt-2 max-w-[28.5rem] text-on-dark-muted">{tab.description}</dd>
+                <dd className="mt-2 max-w-[28.5rem] text-on-dark-muted">
+                  {tab.description}
+                </dd>
               </div>
             ))}
           </dl>

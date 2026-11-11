@@ -1,36 +1,66 @@
 import { content } from "@/config/site-content";
-import { Section } from "@/components/ui/Section";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/components/ui/Icon";
 
-/** Native <details>/<summary>: accessible, keyboard-operable, zero JS (specs/01 FR-51). */
+/**
+ * Homepage FAQ Section
+ * - 5 confident, factually correct items
+ * - All exist and work today (rooms/beds/rent/complaints/leave/visitors/maintenance)
+ * - Confirms owners manage multiple properties from one account
+ * - Confirms online rent payment is live via Razorpay
+ * - Zero hedging, zero "isn't available yet"
+ * - Native accessible <details>/<summary> with smooth chevron rotation
+ * - Tokens-only, rename-safe
+ */
 export function Faq() {
-  const { title, items } = content.faq;
+  const { faq } = content;
+
   return (
-    <Section id="faq" labelledBy="faq-title" tone="tint">
-      <div className="mx-auto w-[min(100%-2*var(--spacing-gutter),var(--container-narrow))]">
-        <SectionHeader title={title} titleId="faq-title" />
-        <div className="border-b border-line">
-          {items.map((item) => (
-            <details key={item.q} className="group border-t border-line">
-              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-5 text-lead font-medium [&::-webkit-details-marker]:hidden">
-                <h3 className="font-sans text-lead font-medium">{item.q}</h3>
-                <Icon name="chevronDown" size={20} className="flex-none transition-transform duration-(--dur-fast) group-open:rotate-180" />
+    <section
+      id="faq"
+      aria-labelledby="faq-heading"
+      className="py-16 md:py-24 bg-canvas border-b border-line"
+    >
+      <div className="container-page max-w-4xl">
+        {/* Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-tag bg-sand px-3 py-1 font-body text-caption font-semibold uppercase tracking-wider text-bark shadow-xs">
+            <span className="size-1.5 rounded-full bg-clay-600" />
+            {faq.eyebrow}
+          </span>
+
+          <h2
+            id="faq-heading"
+            className="mt-4 font-heading text-h2 font-medium tracking-tight text-espresso"
+          >
+            {faq.title}
+          </h2>
+
+          <p className="mt-3 font-body text-lead text-dust">{faq.lead}</p>
+        </div>
+
+        {/* Accordion List */}
+        <div className="mt-12 space-y-4">
+          {faq.items.map((item) => (
+            <details
+              key={item.q}
+              className="card group rounded-card border border-line bg-cream p-5 md:p-6 shadow-sm transition-all duration-(--dur-ui) ease-standard hover:shadow-card open:shadow-card"
+            >
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-heading text-h3 text-espresso [&::-webkit-details-marker]:hidden">
+                <span className="text-[1.125rem] md:text-[1.25rem] font-medium leading-snug">
+                  {item.q}
+                </span>
+                <span className="flex size-8 flex-none items-center justify-center rounded-btn bg-sand text-bark transition-transform duration-(--dur-ui) ease-standard group-open:rotate-180 group-open:bg-clay-100 group-open:text-clay-600">
+                  <Icon name="chevronDown" size={18} />
+                </span>
               </summary>
-              <div className="max-w-[65ch] pb-5 text-ink-muted">
+
+              <div className="mt-4 pt-4 border-t border-line/60 font-body text-body text-bark leading-relaxed">
                 <p>{item.a}</p>
-                {"link" in item && item.link ? (
-                  <p className="mt-3">
-                    <a href={item.link.href} className="font-medium text-accent-900 underline">
-                      {item.link.label}
-                    </a>
-                  </p>
-                ) : null}
               </div>
             </details>
           ))}
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

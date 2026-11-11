@@ -7,7 +7,7 @@ import stepContact from "@/assets/photos/step-contact.jpg";
 import stepFeedback from "@/assets/photos/step-feedback.jpg";
 
 // Stock photography from Unsplash (free Unsplash License; downloaded 2026-10-29 via the
-// official download links). These are not Meraki customers, staff or properties.
+// official download links). These are not customer, staff or property photos.
 
 export type Photo = {
   src: StaticImageData;
@@ -47,7 +47,10 @@ export const photos = {
     {
       src: stepFeedback,
       alt: "Two people talking across a table by a window",
-      credit: { name: "Christina @ wocintechchat.com", url: unsplash("LQ1t-8Ms5PY") },
+      credit: {
+        name: "Christina @ wocintechchat.com",
+        url: unsplash("LQ1t-8Ms5PY"),
+      },
     },
   ],
 } satisfies { hero: Photo; finalCta: Photo; steps: Photo[] };
@@ -55,4 +58,7 @@ export const photos = {
 /** Unique photographers, for the footer credit line. */
 export const photoCredits = [photos.hero, photos.finalCta, ...photos.steps]
   .map((photo) => photo.credit)
-  .filter((credit, index, all) => all.findIndex((c) => c.name === credit.name) === index);
+  .filter(
+    (credit, index, all) =>
+      all.findIndex((c) => c.name === credit.name) === index,
+  );

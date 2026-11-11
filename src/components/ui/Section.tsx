@@ -17,13 +17,21 @@ type SectionProps = {
 };
 
 /** Full-bleed band with the fluid section padding; content goes in a `container-page`. */
-export function Section({ id, labelledBy, tone = "canvas", className, children }: SectionProps) {
+export function Section({
+  id,
+  labelledBy,
+  tone = "canvas",
+  className,
+  children,
+}: SectionProps) {
   return (
     <section
       id={id}
       aria-labelledby={labelledBy}
       data-surface={tone === "dark" ? "dark" : undefined}
-      className={["py-section", toneClass[tone], className].filter(Boolean).join(" ")}
+      className={["py-section", toneClass[tone], className]
+        .filter(Boolean)
+        .join(" ")}
     >
       {children}
     </section>

@@ -8,7 +8,13 @@ const chipClass: Record<PaymentStatus, string> = {
 };
 
 /** Recorded rent, never "collected": payments are recorded by the operator (specs/06). */
-export function RentLedger({ rows, limit }: { rows: RentRow[]; limit?: number }) {
+export function RentLedger({
+  rows,
+  limit,
+}: {
+  rows: RentRow[];
+  limit?: number;
+}) {
   const shown = limit ? rows.slice(0, limit) : rows;
   return (
     <div className="@container px-4 pt-2 pb-3">
@@ -26,8 +32,12 @@ export function RentLedger({ rows, limit }: { rows: RentRow[]; limit?: number })
           {shown.map((row) => (
             <tr key={row.tenant} className="h-10 border-t border-line">
               <td className="max-w-0 truncate pr-2">{row.tenant}</td>
-              <td className="hidden text-ink-muted @xl:table-cell">{row.room}</td>
-              <td className="text-right tabular-nums">{inr.format(row.amount)}</td>
+              <td className="hidden text-ink-muted @xl:table-cell">
+                {row.room}
+              </td>
+              <td className="text-right tabular-nums">
+                {inr.format(row.amount)}
+              </td>
               <td className="pl-3 text-right">
                 <span className={chipClass[row.status]}>{row.status}</span>
               </td>
@@ -37,12 +47,17 @@ export function RentLedger({ rows, limit }: { rows: RentRow[]; limit?: number })
       </table>
       <ul className="@md:hidden">
         {shown.map((row) => (
-          <li key={row.tenant} className="border-t border-line py-2 first:border-t-0">
+          <li
+            key={row.tenant}
+            className="border-t border-line py-2 first:border-t-0"
+          >
             <div className="flex items-center justify-between gap-2">
               <span className="truncate">{row.tenant}</span>
               <span className={chipClass[row.status]}>{row.status}</span>
             </div>
-            <div className="text-ink-muted tabular-nums">{inr.format(row.amount)} · {row.date}</div>
+            <div className="text-ink-muted tabular-nums">
+              {inr.format(row.amount)} · {row.date}
+            </div>
           </li>
         ))}
       </ul>

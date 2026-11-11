@@ -14,8 +14,19 @@ export const SAMPLE_PROPERTY = "Sample: Example Residency (demo)";
 export type BedState = "occupied" | "vacant";
 export type RoomSample = { room: string; beds: BedState[] };
 export type PaymentStatus = "Paid" | "Due" | "Overdue";
-export type RentRow = { tenant: string; room: string; amount: number; status: PaymentStatus; date: string };
-export type TenantSample = { name: string; room: string; bed: string; since: string };
+export type RentRow = {
+  tenant: string;
+  room: string;
+  amount: number;
+  status: PaymentStatus;
+  date: string;
+};
+export type TenantSample = {
+  name: string;
+  room: string;
+  bed: string;
+  since: string;
+};
 export type OpsItem = { title: string; detail: string; tag: string };
 
 export const sample = {
@@ -29,11 +40,41 @@ export const sample = {
     { room: "203", beds: ["occupied", "occupied", "occupied"] },
   ] satisfies RoomSample[],
   rent: [
-    { tenant: "Aarav Sharma", room: "101-A", amount: 8500, status: "Paid", date: "02 Nov" },
-    { tenant: "Priya Nair", room: "102-B", amount: 9000, status: "Paid", date: "03 Nov" },
-    { tenant: "Rohan Gupta", room: "103-A", amount: 7500, status: "Due", date: "05 Nov" },
-    { tenant: "Sneha Iyer", room: "201-C", amount: 8000, status: "Overdue", date: "28 Oct" },
-    { tenant: "Kabir Singh", room: "203-A", amount: 9500, status: "Paid", date: "04 Nov" },
+    {
+      tenant: "Aarav Sharma",
+      room: "101-A",
+      amount: 8500,
+      status: "Paid",
+      date: "02 Nov",
+    },
+    {
+      tenant: "Priya Nair",
+      room: "102-B",
+      amount: 9000,
+      status: "Paid",
+      date: "03 Nov",
+    },
+    {
+      tenant: "Rohan Gupta",
+      room: "103-A",
+      amount: 7500,
+      status: "Due",
+      date: "05 Nov",
+    },
+    {
+      tenant: "Sneha Iyer",
+      room: "201-C",
+      amount: 8000,
+      status: "Overdue",
+      date: "28 Oct",
+    },
+    {
+      tenant: "Kabir Singh",
+      room: "203-A",
+      amount: 9500,
+      status: "Paid",
+      date: "04 Nov",
+    },
   ] satisfies RentRow[],
   tenants: [
     { name: "Ananya Rao", room: "102", bed: "B", since: "Jun 2026" },
@@ -42,10 +83,26 @@ export const sample = {
     { name: "Arjun Mehta", room: "101", bed: "B", since: "Oct 2026" },
   ] satisfies TenantSample[],
   ops: [
-    { title: "Water purifier service", detail: "Ground floor · noted 3 Nov", tag: "To follow up" },
-    { title: "Room 202 move-out", detail: "Bed A frees up on 15 Nov", tag: "This week" },
-    { title: "Electricity meter reading", detail: "All floors · monthly record", tag: "Recorded" },
-    { title: "New tenant documents", detail: "Room 103 · Bed B", tag: "To follow up" },
+    {
+      title: "Water purifier service",
+      detail: "Ground floor · noted 3 Nov",
+      tag: "To follow up",
+    },
+    {
+      title: "Room 202 move-out",
+      detail: "Bed A frees up on 15 Nov",
+      tag: "This week",
+    },
+    {
+      title: "Electricity meter reading",
+      detail: "All floors · monthly record",
+      tag: "Recorded",
+    },
+    {
+      title: "New tenant documents",
+      detail: "Room 103 · Bed B",
+      tag: "To follow up",
+    },
   ] satisfies OpsItem[],
   dashboard: {
     tiles: [
@@ -63,10 +120,17 @@ export const sample = {
 
 export const content = {
   hero: {
-    title: brand.tagline,
-    lead: "Being built to keep occupancy, rent records, tenant information and everyday hostel operations organized in one place.",
-    note: `${name} is in early access and not available yet.`,
-    tickerLabel: "What we're building",
+    badge: "Hostel & PG Management SaaS for India",
+    headlineProblem:
+      "Manual rent tracking and zero visibility across properties belong in the past.",
+    headlineResolution:
+      "Run every bed, rent payment, and tenant record with complete clarity.",
+    lead: "Built specifically for hostel and PG owners across India. Choose your plan, and our team configures your property, rooms, and billing records directly so you are operational on day one.",
+    primaryCta: { label: "See Plans", href: "/pricing" },
+    secondaryCta: { label: "See how it works", href: "#how-it-works" },
+    previewLabel: "Live Owner Dashboard · Real Property Overview",
+    previewCaption: "Product Screenshot Placeholder",
+    tickerLabel: "Core Capabilities",
     ticker: [
       "Rooms",
       "Beds",
@@ -82,14 +146,35 @@ export const content = {
     ],
   },
   problem: {
-    title: "Running a hostel shouldn't mean chasing information across multiple tools.",
-    lead: "Most owners keep the business running from memory and a handful of tools that don't talk to each other.",
-    items: [
-      { icon: "notebook", label: "Notebooks", text: "Records are fragmented across registers and loose pages." },
-      { icon: "table", label: "Spreadsheets", text: "Rent is tracked by hand, one row and one month at a time." },
-      { icon: "chat", label: "Chat messages", text: "Who moved in, who moved out: occupancy gets unclear." },
-      { icon: "brain", label: "Memory", text: "The same follow-ups get repeated every single month." },
-    ] satisfies { icon: IconName; label: string; text: string }[],
+    badge: "The Everyday Chaos",
+    title: "Running a hostel shouldn't mean chasing information across tools.",
+    lead: "When rent notes, room registers, and tenant requests live in scattered places, you spend more time investigating confusion than running your business.",
+    cards: [
+      {
+        id: "whatsapp-rent",
+        icon: "chat" as IconName,
+        title: "Rent tracked across three WhatsApp groups",
+        body: "Screenshots of UPI transfers pile up in personal chats. You spend the first ten days of every month matching bank credits to tenant names, while unrecorded dues slip through the cracks.",
+        tag: "Delayed collections",
+        accent: "brick" as const,
+      },
+      {
+        id: "hall-walking",
+        icon: "bed" as IconName,
+        title: "No idea which beds are free without walking the halls",
+        body: "When an enquiry walks in, you have to call your warden, check a paper register, or physically check room keys. Empty beds sit vacant for days because nobody has an accurate headcount.",
+        tag: "Lost vacancy revenue",
+        accent: "amber" as const,
+      },
+      {
+        id: "lost-records",
+        icon: "notebook" as IconName,
+        title: "No record of who approved what",
+        body: "Security deposit refunds, notice periods, and maintenance agreements live in verbal promises or scattered notes. When staff changes or a tenant vacates, you are left with awkward arguments and zero proof.",
+        tag: "Disputed deposits",
+        accent: "slate-ink" as const,
+      },
+    ],
   },
   outcomes: {
     title: "Three things you should always know",
@@ -146,76 +231,311 @@ export const content = {
     lead: "One view, designed to surface what matters this week, before it becomes a problem.",
     items: [
       { label: "Vacant beds", text: "Which beds are free to fill right now." },
-      { label: "Dues outstanding", text: "Which tenants still owe rent this month." },
-      { label: "Move-ins and move-outs", text: "Who arrives and who leaves this week." },
-      { label: "Notes to follow up", text: "Property tasks you wrote down and haven't closed." },
+      {
+        label: "Dues outstanding",
+        text: "Which tenants still owe rent this month.",
+      },
+      {
+        label: "Move-ins and move-outs",
+        text: "Who arrives and who leaves this week.",
+      },
+      {
+        label: "Notes to follow up",
+        text: "Property tasks you wrote down and haven't closed.",
+      },
     ],
   },
   features: {
-    title: "A closer look at what we're building",
-    lead: "The core of the product, in the order owners asked us for it.",
-    rows: [
+    eyebrow: "Everything You Need",
+    title: "Purpose-built tools for modern hostel & PG management.",
+    lead: "Every capability is engineered to deliver immediate operational outcomes first, backed by dependable automation mechanisms.",
+    groups: [
       {
-        id: "occupancy",
-        eyebrow: "Occupancy & rooms",
-        title: "Every room and bed, in one picture.",
-        body: "Designed for owners who still count beds on paper.",
-        bullets: [
-          "Rooms and beds set up the way your property is laid out",
-          "Occupied and vacant beds at a glance",
-          "Move-ins and move-outs that update the picture",
+        id: "billing",
+        eyebrow: "Predictable Cashflow",
+        title: "Billing",
+        description:
+          "Clear rent ledgers, automated invoices, and fast payment reconciliation without awkward conversations.",
+        cards: [
+          {
+            id: "automatic-rent",
+            title: "Automatic Monthly Rent",
+            outcome:
+              "Never calculate rent amounts by hand on the 1st of the month.",
+            mechanism:
+              "Recurring invoices generate automatically on the 1st based on assigned room rates, sharing tiers, and join dates.",
+            icon: "rupee" as IconName,
+            tag: "Recurring Invoicing",
+            accent: "moss" as const,
+          },
+          {
+            id: "late-fees",
+            title: "Late Fees",
+            outcome:
+              "Encourage punctual payments without uncomfortable arguments.",
+            mechanism:
+              "Configurable grace periods automatically apply flat or per-day overdue penalties when rent passes the due date.",
+            icon: "warning" as IconName,
+            tag: "Configurable Penalties",
+            accent: "amber" as const,
+          },
+          {
+            id: "razorpay-payments",
+            title: "Online Payment via Razorpay",
+            outcome:
+              "Residents clear dues in seconds from their phones without sending UPI screenshots.",
+            mechanism:
+              "Integrated Razorpay payment gateway accepts UPI, debit/credit cards, and net banking with instant transaction confirmation.",
+            icon: "creditCard" as IconName,
+            tag: "UPI & Cards",
+            accent: "slate-ink" as const,
+          },
+          {
+            id: "deposits-refunds",
+            title: "Deposits & Refunds",
+            outcome:
+              "Eliminate move-in and check-out disputes over advance money.",
+            mechanism:
+              "Dedicated security deposit ledger tracks initial deposit receipts, approved maintenance deductions, and final payout records.",
+            icon: "shield" as IconName,
+            tag: "Deposit Balance",
+            accent: "moss" as const,
+          },
+          {
+            id: "pdf-receipts",
+            title: "PDF Receipts",
+            outcome:
+              "Provide residents and parents with verified payment records immediately.",
+            mechanism:
+              "One-click digital PDF receipts complete with transaction IDs, property GST details, and timestamps are generated instantly.",
+            icon: "fileText" as IconName,
+            tag: "Downloadable PDF",
+            accent: "slate-ink" as const,
+          },
         ],
       },
       {
-        id: "rent",
-        eyebrow: "Rent & payment records",
-        title: "A clear record of what's paid and what's due.",
-        body: "Designed to replace the monthly spreadsheet, not your bank.",
-        bullets: [
-          "Monthly rent due for each tenant",
-          "Payments recorded by you as they come in",
-          "Outstanding dues listed in one place",
+        id: "operations",
+        eyebrow: "On-Ground Control",
+        title: "Operations",
+        description:
+          "Keep staff coordinated, assets accounted for, and properties safe without paper logbooks.",
+        cards: [
+          {
+            id: "complaints",
+            title: "Complaints & Maintenance",
+            outcome:
+              "Fix plumbing, electrical, and room issues before residents get frustrated.",
+            mechanism:
+              "In-app ticket tracking organizes requests by category, sets priority levels, and logs staff resolution timestamps.",
+            icon: "wrench" as IconName,
+            tag: "Ticket Tracker",
+            accent: "brick" as const,
+          },
+          {
+            id: "leave-requests",
+            title: "Leave Requests",
+            outcome:
+              "Always know who is on campus and who is away without paper registers.",
+            mechanism:
+              "Digital student out-pass applications capture departure dates, return times, emergency contact alerts, and warden approval status.",
+            icon: "calendar" as IconName,
+            tag: "Digital Pass",
+            accent: "amber" as const,
+          },
+          {
+            id: "visitors",
+            title: "Visitor Logs",
+            outcome:
+              "Protect your property gates without messy paper visitor books.",
+            mechanism:
+              "Fast check-in logs visitor name, photo ID, contact details, host resident room number, and exit timestamps.",
+            icon: "users" as IconName,
+            tag: "Gate Security",
+            accent: "slate-ink" as const,
+          },
+          {
+            id: "routine-maintenance",
+            title: "Maintenance Schedules",
+            outcome:
+              "Prevent sudden breakdowns and preserve property equipment value.",
+            mechanism:
+              "Preventative schedules track air conditioners, water purifiers, lift inspections, and generator routine servicing.",
+            icon: "layout" as IconName,
+            tag: "Asset Care",
+            accent: "moss" as const,
+          },
+          {
+            id: "inventory",
+            title: "Inventory & Assets",
+            outcome:
+              "Never lose track of mattresses, keys, or consumable supplies.",
+            mechanism:
+              "Asset registry tracks per-room furniture allocations, appliance serial numbers, and store room inventory levels.",
+            icon: "box" as IconName,
+            tag: "Asset Registry",
+            accent: "slate-ink" as const,
+          },
         ],
       },
       {
-        id: "records",
-        eyebrow: "Tenant & property records",
-        title: "The details you look up, where you can find them.",
-        body: "Designed so tenant and property information isn't scattered across chats.",
-        bullets: [
-          "Tenant details alongside their room and bed",
-          "Property notes and everyday records",
-          "One place instead of registers and messages",
+        id: "communication",
+        eyebrow: "Instant Broadcasts",
+        title: "Communication",
+        description:
+          "Keep residents, wardens, and staff aligned with clear, targeted announcements.",
+        cards: [
+          {
+            id: "targeted-notices",
+            title: "Targeted Notices",
+            outcome:
+              "Deliver important updates to the right residents without spamming everyone.",
+            mechanism:
+              "Filtered announcement broadcasts publish to specific wings, floors, room types, or the entire property instantly.",
+            icon: "bell" as IconName,
+            tag: "Segmented Broadcast",
+            accent: "slate-ink" as const,
+          },
+          {
+            id: "emergency-alerts",
+            title: "Emergency Alerts",
+            outcome:
+              "Broadcast urgent security or safety announcements within seconds.",
+            mechanism:
+              "High-priority banners pin directly to student screens with push notifications and audible warden alerts.",
+            icon: "warning" as IconName,
+            tag: "High Priority",
+            accent: "brick" as const,
+          },
+          {
+            id: "staff-management",
+            title: "Staff Management",
+            outcome:
+              "Ensure wardens, security guards, and housekeeping teams know their daily priorities.",
+            mechanism:
+              "Role-based duty checklists, shift attendance logs, and property-specific task assignments.",
+            icon: "users" as IconName,
+            tag: "Role Assignments",
+            accent: "moss" as const,
+          },
         ],
+      },
+    ],
+  },
+  roles: {
+    eyebrow: "Strict Role Scoping",
+    title: "Built for every role",
+    lead: "Data stays strictly scoped to each person's responsibilities. This is a real trust signal — everyone sees only what they need to do their job.",
+    columns: [
+      {
+        id: "owner",
+        title: "Owner",
+        tagline: "Portfolio-wide view across all properties",
+        badge: "Macro Portfolio Scope",
+        accent: "slate-ink" as const,
+        scopeStatement:
+          "Complete financial and occupancy oversight across single or multiple properties.",
+        whatTheySee: [
+          "Consolidated revenue, collection percentage, and pending dues across all buildings",
+          "Real-time occupancy rates, vacant bed counts, and branch capacity",
+          "Property-wise manager performance metrics and verified operational logs",
+          "Comprehensive financial reports, tax summaries, and audit trail exports",
+        ],
+        restrictedBoundary:
+          "Never cluttered with daily repair chats or routine night-out leave submissions.",
+      },
+      {
+        id: "warden",
+        title: "Manager / Warden",
+        tagline: "Runs one property day-to-day",
+        badge: "Property Operational Scope",
+        accent: "amber" as const,
+        scopeStatement:
+          "Smooth on-ground execution, instant room visibility, and calm daily property management.",
+        whatTheySee: [
+          "Live floor-wise bed allocation map for their assigned property only",
+          "Daily tenant check-in verification, move-outs, and rent due follow-ups",
+          "Maintenance tickets, cleaning assignments, and complaint resolution logs",
+          "Digital visitor entries, student leave approvals, and curfew attendance",
+        ],
+        restrictedBoundary:
+          "Strictly scoped to their assigned building; zero access to other properties or owner banking credentials.",
+      },
+      {
+        id: "student",
+        title: "Student / Resident",
+        tagline: "Pays rent, raises complaints, requests leave, reads notices",
+        badge: "Personal Account Scope",
+        accent: "moss" as const,
+        scopeStatement:
+          "Frictionless living experience with transparent personal records and zero verbal disputes.",
+        whatTheySee: [
+          "Their personal room/bed allocation and agreed monthly rate breakdown",
+          "Instant Razorpay rent payment button with automated PDF receipts",
+          "One-tap complaint tracker with live repair updates and photo proof",
+          "Digital leave request form with approval status and parent alert records",
+          "Official property notices and emergency announcements",
+        ],
+        restrictedBoundary:
+          "Sees strictly their personal account; zero access to other tenants' dues, phone numbers, or property financial data.",
       },
     ],
   },
   howItWorks: {
-    title: "How it works",
-    lead: `${name} follows the month you already run. It doesn't connect to banks, payment apps or messaging tools.`,
-    steps: ["New tenant", "Allocate a bed", "Record rent", "Follow up dues", "Move-out"],
-    rowsLead: "Designed to keep in one place",
-    rows: [
+    eyebrow: "Fast & Predictable Setup",
+    title: "How It Works",
+    lead: "Go from scattered registers to a calm, automated property in four straightforward steps.",
+    steps: [
       {
-        label: "Rooms & tenants",
-        direction: "ltr",
-        duration: 60,
-        items: ["Room register", "Bed allocation", "Vacant beds", "Tenant details", "Move-in dates", "Move-out dates", "Room changes", "Occupancy history"],
+        step: "01",
+        title: "Add your property",
+        outcome: "Map your layout accurately in minutes.",
+        description:
+          "Input your building floors, rooms, and bed configurations (single, double, triple, or dorm sharing) with custom monthly rates.",
+        icon: "building" as IconName,
+        tag: "Layout Setup",
       },
       {
-        label: "Rent & records",
-        direction: "rtl",
-        duration: 44,
-        items: ["Rent due", "Payments recorded", "Outstanding dues", "Monthly summary", "Deposit notes", "Property notes", "Follow-ups", "Everyday records"],
+        step: "02",
+        title: "Invite staff & residents",
+        outcome: "Onboard your team without paper forms.",
+        description:
+          "Assign wardens to their respective properties with scoped manager permissions; residents receive secure onboarding links to their personal portal.",
+        icon: "users" as IconName,
+        tag: "Role Scoping",
       },
-    ] as const,
+      {
+        step: "03",
+        title: "Billing and requests run themselves",
+        outcome: "Put rent tracking and operations on autopilot.",
+        description:
+          "Recurring rent invoices generate on the 1st, residents pay via Razorpay with instant PDF receipts, and maintenance tickets route directly to wardens.",
+        icon: "creditCard" as IconName,
+        tag: "Automation",
+      },
+      {
+        step: "04",
+        title: "See everything in one place",
+        outcome: "Gain total peace of mind from any device.",
+        description:
+          "Owners monitor portfolio revenue and occupancy live; wardens resolve daily tasks calmly without register books or WhatsApp chaos.",
+        icon: "layout" as IconName,
+        tag: "Full Visibility",
+      },
+    ],
   },
   gettingStarted: {
     title: "Getting started should be simple.",
     lead: "Early access is personal. A person on our team reads every request.",
     steps: [
-      { title: "You request early access.", body: "Share a few details about your property using the form below." },
-      { title: "We review your request.", body: "Our team reads each request to understand who it's from and what you need." },
+      {
+        title: "You request early access.",
+        body: "Share a few details about your property using the form below.",
+      },
+      {
+        title: "We review your request.",
+        body: "Our team reads each request to understand who it's from and what you need.",
+      },
       {
         title: "We contact you.",
         body: "After reviewing it, we get in touch to learn how you run your property today.",
@@ -255,7 +575,8 @@ export const content = {
   earlyAccess: {
     title: "Help us build a better way to manage hostels.",
     lead: `Join the ${name} early-access list and help shape a simpler way to manage hostel and PG operations.`,
-    afterSubmit: "Our team reviews every request and will contact you after reviewing it. We can't promise a demo or an onboarding date yet.",
+    afterSubmit:
+      "Our team reviews every request and will contact you after reviewing it. We can't promise a demo or an onboarding date yet.",
     notice:
       "We use these details only to review your request and contact you about early access. You can withdraw your consent at any time.",
     success: {
@@ -265,13 +586,16 @@ export const content = {
     disabled: {
       title: "Our early-access form isn't connected yet.",
       withContact: "You can still reach us directly:",
-      withoutContact: "Please check back soon. The form will open once it's ready to receive requests.",
+      withoutContact:
+        "Please check back soon. The form will open once it's ready to receive requests.",
     },
     errors: {
       invalid: "Please fix the following",
-      rejected: "We couldn't accept this submission. Please reload the page and try again.",
+      rejected:
+        "We couldn't accept this submission. Please reload the page and try again.",
       notConfigured: "Our early-access form isn't connected yet.",
-      upstream: "We couldn't send your request. Your details are still here — please try again.",
+      upstream:
+        "We couldn't send your request. Your details are still here — please try again.",
       rateLimited: "Too many attempts. Please wait a minute and try again.",
     },
     fields: {
@@ -300,52 +624,86 @@ export const content = {
           { value: "4+", label: "4 or more" },
         ],
       },
-      challenge: { label: "Your biggest operational challenge", placeholder: "" },
+      challenge: {
+        label: "Your biggest operational challenge",
+        placeholder: "",
+      },
       consent: `I agree that the ${name} team may use these details to contact me about early access, as described in the`,
       consentLink: "privacy notice",
     },
   },
+  pricingTeaser: {
+    eyebrow: "Transparent Pricing",
+    title: "Simple plans for every property scale.",
+    lead: "Choose your tier. Every plan includes dedicated account setup by our team.",
+    plans: [
+      {
+        id: "starter",
+        name: "Starter",
+        price: "₹1,999",
+        cadence: "/ month",
+        tagline:
+          "2 properties, 120 beds, 10 staff. Rooms, beds, rent ledger, receipts, complaints, and notices.",
+        popular: false,
+      },
+      {
+        id: "growth",
+        name: "Growth",
+        price: "₹4,999",
+        cadence: "/ month",
+        tagline:
+          "6 properties, 400 beds, 40 staff. Everything in Starter, plus leave/visitor management, maintenance/inventory, and owner analytics.",
+        popular: true,
+      },
+      {
+        id: "portfolio",
+        name: "Portfolio",
+        price: "₹14,999",
+        cadence: "/ month",
+        tagline:
+          "25 properties, 2,500 beds, 250 staff. Everything in Growth, plus online rent collection and priority support.",
+        popular: false,
+      },
+    ],
+    cta: {
+      label: "View full plans",
+      href: "/pricing",
+    },
+  },
   faq: {
-    title: "Questions, answered honestly",
+    eyebrow: "Clear Answers",
+    title: "Frequently Asked Questions",
+    lead: `Everything you need to know about ${name}'s live management platform.`,
     items: [
       {
-        q: `What is ${name}?`,
-        a: `${name} is hostel and PG management software being built for owners and operators in India. It's designed to keep rooms and beds, occupancy, tenant records, rent records and outstanding dues organized in one place. It isn't available yet: we're opening early access and building it with the operators who join.`,
+        q: `What operations does ${name} manage?`,
+        a: `${name} manages your entire daily property workflow: room and bed occupancy, automated monthly rent invoicing, maintenance and complaint tickets, digital leave out-passes, visitor gate logs, and asset inventory — all unified in one live system.`,
       },
       {
-        q: `Who is ${name} built for?`,
-        a: `People who run hostels and PGs: independent PG owners, hostel owners, small and medium operators, property managers and the administrators who handle day-to-day operations. ${name} is not a site for finding accommodation, and it isn't designed for tenants.`,
+        q: "Can I manage multiple properties from one account?",
+        a: "Yes. Owners already manage multiple hostel buildings and PG branches from a single account. You can monitor occupancy, collections, and staff performance across your entire portfolio from one central dashboard.",
       },
       {
-        q: "Can I track rent and outstanding payments?",
-        a: `That's a core part of what we're building: recording the rent due each month and the payments you receive, and showing which tenants have dues outstanding. Payments are recorded by you. ${name} doesn't collect rent or process payments.`,
+        q: "How does online rent payment via Razorpay work?",
+        a: "Online rent payment is live via Razorpay. Residents receive direct payment links to clear their monthly dues via UPI, debit/credit cards, or net banking. Transactions are logged immediately with verified timestamps, and downloadable PDF receipts are generated automatically for tenants and parents.",
       },
       {
-        q: "Can I manage rooms and bed occupancy?",
-        a: `That's central to what ${name} is being built to do: set up your rooms and beds, allocate tenants to beds, and see which beds are occupied and which are vacant. Operators who join early access will help us shape how it works.`,
+        q: "How do wardens and residents access the platform?",
+        a: `${name} provides dedicated role-scoped access for every user. Wardens manage daily check-ins, complaints, and visitor logs on their property dashboard, while students use a lightweight personal portal to view dues, submit repair requests, apply for leave, and read notices.`,
       },
       {
-        q: "Can I manage multiple properties?",
-        a: "We're exploring it. If you run more than one property, tell us in the early-access form. It helps us decide how to support it.",
-      },
-      {
-        q: `Does ${name} automatically reconcile UPI payments?`,
-        a: `No. ${name} won't connect to UPI apps, payment gateways or bank accounts. Payments are recorded by you.`,
-      },
-      {
-        q: `Can tenants use ${name} directly?`,
-        a: `No. ${name} is for owners and operators. There's no tenant app or portal, and tenants can't apply or pay through it.`,
-      },
-      {
-        q: "How can I get early access?",
-        a: "Fill in the early-access form on this page with a few details about your property. Our team reviews each request and will contact you after reviewing it. We can't promise a demo or an onboarding date yet.",
-        link: { label: "Go to the early-access form", href: "#early-access" },
+        q: "How does account onboarding work once I choose a plan?",
+        a: "There is no confusing self-serve configuration. Once you select a paid plan, our operations team connects with you within two hours to collect your room layouts, sharing formats, and resident lists. We personally configure your account so you are operational on day one.",
       },
     ],
   },
   finalCta: {
-    title: "Make hostel management simpler.",
-    lead: `Get early access to ${name} and help shape a better way to manage hostel operations.`,
+    headline:
+      "Run every room, rent rupee, and tenant request with total clarity.",
+    cta: {
+      label: "See Plans & Pricing",
+      href: "/pricing",
+    },
   },
   footer: {
     columns: [

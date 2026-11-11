@@ -13,7 +13,13 @@ export function EarlyAccess() {
     <Section id="early-access" labelledBy="early-access-title">
       <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-gap-main">
         <div className="lg:col-span-5">
-          <SectionHeader title={copy.title} titleId="early-access-title" lead={copy.lead} align="start" className="mb-6" />
+          <SectionHeader
+            title={copy.title}
+            titleId="early-access-title"
+            lead={copy.lead}
+            align="start"
+            className="mb-6"
+          />
           <p className="max-w-[36rem] text-ink-muted">{copy.afterSubmit}</p>
         </div>
         <div className="lg:col-span-6 lg:col-start-7">

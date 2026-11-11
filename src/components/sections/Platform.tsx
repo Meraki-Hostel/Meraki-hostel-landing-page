@@ -13,36 +13,56 @@ export function Platform() {
   const { title, tabs } = content.platform;
   const panels = {
     rooms: (
-      <PreviewFrame screen="Rooms" summary="Sample rooms with occupied and vacant beds.">
+      <PreviewFrame
+        screen="Rooms"
+        summary="Sample rooms with occupied and vacant beds."
+      >
         <OccupancyGrid rooms={sample.rooms} />
       </PreviewFrame>
     ),
     tenants: (
-      <PreviewFrame screen="Tenants" summary="Sample list of tenants with their room and bed.">
+      <PreviewFrame
+        screen="Tenants"
+        summary="Sample list of tenants with their room and bed."
+      >
         <TenantList tenants={sample.tenants} />
       </PreviewFrame>
     ),
     rent: (
-      <PreviewFrame screen="Rent" summary="Sample rent records with paid, due and overdue status.">
+      <PreviewFrame
+        screen="Rent"
+        summary="Sample rent records with paid, due and overdue status."
+      >
         <RentLedger rows={sample.rent} />
       </PreviewFrame>
     ),
     operations: (
-      <PreviewFrame screen="Records" summary="Sample property notes and records to follow up.">
+      <PreviewFrame
+        screen="Records"
+        summary="Sample property notes and records to follow up."
+      >
         <OpsList items={sample.ops} />
       </PreviewFrame>
     ),
   };
 
   return (
-    <section id="platform" aria-labelledby="platform-title" className="bg-canvas pb-section">
+    <section
+      id="platform"
+      aria-labelledby="platform-title"
+      className="bg-canvas pb-section"
+    >
       <div className="container-page">
         <PlatformTabs
           title={title}
           tabs={tabs}
           panels={panels}
           cta={
-            <ButtonLink href={brand.primaryCta.href} variant="primary-light" fullWidthMobile>
+            <ButtonLink
+              href={brand.primaryCta.href}
+              variant="primary-light"
+              fullWidthMobile
+            >
               {brand.primaryCta.label}
             </ButtonLink>
           }

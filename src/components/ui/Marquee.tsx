@@ -18,7 +18,14 @@ type MarqueeProps = {
  * CSS-only loop with a visible pause control (WCAG 2.2.2: motion longer than 5s must be
  * pausable; Clarion only pauses on hover). The clone group is hidden from assistive tech.
  */
-export function Marquee({ label, children, duration, direction = "rtl", onDark = false, className }: MarqueeProps) {
+export function Marquee({
+  label,
+  children,
+  duration,
+  direction = "rtl",
+  onDark = false,
+  className,
+}: MarqueeProps) {
   const [paused, setPaused] = useState(false);
   const group = (clone: boolean) => (
     <ul className="flex flex-none" aria-hidden={clone || undefined}>
@@ -47,7 +54,9 @@ export function Marquee({ label, children, duration, direction = "rtl", onDark =
         aria-label={paused ? `Play ${label}` : `Pause ${label}`}
         className={[
           "absolute top-1/2 right-0 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full transition-colors duration-(--dur-base) ease-out-quart motion-reduce:hidden",
-          onDark ? "text-on-dark-muted hover:bg-on-dark/10" : "text-ink-muted hover:bg-line",
+          onDark
+            ? "text-on-dark-muted hover:bg-on-dark/10"
+            : "text-ink-muted hover:bg-line",
         ].join(" ")}
       >
         <Icon name={paused ? "play" : "pause"} size={16} />

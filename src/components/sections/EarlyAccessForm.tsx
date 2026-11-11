@@ -21,13 +21,20 @@ type EarlyAccessFormProps = {
   contact: { email?: string; phone?: string };
 };
 
-type Values = Record<Exclude<LeadField, "consent">, string> & { consent: boolean; website: string };
+type Values = Record<Exclude<LeadField, "consent">, string> & {
+  consent: boolean;
+  website: string;
+};
 
 type Status =
   | { kind: "idle" }
   | { kind: "submitting" }
   | { kind: "success" }
-  | { kind: "error"; reason: "invalid" | "rejected" | "notConfigured" | "upstream" | "rateLimited" };
+  | {
+      kind: "error";
+      reason:
+        "invalid" | "rejected" | "notConfigured" | "upstream" | "rateLimited";
+    };
 
 const EMPTY: Values = {
   name: "",
@@ -42,11 +49,26 @@ const EMPTY: Values = {
   website: "",
 };
 
-const FIELD_ORDER: LeadField[] = ["name", "property", "phone", "email", "city", "beds", "properties", "challenge", "consent"];
+const FIELD_ORDER: LeadField[] = [
+  "name",
+  "property",
+  "phone",
+  "email",
+  "city",
+  "beds",
+  "properties",
+  "challenge",
+  "consent",
+];
 
 const CLIENT_TIMEOUT_MS = 15_000;
 
-export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAccessFormProps) {
+export function EarlyAccessForm({
+  copy,
+  submitLabel,
+  enabled,
+  contact,
+}: EarlyAccessFormProps) {
   const uid = useId();
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -70,7 +92,8 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
     if (validated) setErrors(validate(next));
   };
 
-  const focusSummary = () => requestAnimationFrame(() => summaryRef.current?.focus());
+  const focusSummary = () =>
+    requestAnimationFrame(() => summaryRef.current?.focus());
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -95,14 +118,21 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
         signal: AbortSignal.timeout(CLIENT_TIMEOUT_MS),
       });
       const body: unknown = await response.json().catch(() => null);
-      const data = (body && typeof body === "object" ? body : {}) as { ok?: unknown; fieldErrors?: FieldErrors };
+      const data = (body && typeof body === "object" ? body : {}) as {
+        ok?: unknown;
+        fieldErrors?: FieldErrors;
+      };
 
       if (response.status === 200 && data.ok === true) {
         setStatus({ kind: "success" });
         requestAnimationFrame(() => successRef.current?.focus());
         return;
       }
-      if (response.status === 400 && data.fieldErrors && Object.keys(data.fieldErrors).length) {
+      if (
+        response.status === 400 &&
+        data.fieldErrors &&
+        Object.keys(data.fieldErrors).length
+      ) {
         setErrors(data.fieldErrors);
         setStatus({ kind: "error", reason: "invalid" });
       } else if (response.status === 400) {
@@ -144,7 +174,9 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
   const mailto = contact.email ? buildMailto(contact.email, values) : undefined;
 
   const describe = (field: LeadField, extra?: string) =>
-    [errors[field] ? id(`${field}-error`) : null, extra].filter(Boolean).join(" ") || undefined;
+    [errors[field] ? id(`${field}-error`) : null, extra]
+      .filter(Boolean)
+      .join(" ") || undefined;
 
   const fieldError = (field: LeadField) =>
     errors[field] ? (
@@ -156,7 +188,12 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
 
   const label = (field: string, text: string, required = true) => (
     <label htmlFor={id(field)} className="field-label">
-      {text} {required ? <span className="field-required">(required)</span> : <span className="field-required">(optional)</span>}
+      {text}{" "}
+      {required ? (
+        <span className="field-required">(required)</span>
+      ) : (
+        <span className="field-required">(optional)</span>
+      )}
     </label>
   );
 
@@ -164,14 +201,20 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
     <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
       {mailto ? (
         <li>
-          <a href={mailto} className="inline-flex min-h-11 items-center gap-2 font-medium text-accent-900 underline">
+          <a
+            href={mailto}
+            className="inline-flex min-h-11 items-center gap-2 font-medium text-accent-900 underline"
+          >
             <Icon name="mail" size={16} /> Email us
           </a>
         </li>
       ) : null}
       {contact.phone ? (
         <li>
-          <a href={`tel:${contact.phone.replace(/[\s-]/g, "")}`} className="inline-flex min-h-11 items-center gap-2 font-medium text-accent-900 underline">
+          <a
+            href={`tel:${contact.phone.replace(/[\s-]/g, "")}`}
+            className="inline-flex min-h-11 items-center gap-2 font-medium text-accent-900 underline"
+          >
             <Icon name="phone" size={16} /> Call {contact.phone}
           </a>
         </li>
@@ -180,17 +223,30 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
   );
 
   const statusMessage =
-    status.kind === "error" && status.reason !== "invalid" ? copy.errors[status.reason] : null;
+    status.kind === "error" && status.reason !== "invalid"
+      ? copy.errors[status.reason]
+      : null;
 
   return (
-    <form noValidate onSubmit={onSubmit} aria-busy={submitting} aria-describedby={id("note")}>
+    <form
+      noValidate
+      onSubmit={onSubmit}
+      aria-busy={submitting}
+      aria-describedby={id("note")}
+    >
       {!enabled ? (
         <div className="mb-6 flex gap-3 rounded-input bg-warning-tint p-4">
-          <Icon name="warning" size={20} className="mt-0.5 flex-none text-warning" />
+          <Icon
+            name="warning"
+            size={20}
+            className="mt-0.5 flex-none text-warning"
+          />
           <div>
             <p className="font-medium">{copy.disabled.title}</p>
             <p className="mt-1 text-small">
-              {contact.email || contact.phone ? copy.disabled.withContact : copy.disabled.withoutContact}
+              {contact.email || contact.phone
+                ? copy.disabled.withContact
+                : copy.disabled.withoutContact}
             </p>
             {fallback}
           </div>
@@ -204,7 +260,9 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
         aria-live="polite"
         className="focus:outline-none"
       >
-        {status.kind === "error" && status.reason === "invalid" && fieldErrorList.length ? (
+        {status.kind === "error" &&
+        status.reason === "invalid" &&
+        fieldErrorList.length ? (
           <div className="mb-6 rounded-input border-l-2 border-danger bg-danger-tint p-4">
             <p className="font-medium">{copy.errors.invalid}</p>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-small">
@@ -221,13 +279,18 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
         {statusMessage ? (
           <div className="mb-6 rounded-input border-l-2 border-danger bg-danger-tint p-4">
             <p className="font-medium">{statusMessage}</p>
-            {status.kind === "error" && status.reason !== "rateLimited" ? fallback : null}
+            {status.kind === "error" && status.reason !== "rateLimited"
+              ? fallback
+              : null}
           </div>
         ) : null}
         {submitting ? <p className="sr-only">Sending your request…</p> : null}
       </div>
 
-      <fieldset disabled={!enabled} className="m-0 min-w-0 space-y-5 border-0 p-0">
+      <fieldset
+        disabled={!enabled}
+        className="m-0 min-w-0 space-y-5 border-0 p-0"
+      >
         <legend className="sr-only">Early-access request</legend>
 
         <div>
@@ -386,14 +449,20 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
             aria-invalid={errors.challenge ? true : undefined}
             aria-describedby={describe("challenge", id("challenge-count"))}
           />
-          <p id={id("challenge-count")} className="mt-1.5 text-right text-caption text-ink-muted">
+          <p
+            id={id("challenge-count")}
+            className="mt-1.5 text-right text-caption text-ink-muted"
+          >
             {values.challenge.length} / {LIMITS.challenge}
           </p>
           {fieldError("challenge")}
         </div>
 
         {/* Honeypot: hidden from people and assistive tech; bots that fill it are rejected. */}
-        <div aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="absolute -left-[10000px] h-px w-px overflow-hidden"
+        >
           <label htmlFor={id("website")}>Website</label>
           <input
             id={id("website")}
@@ -424,7 +493,10 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
             />
             <label htmlFor={id("consent")} className="text-small">
               {f.consent}{" "}
-              <a href="/privacy" className="font-medium text-accent-900 underline">
+              <a
+                href="/privacy"
+                className="font-medium text-accent-900 underline"
+              >
                 {f.consentLink}
               </a>
               . <span className="text-ink-muted">(required)</span>
@@ -433,7 +505,11 @@ export function EarlyAccessForm({ copy, submitLabel, enabled, contact }: EarlyAc
           {fieldError("consent")}
         </div>
 
-        <button type="submit" className="btn btn-primary-dark btn-lg w-full" disabled={!enabled || submitting}>
+        <button
+          type="submit"
+          className="btn btn-primary-dark btn-lg w-full"
+          disabled={!enabled || submitting}
+        >
           {submitting ? (
             <>
               <Icon name="spinner" size={16} className="animate-spin" />
@@ -459,6 +535,9 @@ function buildMailto(email: string, values: Values) {
     `Properties: ${values.properties}`,
     `Challenge: ${values.challenge}`,
   ];
-  const params = new URLSearchParams({ subject: "Early access request", body: lines.join("\n") });
+  const params = new URLSearchParams({
+    subject: "Early access request",
+    body: lines.join("\n"),
+  });
   return `mailto:${email}?${params.toString().replace(/\+/g, "%20")}`;
 }

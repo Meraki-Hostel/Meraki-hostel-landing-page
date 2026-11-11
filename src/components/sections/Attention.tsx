@@ -10,7 +10,13 @@ export function Attention() {
     <Section id="attention" labelledBy="attention-title" tone="tint">
       <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-gap-main">
         <div className="lg:col-span-4">
-          <SectionHeader title={title} titleId="attention-title" lead={lead} align="start" className="mb-10" />
+          <SectionHeader
+            title={title}
+            titleId="attention-title"
+            lead={lead}
+            align="start"
+            className="mb-10"
+          />
           <ul className="space-y-4">
             {items.map((item) => (
               <li key={item.label} className="border-l-2 border-rule pl-4">
