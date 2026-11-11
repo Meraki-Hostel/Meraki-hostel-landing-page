@@ -102,6 +102,11 @@ Three real monthly tiers, defined in the real backend's plan catalogue — treat
 | `npm test` | Vitest |
 | `npm run format` | Prettier |
 
+## Git & commits
+
+- **Never commit or push on your own initiative.** Make and leave changes uncommitted in the working tree until the user explicitly asks for a commit and/or a push. Finishing a task is not, by itself, a request to commit it.
+- **Commit messages are written as the human teammate's own work, not as AI output.** Do not add a "Co-Authored-By" line (or any other credit/signature) naming Claude, an AI, a model, or any assistant. The person running the commit is the sole author and is accountable for it — the message should read exactly as if they wrote and typed it themselves.
+
 ## Workflow rules
 
 - **Docs first:** check or update the relevant spec before changing scope or design. When reality changes (a feature ships, a price changes, a bug gets fixed), update this file and the affected spec in the same change.
