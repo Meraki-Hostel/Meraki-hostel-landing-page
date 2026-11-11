@@ -1,20 +1,35 @@
-# 02 — UI/UX reference analysis: Clarion Health
+# 02 — UI/UX reference analysis
+
+## 0. Addendum (2026-11-11)
+
+**This document's reference is no longer Clarion Health alone.** §§1–21 below remain a valid competitive/structural capture of that one third-party site, kept for its still-useful observations (good and bad) about Clarion's own markup and CSS — but Clarion was never an audit of *this* site, and treating it as the only design reference let real problems in StayPookie's own shipped homepage go unrecorded. **§22 adds a second, independent reference: a first-party design audit of StayPookie's actual shipped homepage**, done by reading its real components and content (not Clarion's), covering things Clarion-comparison was never going to surface — section-template monotony, unused product photography, decorative status-tag overuse, CTA redundancy, and more. Read §22 as equally authoritative to §§1–21, not as a lesser addendum.
+
+This document is also still a competitive/structural analysis of a **third-party** reference site (Clarion Health) and is mostly still accurate on its own terms — it describes Clarion's markup and CSS, not StayPookie's product. What needed correction was everywhere this file proposed a "Meraki" design/CTA system of its own, under the same wrong premise as the rest of the original spec set: that nothing existed yet, pricing was forbidden, and every CTA had to point at one disabled early-access form. Specifically:
+
+- **Brand is "StayPookie," final**, not "Meraki."
+- **The shipped visual system is not the provisional Clarion-indigo scheme this file originally proposed.** It's the real product's own ivory/sand/cream + clay-accent palette, Fraunces + Figtree type, and **soft rounded cards with layered shadows** — the opposite of the "flat, square, no-shadow" rule this file inherited from Clarion. See `specs/05` for the full, recomputed token set.
+- **Pricing and payment are real and live**, so §18's list of "superseded" Clarion ideas (a Pricing link, "Paid via UPI" chips, Razorpay/UPI rows) needs its own correction — see the note inside §18 below, which quotes the original rejection and explains why it no longer holds.
+- **CTAs no longer point at one destination.** The original "everything → `#early-access`" rule (§11, §19 #14) is replaced by a real funnel: "See Plans" → `/pricing`, a plan's "Choose [Plan]" → `/checkout`, and "Talk to us" → `/contact` for anything that doesn't fit a listed tier.
+
+Everything else below — the Clarion capture itself (§§1–4, 7–10.2, 11's Clarion-observed half, 12's Clarion-observed half, 13–16, 20) — is an analysis of Clarion's own site and is unchanged and still accurate. Only the "how Meraki/StayPookie adapts this" asides needed fixing, and they're fixed in place below rather than collected in one patch note, so the correction sits next to what it corrects.
+
+---
 
 | | |
 |---|---|
-| Document | `specs/02-ui-ux-reference.md` (Phase A, documentation only) |
-| Product | Meraki (temporary brand name): hostel & PG management SaaS for owners/operators in India |
-| Reference | Clarion Health homepage, https://www.clarionhealth.com/ |
-| Captured | 2026-10-29 |
-| Status | Reference analysis is final for Phase A. Every Meraki recommendation in it is **Provisional** until the owner approves Phase B. |
-| Source of truth | [specs/01](01-product-requirements.md) (scope, section map), [specs/05](05-design-system.md) (tokens) and [specs/06](06-feature-status.md) (feature status). They record the Phase A decisions brief (`DECISIONS.md`, Phase A capture (2026-10-29)), which is not kept in the repo; "DECISIONS §n" below only names where a decision came from. Concerns are listed in [§21 Open questions](#21-open-questions-raised-by-this-analysis). |
+| Document | `specs/02-ui-ux-reference.md` |
+| Product | **StayPookie** (final brand name): hostel & PG management SaaS for owners/operators in India |
+| Reference | Two references, not one: (1) Clarion Health homepage, https://www.clarionhealth.com/ (third-party structural comparison, §§1–21); (2) **StayPookie's own shipped homepage** (first-party independent audit, §22) — the real `src/components/sections/*.tsx` and `src/app/page.tsx` as they exist today, judged on their own design merits, not against Clarion. |
+| Captured | 2026-10-29 (Clarion capture, §§1–21; unchanged — not re-run). 2026-11-11 (first-party homepage audit, §22). |
+| Status | Both references are final. StayPookie's own design decisions are **implemented**, not provisional — see `specs/05` for the real, shipped tokens. §22's findings are open design-improvement candidates, not yet actioned — see `specs/04` for tracking. |
+| Source of truth | [specs/01](01-product-requirements.md) (scope, route map), [specs/05](05-design-system.md) (tokens — now the real shipped ones) and [specs/06](06-feature-status.md) (feature status). |
 
-**Purpose.** This is a curated, evidence-based synthesis of the Clarion homepage, used as the *visual and structural* reference for the Meraki landing page. It records what the reference does, with exact values. It also records what Meraki adapts, what it deliberately changes, and what it must never copy. It is not a design system. The provisional Meraki tokens live in the design-system spec (`specs/05-*.md`), and feature claims are governed by the feature-status spec ([06-feature-status.md](06-feature-status.md)). The section map is also restated in [01-product-requirements.md](01-product-requirements.md).
+**Purpose.** This is a curated, evidence-based synthesis of the Clarion homepage, used as the *visual and structural* reference for this site. It records what the reference does, with exact values, and what StayPookie adapted, changed, or must never copy. The provisional-vs-shipped token values live in `specs/05`; feature claims are governed by `specs/06`.
 
 **Labels used**
-- **Observed**: read directly from the capture (computed styles, stylesheet, markup or screenshot). Cited as `ref: <analysis>.md §n`. The four analyses (`structure.md`, `tokens.md`, `components.md`, `responsive.md`) are Phase A capture (2026-10-29) working files, and each closes with an adversarial verification pass. Where an analysis marks a value "(verified-corrected)", this doc uses the corrected value.
-- **Inferred**: an interpretation of the evidence that was not confirmed in a live browser.
-- **Provisional**: a Meraki decision awaiting owner approval.
+- **Observed**: read directly from the Clarion capture (computed styles, stylesheet, markup or screenshot).
+- **Inferred**: an interpretation of the evidence not confirmed in a live browser.
+- A "Meraki (Provisional…)" aside in the original document meant a proposed decision awaiting approval. Those have been updated in place below to describe what's **actually shipped**, and no longer say "Provisional" where the decision is final.
 
 ---
 
@@ -33,13 +48,14 @@
 12. [Footer](#12-footer)
 13. [Responsive observations](#13-responsive-observations)
 14. [Animations and interactions](#14-animations-and-interactions)
-15. [Accessibility observations](#15-accessibility-observations-of-the-reference)
+15. [Accessibility observations of the reference](#15-accessibility-observations-of-the-reference)
 16. [Reference defects not to replicate](#16-reference-defects-not-to-replicate)
-17. [Elements to adapt for Meraki](#17-elements-to-adapt-for-meraki)
+17. [Elements adapted for StayPookie](#17-elements-adapted-for-staypookie)
 18. [Elements not to copy](#18-elements-not-to-copy)
 19. [Deliberate deviations](#19-deliberate-deviations)
 20. [Inspection limitations and unresolved observations](#20-inspection-limitations-and-unresolved-observations)
 21. [Open questions raised by this analysis](#21-open-questions-raised-by-this-analysis)
+22. [Independent design audit of the shipped homepage (2026-11-11)](#22-independent-design-audit-of-the-shipped-homepage-2026-11-11)
 
 ---
 
@@ -49,643 +65,402 @@
 |---|---|
 | URL | https://www.clarionhealth.com/ (homepage only). `<title>` "Clarion is the AI front office for healthcare". Built on Webflow. |
 | Browser | Playwright, headless Chromium |
-| Viewports (w×h, DPR 1) | **1440×900** (desktop), **1024×768** (laptop), **768×1024** (tablet, portrait), **390×844** (mobile). DPR is 1 because every slice PNG matches its viewport size in pixels (ref: responsive.md §0.1). |
-| Screenshots | Viewport-height slices down the full page at each width. At 1440 there are 10 slices; slice N starts at y = N×900 and the last is bottom-aligned. |
-| Computed-style dumps | One `dump.json` per width: `docHeight`, `viewport`, `body`, `sections`, `headings`, `paragraphs`, `links`, `buttons`, `containers`, `images` and `fontsLoaded`, each with boxes, fonts, colours, padding, radius and shadow. |
-| Stylesheet and markup | The full `clarion.css` (parsed into rules with their `@media` context and line numbers) and `index.html` (including inline `<style>`/`<script>` embeds). |
-| Interaction probes | Nav hover (7 states), dropdown open, dark-button hover (before/after computed JSON), mobile menu open, header after scrolling 1200px, top-of-page state, and a check for `prefers-reduced-motion` rules (`reducedMotionRulesPresent: true`). |
-| Analysis | Four analyses (structure, tokens, components, responsive) each re-verified against the raw evidence. Contrast was computed with the WCAG 2.x relative-luminance formula, with opacity text alpha-blended onto its background first. |
-| Evidence location | Phase A capture (2026-10-29), stored in a temporary session directory. Do not rely on those paths persisting. |
+| Viewports (w×h, DPR 1) | **1440×900** (desktop), **1024×768** (laptop), **768×1024** (tablet, portrait), **390×844** (mobile). |
+| Screenshots | Viewport-height slices down the full page at each width. |
+| Computed-style dumps | One `dump.json` per width: `docHeight`, `viewport`, `body`, `sections`, `headings`, `paragraphs`, `links`, `buttons`, `containers`, `images` and `fontsLoaded`. |
+| Stylesheet and markup | The full `clarion.css` and `index.html` (including inline `<style>`/`<script>` embeds). |
+| Interaction probes | Nav hover, dropdown open, dark-button hover, mobile menu open, header after scrolling 1200px, top-of-page state, `prefers-reduced-motion` rule check. |
+| Analysis | Four analyses (structure, tokens, components, responsive), each re-verified against the raw evidence. |
+| Evidence location | Phase A capture (2026-10-29). Not committed to this repo. |
 
-**What the capture cannot show:** motion over time, tab clicks, and the 480–767, 1025–1279 and ≥1920px ranges. See [§20](#20-inspection-limitations-and-unresolved-observations).
+**What the capture cannot show:** motion over time, tab clicks, and the 480–767, 1025–1279 and ≥1920px ranges.
 
 ---
 
 ## 2. Page structure
 
-Document height (Observed): **8,239px** at 1440, 8,516 at 1024, 7,912 at 768 and **10,035 at 390** (ref: structure.md §8). At ≥992 this includes 849px of height added by JavaScript for the pinned rail.
+Document height (Observed): 8,239px at 1440, 8,516 at 1024, 7,912 at 768 and 10,035 at 390.
 
 ### 2.1 Global chrome
-A fixed white pill nav floats over every section at `top: 8px` and never changes on scroll (§4). Every boundary between sections is a hard horizontal colour cut, with no overlaps, curves, waves or negative-margin cards (ref: structure.md §1, §2).
+A fixed white pill nav floats over every section at `top: 8px` and never changes on scroll. Every section boundary is a hard horizontal colour cut.
 
 ### 2.2 Nine-block inventory (Observed, 1440)
 
 | # | Block (Webflow class) | Doc y-range | Height | Background | Width type | Header alignment | CTA |
 |---|---|---|---|---|---|---|---|
-| 1 | Hero `section-hero` | 0–855 | 855 | Full-bleed photo + vertical teal gradient (`#072d35`) | Full-bleed | Centred, bottom-anchored | 2 pills |
-| 2 | Outcomes "Scale your practice" `cc-practice` | 855–1601 | 746 | Page `#fbfaf8` | Inset (container 1382px) | Centred | — |
-| 3 | Platform tabs `cc-features` | 1601–2455 | 854 | Page bg around an inset `#3c210c` / `#361700` split block | Inset 1382px (block 754px tall) | Left, inside dark panel | 1 per tab pane |
+| 1 | Hero `section-hero` | 0–855 | 855 | Full-bleed photo + vertical teal gradient | Full-bleed | Centred, bottom-anchored | 2 pills |
+| 2 | Outcomes "Scale your practice" `cc-practice` | 855–1601 | 746 | Page `#fbfaf8` | Inset (1382px) | Centred | — |
+| 3 | Platform tabs `cc-features` | 1601–2455 | 854 | Inset `#3c210c`/`#361700` split | Inset 1382px (754px tall) | Left, inside panel | 1 per tab pane |
 | 4 | Revenue: stats + 2×2 `cc-revenue` | 2455–3264 | 809 | `#f6f5ec` | Full-bleed band | Left (4/7 split) | — |
-| 5 | Integrations + compliance `cc-integrations` | 3263–4355 | 1092 | `#fbfaf8` + raster mint wash; inner teal compliance band | Full-bleed section; band inset at about 1146px | Centred | — |
+| 5 | Integrations + compliance `cc-integrations` | 3263–4355 | 1092 | `#fbfaf8` + raster wash | Full-bleed section | Centred | — |
 | 6 | Implementation rail `cc-implementation cc-scroll` | 4355–6104 | 1749 (pinned) | `#361700` | Full-bleed | Centred | — |
 | 7 | Why choose `cc-choose` | 6104–7066 | 962 | `#f6f5ec` | Full-bleed band | Centred | 1 dark pill |
-| 8 | Final CTA `section-cta` | 7067–7787 | 720 | Full-bleed photo + diagonal 139° teal gradient | Full-bleed | **Left** | 1 white pill |
+| 8 | Final CTA `section-cta` | 7067–7787 | 720 | Full-bleed photo + diagonal gradient | Full-bleed | Left | 1 white pill |
 | 9 | Footer `section-footer-main` | 7787–8240 | 453 | `#fbfaf8` | Inset | Left/right split | Contact link (modal) |
 
-Source: ref: structure.md §1; components.md §15.0. The "Try it out" modal is a hidden extra layer, and its markup appears twice in the DOM (ref: structure.md §0).
-
 ### 2.3 Rhythm (Observed)
-- **Background sequence:** teal photo, then cream ×2, then tint, then cream with a teal inner band, then dark brown, then tint, then teal photo, then cream (ref: structure.md §2).
-- **Width beats:** full-bleed bands alternate with inset blocks. The platform split and the compliance band are deliberately narrower than the bands around them, and the change in width is itself a visual beat.
-- **Dark punctuation:** three dark moments mid-page (platform panel, compliance band, implementation rail) plus two teal photo bookends (hero and final CTA).
+Teal photo → cream ×2 → tint → cream+teal band → dark brown → tint → teal photo → cream. Full-bleed and inset widths alternate as a deliberate visual beat. Three dark moments plus two teal photo bookends.
 
 ---
 
 ## 3. Hero composition
 
-All values Observed (ref: structure.md §1; components.md §15.1; responsive.md §1.2).
+All values Observed.
 
 | Aspect | Value |
 |---|---|
-| Box | `min-height: 95vh`; padding `8rem 0 7rem` (128/112). Flex column, `justify-content: flex-end`, centred. Rendered 855 / 730 / 680 / 720px at 1440 / 1024 / 768 / 390. |
-| Content anchor | **Bottom-anchored and centred.** At 1440 the H1 box sits at y 445 (about 52% down the hero), the subhead at y 605–653 and the buttons at y 685–727. |
-| H1 | "The front office / that runs itself." 6 words over 2 lines, ending with a full stop. `clamp(2.5rem, 1.75rem + 2.34vw, 4rem)`: 61.7 / 52 / 46 / 40px, line-height 1.1, `-0.03em`, white. Box width 509px (`.hero_copy-wrap { max-width: 48ch }`, where `ch` is measured in 16px Geist, so the width stays fixed while the H1 scales). |
-| Subhead | One sentence, 16/24px, white, `max-width: 36.9375rem` (591px). 2 lines on desktop, 4 at 390. |
-| Vertical rhythm | `.hero_content` gap 2rem (32px); `.hero_copy` gap 1.5rem (24px). |
-| CTAs | `.hero_btn-group` gap `.75rem 1rem`. (1) White filled pill "Schedule a demo" (158×42) linking to Calendly. (2) Ghost pill "Try it out" (118×42): 1px white border and a 16px mic icon, opening the modal. At ≤479 both stack full width (343×42). |
-| Background | `img.hero_bg` cover (a receptionist on the phone, right of centre) on a `#072d35` base. The overlay is `linear-gradient(#072d3500 18%, #072d35 92%)`, and its start stop moves to 50% at ≤767 and 45% at ≤479. `object-position: 63% 50%` at ≤479. |
-| Social proof | A white monochrome customer-logo marquee absolutely positioned over the bottom ~110px at `opacity: .6`. 19 logos × 2 groups, `100s linear infinite`. (verified-corrected) No edge fade renders, because the mask rule targets a class absent from the markup (ref: tokens.md §2.2). |
-| Exit | A hard cut to `#fbfaf8` at y 855. |
-| Measured contrast | White subhead over the overlaid photo (sampled `#3d585f`): 7.61:1 (ref: tokens.md §7). |
+| Box | `min-height: 95vh`; padding `8rem 0 7rem`. Flex column, bottom-anchored, centred. |
+| Content anchor | Bottom-anchored. H1 at about 52% down the hero. |
+| H1 | "The front office / that runs itself." `clamp(2.5rem, 1.75rem + 2.34vw, 4rem)`, line-height 1.1, −0.03em, white. |
+| Subhead | One sentence, 16/24px white, max 591px. |
+| CTAs | White filled pill "Schedule a demo" → Calendly; ghost pill "Try it out" → modal. Stack full width ≤479. |
+| Background | Photo + `linear-gradient(#072d3500 18%, #072d35 92%)` overlay. |
+| Social proof | A logo marquee, 19 logos, opacity .6, `100s linear infinite`. |
+| Measured contrast | White subhead over photo: 7.61:1. |
 
-**Defect (Observed):** the hero `<img>`, which is the LCP element, carries `loading="lazy"`, and the smallest srcset candidate is 500w. The mobile hero renders soft (ref: responsive.md §1.2, §3 #7).
+**Defect (Observed):** the hero `<img>` (the LCP element) carries `loading="lazy"` with a 500w smallest srcset candidate.
 
 ---
 
 ## 4. Navigation
 
-### 4.1 Desktop (≥992). Observed (ref: components.md §1.1–1.2; structure.md §0)
-| Part | Value |
-|---|---|
-| Wrapper | `position: fixed; top: .5rem; padding: 0 1.5rem` (1rem at ≤767); `z-index: 999`; transparent. |
-| Pill | White, `max-width: 54.5rem` (872px), `min-height: 3.5rem` (56px), `border-radius: 8.5rem` (136px), padding `0 .625rem 0 1.5rem`. Box `284,8 872×56`. **No shadow, no border, no change on scroll.** |
-| Logo | Inline SVG wordmark, 101×27, left. |
-| Links | Home · Company · "By specialty ▾". The menu is centred absolutely (`left: 50%; translateX(-50%)`, `column-gap: .9375rem`), so it sits in the true centre whatever the logo and CTA widths. Geist **500** 16px, padding `.7em 1em`, radius 50px. |
-| Link hover | Beige pill `#e7e4da` with text `#71604e` (4.74:1). Only `color` transitions (.3s easeOutQuart), so the background snaps on (Inferred). |
-| Current page | `.w--current` gets no visible indicator. |
-| CTA | "Try it out": dark pill `#3c210c` with white text, 96×42, `9px 16px`. Hover `#684300`. Opens the modal. |
-| Separation | Over the cream sections the white pill has almost no edge (Inferred: weak separation). |
+### 4.1 Desktop (≥992)
+Fixed `top: .5rem` transparent wrapper; white pill max 872px wide, 56px tall, 136px radius; logo left; links absolutely centred (Home · Company · "By specialty ▾"); dark CTA pill "Try it out" right. No shadow, no border, no change on scroll.
 
-### 4.2 Dropdown. Observed (ref: components.md §1.3; structure.md §0, verified-corrected)
-- Opens on **hover with 0 delay** (`data-hover=true data-delay=0`). The toggle is a `div`, not a `<button>`.
-- Open panel: `#e7e4da`, radius 8px, **no border**, padding `1rem 0`, gap 16px, 2 columns × 4 links (`.75rem 1em` padding each). The 4px radius and `1px #888680` border exist only on the closed 0×0 shell.
-- The chevron rotates 180° with no transition.
-- A "dim page on open" overlay rule is swallowed by an unterminated CSS comment, so the overlay never shows.
+### 4.2 Dropdown
+Opens on hover with 0 delay; a `div`, not a `<button>`; open panel `#e7e4da`, 8px radius, no border.
 
-### 4.3 Mobile (≤991, `data-collapse="medium"`). Observed (ref: components.md §1.4; responsive.md §1.1)
-| Part | Value |
-|---|---|
-| Pill | `max-width: none`; padding `0 .5rem 0 1rem`. Box x24/w720 at 768 and x16/w358 at 390. Logo shrinks to 80×22 at ≤479. |
-| Hamburger | A `div`, 40×43 (**below 44px**). 3 bars of 24×1px `#361700` 8px apart. Radius 5rem. Morphs to an X via `translateY(±9px) rotate(±45deg)` (.3s easeOutQuart), and gets a `#fbfaf8` fill when open. Focus ring `2px solid #71604e`. |
-| CTA | "Try it out" **stays visible** in the pill beside the hamburger (96×42). |
-| Sheet | `#fbfaf8`, radius 1rem (16px), `width: 90vw`, 5px below the pill, `height: calc(100svh - 4rem)`, `overflow-y: auto`. Links stack left-aligned and the dropdown expands inline. Appears **instantly** (`data-duration="0"`). Its bottom edge is invisible against the page background. |
-| Scroll lock | `body:has(.w-nav-button.w--open) { overflow: hidden }`. |
+### 4.3 Mobile (≤991)
+Hamburger is a `div`, 40×43 (below 44px target); 3 bars morph to an X; CTA stays visible beside it. Sheet 90vw, 16px radius, appears instantly (no transition).
 
 ---
 
 ## 5. Typography
 
-### 5.1 Families and licences (Observed; ref: tokens.md §1.1)
-| Family | Role on page | Loading | Licence | Meraki use |
-|---|---|---|---|---|
-| **Moderat Serif Trial** Light 300 | Section H2s (`.heading-3xl`), modal H3 | Self-hosted OTF named `…Moderat-Serif-Trial-Light.otf`, weight 300 only | Commercial (Tighttype); **trial build** | **Never.** Not licensed for production. |
-| **Bpmf Zihi Kai Std** | Hero H1, CTA H2, all card H3s, tab labels, stat values, compliance title | Google Fonts via WebFont loader, **400 only** | Free on Google Fonts (OFL inferred, not checked) | Not used. It is a CJK/Bopomofo family, and Meraki needs a Latin display serif. |
-| **Geist** | Body, buttons, nav, footer | Google Fonts, 100–900 | OFL | **Adopt** (DECISIONS §7) via `next/font`. |
-| Geistvf (self-hosted), Phosphor icon font | Declared, never used | — | OFL / MIT | Not used. |
+### 5.1 Families and licences (Observed)
+| Family | Role on page | Licence | StayPookie use |
+|---|---|---|---|
+| **Moderat Serif Trial** Light 300 | Section H2s, modal H3 | Trial licence | **Never used** — not licensed for production. |
+| **Bpmf Zihi Kai Std** | Hero H1, card H3s, tab labels, stat values | CJK/Bopomofo family | Not used — not a Latin display face. |
+| **Geist** | Body, buttons, nav, footer | OFL | Considered during planning; **not what shipped** — see below. |
 
-Observed quirks:
-- Every Bpmf rule requests **500**, but only 400 is loaded. The headings therefore render a regular-weight face; whether 500 is synthesised could not be confirmed.
-- The two serifs are nearly indistinguishable at display size.
-- `body` line-height computes to **16px** (a token bug, `line-height: var(--paragraph-body)` = 1rem). Every `p` overrides it to 1.5.
+**What actually shipped:** **Fraunces** (display/heading) and **Figtree** (body/sans), loaded via `next/font` and mapped to `--font-display`/`--font-heading` and `--font-sans`/`--font-body` in `src/app/globals.css`. This replaces the original plan's "Newsreader + Geist" pairing — neither of those ended up in the real tokens. Collapsing Clarion's two near-identical serifs into one display family is still the right instinct; StayPookie just landed on a different one than originally proposed.
 
-**Meraki (Provisional, DECISIONS §7):** one display serif, **Newsreader** (OFL, variable `opsz`), at 300 for H2s and 400 for H1/H3/tabs, plus **Geist** for body. Collapsing the reference's two serifs into one family removes a font download.
+### 5.2 Sizes per width (Observed, Clarion)
+| Role | 1440 | 1024 | 768 | 390 | Notes |
+|---|---|---|---|---|---|
+| Hero H1 | 61.7 | 52.0 | 46.0 | 40 | Only the hero H1 is fluid at every width |
+| Section H2 | 48 | 48 | 44 | 36 | Steps at 991/767 |
+| Body / lead | 16 | 16 | 16 | 16 | Never changes |
+| Card body | 14 | 14 | 14 | 14 | **Opacity .6** — fails AA, see §15 |
 
-### 5.2 Sizes per width (computed, Observed; ref: responsive.md §2; tokens.md §1.4)
-| Role | 1440 | 1024 | 768 | 390 | Line-height | Tracking | Weight / colour |
-|---|---|---|---|---|---|---|---|
-| Hero H1 | **61.7** | 52.0 | 46.0 | **40** | 1.1 | −0.03em | 500 requested; white |
-| Section H2 | **48** | 48 | 44 | **36** | 1.1 | −0.02em | 300; `#3c210c`, or `#fdfcfb` on dark |
-| Final CTA H2 | 48 | 48 | 44 | 40 | 1.1 (1.2 at ≤991) | −0.03em | 500; `#fbfaf8` |
-| Platform tab labels | 32 | 32 | 26 | 24 | 1.1 | −0.03em | 500; inactive at opacity .4 |
-| Compliance title / stat value | 32 | 32 | 32 | 32 | 1.1 | −0.03em | 500 |
-| Card H3 | 24 | 24 | 24 | 24 | 1.1 | −0.03em | 500; `#361700` |
-| Modal H3 | 28 | 28 | **36** | 32 | 1.2 | normal | 300 (**grows on tablet**: a defect) |
-| Body / lead | 16 | 16 | 16 | 16 | 1.5 (24px) | −0.01em | 400 Geist |
-| Card body / small | 14 | 14 | 14 | 14 | 1.5 (21px) | −0.01em | 400; **opacity .6** |
-| Buttons | 16 | 16 | 16 | 16 | 1.4 (22.4px) | −0.01em | 400 Geist |
-| Nav links | 16 | 16 | 16 (sheet) | 16 | 1 | — | **500** Geist |
-| Eyebrow `.eyebrow-2` | defined: 12.8px, .1em, uppercase, 500 | — | — | — | 1.2 | .1em | **Not used on the homepage** |
+StayPookie's real fluid scale (shipped, see `specs/05` §4) uses the same "fit a clamp to observed step points" method this section originally proposed, just against Fraunces/Figtree metrics rather than Newsreader/Geist.
 
-- Only the hero H1 is fluid at every width (it hits the 40px floor at ≤513px and the 64px ceiling at ≥1538px). Every other heading steps at 991 and 767, and body copy never changes size.
-- **Fitted fluid scale** (Inferred from the steps; adopted in DECISIONS §7, Provisional): H2 `clamp(2.25rem, 1.79rem + 1.89vw, 3rem)`; CTA H2 `clamp(2.5rem, 2.19rem + 1.26vw, 3rem)`; tab labels `clamp(1.5rem, 1.19rem + 1.26vw, 2rem)`.
-
-### 5.3 Line lengths (Observed; ref: tokens.md §1.5)
-| Text | Desktop | Mobile |
-|---|---|---|
-| Hero H1 | 2 lines, about 17 chars / 3 words per line (509px box) | 2 lines, about 17 chars |
-| Section H2 | 1–2 lines, about **16–19 chars / 2–4 words per line**. Breaks come from narrow columns (col-lg-5/7/8 or a 434px column), never from `<br>` | 2 lines of 12–19 chars |
-| Final CTA H2 (56 chars) | 3 lines, about 19 chars per line (`max-width: 50ch`) | 4 lines, about 14 chars |
-| Card H3 | 1 line, 7–36 chars | Long titles wrap to 2 |
-| Body leads | 55–70 chars per line (hero subhead about 70) | 34–40 chars per line |
-
-Line breaks in the hero shift between widths ("The front office / that runs itself." at 1440, "…office that / runs itself." at 1024 and 768) because the box is sized in body `ch`, not in the heading's own font (ref: responsive.md §1.2). **Meraki (Provisional):** size the H1 measure in `em` of the heading font: `max-width: 12em; text-wrap: balance` (specs/05 §4.3).
+### 5.3 Line lengths (Observed, Clarion)
+Hero H1 2 lines/~17 chars; section H2 1–2 lines/16–19 chars; final CTA H2 3 lines/~19 chars; body leads 55–70 chars. StayPookie sizes heading measure in `em` of the heading font rather than `ch` of the body font, avoiding Clarion's cross-width line-break instability — this reasoning is unchanged and still applies with Fraunces in place of the originally planned Newsreader.
 
 ---
 
 ## 6. Colour and background treatments
 
-### 6.1 Palette (Observed; ref: tokens.md §2.1)
-| Reference hex | Role on page | Meraki counterpart (**Provisional**, DECISIONS §7) |
+### 6.1 Palette (Observed Clarion values, with StayPookie's real shipped counterpart)
+
+| Reference hex | Role on page | StayPookie's real shipped token |
 |---|---|---|
-| `#fbfaf8` | Page background, footer | `--color-canvas` `#FAF9F6` |
-| `#f6f5ec` | Alternate bands (revenue, choose), outcome-card fill | `--color-canvas-tint` `#F3F1EA` |
-| `#fdfcfb` / `#ffffff` | Text on dark; modal card / nav pill, white button, badge circle | `--color-on-dark` `#FAF9F6`; white for the nav pill |
-| `#361700` | Body text **and** dark-section fill (implementation, platform panel) | `--color-ink` `#1F1B16` (text only) |
-| `#3c210c` | Dark button, section H2 colour, platform block | `--color-primary` `#1F1B16` (dark pill) |
-| `#684300` | Dark-button hover | `--color-primary` hover `#3A332A` |
-| `#072d35` | Deep teal: hero, compliance band, final CTA | `--color-accent-900` `#172A46` (deep indigo) |
-| (`#361700` platform panel role) | Dark panel variant | `--color-accent-800` `#1F375C` |
-| `#e7e4da` | Nav hover pill, logo-cell hairlines | `--color-line` `#E4E0D5` |
-| `#eeece3` / `#cbc6bc` | Ghost-on-dark hover / white-button hover | Derive in 05 |
-| `#71604e` | Nav hover text, skip-link and hamburger focus outline | — (Meraki uses its own focus ring) |
-| `#7b7468` | Footer link hover (**4.43:1, fails AA**) | Do not reuse the role at this contrast |
-| `#36170099` / `opacity: .6` | Muted text (**fails AA**, §15) | `--color-ink-muted` `#5E574D`, a solid colour (quick check: 6.77:1 on `#FAF9F6` and 6.31:1 on `#F3F1EA`; to be formally recorded in 05) |
-| `#3617001a` | 2px stat left rule | Line colour at about 10% ink |
-| `#ffffff1a` | 1px divider in the dark tab panel | Same relationship on the accent panel |
-| mint tints `#d0eaea` / `#c9edde` | Icon-disc and wash gradients (raster) | CSS gradient `linear-gradient(180deg, canvas-tint #F3F1EA → accent-tint #DCE6F2)` (cream top, tint bottom; specs/05 §3.4) |
+| `#fbfaf8` | Page background, footer | `--color-ivory` / `--color-canvas` `#f6efe4` |
+| `#f6f5ec` | Alternate bands, outcome-card fill | `--color-sand` / `--color-canvas-tint` `#efe4d4` |
+| `#fdfcfb` / `#ffffff` | Text on dark; modal/nav pill | `--color-cream` / `--color-surface` `#fffaf2` |
+| `#361700` | Body text and dark-section fill | `--color-espresso` / `--color-ink` `#3b2622` (text only — StayPookie's dark surfaces use the clay accent, not a near-black fill) |
+| `#3c210c` | Dark button, section H2 colour | `--color-clay-600` / `--color-primary` `#8c5850` |
+| `#684300` | Dark-button hover | `--color-primary-hover` `#7b4c44` |
+| `#072d35` | Deep teal: hero, compliance band, final CTA | *(no deep-indigo/teal equivalent shipped — StayPookie has no separate "accent-900" dark brand colour; the clay accent itself (`#8c5850`) plays this role where a strong accent is needed)* |
+| `#e7e4da` | Nav hover pill, logo-cell hairlines | `--color-line` `#e6d8c5` |
+| `#7b7468` | Footer link hover (**4.43:1, fails AA**) | Not reused at this contrast — see `specs/05` §3.3 for StayPookie's own (also imperfect) contrast findings |
+| `#36170099` / opacity .6 | Muted text (**fails AA**, §15) | `--color-dust` / `--color-ink-muted` `#7d6b63`, a **solid** colour, not an opacity — though recomputing it against the real backgrounds in `specs/05` §3.3 found it *still* fails AA on two of its three actual usage backgrounds. Using a solid colour fixed the *mechanism* of the Clarion bug but not every instance of the *result*. |
+| mint tints | Icon-disc/wash gradients (raster) | CSS gradient between `--color-canvas-tint` and `--color-clay-100` (cream→tint relationship kept; exact stops differ, see `specs/05` §3) |
 
-The reference has **no saturated accent**: about 85% of the surface is warm cream, greige or espresso, against one cool deep teal (Inferred; ref: tokens.md §2.2). Meraki keeps this relationship. A sparing saffron `--color-highlight` and the status colours for preview chips are Meraki additions (DECISIONS §7).
+The "no saturated accent, one cool accent against warm cream/greige/espresso" relationship Clarion uses is the one StayPookie kept — just with clay standing in for Clarion's teal, and no separate deep-indigo "accent-900" scale ever getting built. Treat any reference elsewhere in this document (or in `specs/01`'s historical §0.1) to "deep indigo," "accent-900" or "accent-800" as describing a plan that was superseded before shipping — `specs/05` is the real token list.
 
-### 6.2 Gradients and overlays (Observed; ref: tokens.md §2.2, verified-corrected)
-| Element | Value |
-|---|---|
-| Hero overlay | `linear-gradient(#072d3500 18%, #072d35 92%)`; 50% start at ≤767 and 45% at ≤479 |
-| Final CTA overlay | `linear-gradient(139deg, #072d35 12%, #072d3500 55%)` at the base (1024). ≥1280: 19%/55%. ≥1920: 16%/60%. ≤991: 4%/70%. ≤767: `160deg, #072d35, #072d3566 60%`. ≤670 (inline) / ≤479: `190deg, #072d35 22%, …` with the photo moved to `top: 41%; height: 70%` and masked in from the top. Also a `.cc-shade` black 91° layer at opacity .2. |
-| Icon discs | Raster `gradient.avif`, not CSS. Sampled `#faf9f7` at the top to `#d0eaea` at the bottom |
-| Choose-card wash | Raster image, 160% wide at opacity .9: a very faint mint at the bottom left |
-| Integrations wash | Raster image: a pale teal glow at the bottom right (`#d1e9e5`), 260% wide at ≤767 |
-| Logo-row edge fades | `linear-gradient(90deg, #fbfaf8, #fbfaf800)`, 5rem |
+### 6.2 Gradients and overlays (Observed, Clarion)
+Hero overlay, final-CTA overlay, icon-disc gradients, choose-card wash, integrations wash, logo-row edge fades — all as originally captured (unchanged; these describe Clarion's CSS, not StayPookie's).
 
 ### 6.3 Alternation rhythm (Observed)
-`dark-photo → cream → cream+inset-dark → tint → cream(+teal band) → dark → tint → dark-photo → cream`. The cream/tint pair is very low contrast (`#fbfaf8` against `#f6f5ec`). The rhythm comes mostly from the **dark punctuation** and the **width changes**, not from the light alternation.
+Dark-photo → cream → cream+inset-dark → tint → cream(+teal band) → dark → tint → dark-photo → cream. Unchanged observation.
 
 ---
 
 ## 7. Spacing and layout
 
-### 7.1 Container and gutters (Observed; ref: responsive.md §0.4; tokens.md §3)
-| Width | Container rule | Content x / width | Side gutter |
-|---|---|---|---|
-| 1440 | `width: 96%; max-width: 87.5rem` (1400) | 29 / 1382 | 28.8px |
-| 1024 | 96% | 20 / 983 | **20.5px (narrowest)** |
-| 768 | `width: 88%` (≤991) | 46 / 676 | 46px |
-| 390 | 88% | 23 / 343 | 23.4px |
+### 7.1 Container and gutters (Observed, Clarion)
+Gutters are **not monotonic** across Clarion's own breakpoints (1024 gets half the tablet gutter — a defect). StayPookie's real shipped container is `--container-site: 82rem` with a fluid `--spacing-gutter: clamp(1.25rem, 0.75rem + 2vw, 2.5rem)` (see `specs/05` §5) — close in spirit to what this section originally proposed, at a different final container width (82rem shipped vs. the 87.5rem once proposed).
 
-- Gutters are **not monotonic**: the laptop width gets half the tablet gutter (defect).
-- The platform block (`.container.cc-full`) goes full-bleed at ≤991.
-- Grid: 12-column flex rows. `--grid-gap-main` is **40px**, `row-gap-md` **20px** (choose cards) and `row-gap-sm` **8px** (outcome cards). None of these change by breakpoint.
+### 7.2 Section padding, including the reference's bug (Observed; Clarion)
+Clarion's own responsive section-padding override is scoped to `h1,h2,h3` instead of `:root`, so it never actually applies — mobile keeps the full 100px padding Clarion intended only for desktop. This is still a real Clarion defect, unchanged.
 
-**Meraki (Provisional, DECISIONS §7):** `max-width: 87.5rem` with fluid inline padding `clamp(1.25rem, 0.75rem + 2.2vw, 2.5rem)` (about 20 / 29 / 35 / 40px at 390 / 768 / 1024 / 1440). Grid gaps 40 / 20 / 8px.
+StayPookie's real shipped token is `--spacing-section: clamp(3.5rem, 2rem + 5vw, 6.5rem)` (`specs/05` §5) — applied globally, not scoped to headings, so it doesn't repeat Clarion's bug. (The exact clamp values differ from what this document originally proposed; the shipped CSS is the source of truth.)
 
-### 7.2 Section padding, including the reference's bug (Observed; ref: responsive.md §0.3; tokens.md §0, §3)
-| Section | 1440 | 1024 | 768 | 390 |
-|---|---|---|---|---|
-| Outcomes, revenue, integrations, choose | **100 / 100** | 100 / 100 | **100 / 100** | **100 / 100** |
-| Hero | 128 / 112 | 128 / 112 | 112 / 112 | 96 / 96 |
-| Platform (`cc-features`) | 0 / 100 | 0 / 100 | 0 / 0 | 0 / 0 |
-| Implementation | 96 / 96 (sides `max(2%, 50vw − 43.75rem)`) | 96 | `0 6% 2rem` | `0 6% 2rem` |
-| Final CTA | 100 / 100 | 100 / 100 | 64 / 100 | 64 / 100 |
-| Footer | 80 / 80 | 80 / 80 | 80 / 80 | 56 / 56 |
-
-**The bug.** `:root` defines `--_responsive---padding--section: 6.25rem`. The responsive overrides (5rem at ≤991, 4rem at ≤767, 3rem at ≤479) are declared on `h1, h2, h3 { }` rather than on `:root`, and the sections read the variable on themselves, so the intended 100 → 80 → 64 → 48px scale **never applies**. Mobile keeps 100px on every content section. This is a major reason the 390px page is 10,035px long (1.22× desktop).
-
-**Meraki (Provisional, DECISIONS §7):** define `--spacing-section: clamp(3rem, 1.79rem + 4.95vw, 6.25rem)` globally (named `--section-pad` in the brief; renamed in specs/05 §21 #10) (about 48 / 67 / 79 / 100px at 390 / 768 / 1024 / 1440).
-
-### 7.3 Internal spacing (Observed; ref: tokens.md §3)
-| Pattern | Value |
-|---|---|
-| Header to content | `margin-bottom: 3.5rem` (**56px**), 2.5rem at ≤767; the outcomes header uses 3em (48px). Header internal gap 1.5rem (2rem on the integrations header). |
-| Card padding | Outcome cards 24px (32/24 at ≤991); choose cards **20px**; compliance band 40px (32 at ≤991); platform panel `60 60 0` → `40 32` → `40 24 16` |
-| Card internal gap | 16–24px |
-| Revenue grid | 40px column gutter; rows 88px apart (40 + 48 card margin) |
-| Implementation rail | 24px between cards (12px under 768); `slidesOffsetAfter: 60` |
-| Spacing base | Clusters on a 4/8px base: 4, 8, 12, 16, 20, 24, 32, 40, 56, 60, 80, 96, 100 (Inferred) |
+### 7.3 Internal spacing (Observed, Clarion)
+Unchanged observations: header-to-content 56px (2.5rem ≤767), card padding patterns, 4/8px spacing base.
 
 ---
 
 ## 8. Component styles
 
-### 8.1 Buttons (Observed; ref: components.md §2; tokens.md §5)
-Base `.button-primary`:
-- **Shape:** `inline-flex; gap: .375rem; padding: .5625rem 1rem` (9×16), 1px transparent border, `border-radius: 2.5rem`, so the height is **42px**.
-- **Text:** Geist 400 16/22.4, `-0.01em`.
-- **Transition:** `all .2s, background-color .3s cubic-bezier(.165,.84,.44,1), color, border-color`. `color` and `border-color` have no duration, so they snap.
-- **Hover:** no lift, no shadow (`transform: none`, `shadow: none` before and after).
+### 8.1 Buttons (Observed, Clarion)
+Unchanged — Clarion's own button system, including its genuine inconsistency (a 40px-pill system plus a separate 12px-radius modal-submit button) and its missing `:focus-visible` style, both flagged as defects not to replicate (§16).
 
-| Variant | Rest | Hover | Hover contrast | Used for |
-|---|---|---|---|---|
-| Solid white (default) | bg `#fff`, text `#361700` | bg `#cbc6bc` | 9.65:1 | Hero, tab panes and final CTA on dark |
-| Solid dark | bg/border `#3c210c`, text white | bg `#684300` | 8.78:1 | Nav CTA, "Speak with our team" |
-| Outline on dark + icon | transparent, 1px white border, white text, 16px icon inverted | bg `#eeece3`, text `#3c210c`, icon flips dark (200ms) | 12.54:1 | Hero secondary |
-| Outline on light | transparent, `#361700` border and text | bg `#3c210c`, text `#f9f9f4` | — | Defined, unused on the homepage |
-| Modal submit `input.button` | `#3c210c`, radius **12px**, 48px tall, Geist 500, `12px 20px` | `#453d30`, `all .35s` | — | **A second, inconsistent button system** |
+StayPookie's real shipped button system is documented in `specs/05` §7 — one radius system (`--radius-btn` 0.75rem for standard, `--radius-pill` for pill variants), soft `--shadow-sm` at rest, a visible focus ring, and (unlike Clarion) exactly one button system used everywhere, including the checkout "Pay" button and the pricing "Choose [Plan]" CTAs.
 
-- At ≤479 every in-content `.button-primary` is `width: 100%` (343px). The nav CTA stays 96px.
-- **No `:focus-visible` style exists for `.button-primary`** (§15).
+### 8.2 Cards (Observed, Clarion)
+Unchanged observations (outcome cards, revenue capability blocks, why-choose cards, implementation cards — all Clarion's own square, no-shadow, no-hover treatment).
 
-### 8.2 Cards
-| Card | Observed spec | Ref |
-|---|---|---|
-| Outcome ("Scale your practice") | `#f6f5ec` fill, padding 24px, gap 16px, **square, no shadow, no hover**. Illustration area `15.625rem` (250px) at `object-fit: contain` (200px at ≤767). Title is a 1-word verb (24px serif); body 1 sentence, 14/21 at opacity .6. Three columns of 455px with an 8px gutter, 2+1 at 768, stacked at 390. | components.md §3.1 |
-| Revenue capability (no card fill) | 120px gradient icon disc, then a 24px serif title of 2–3 words, then a 14px body of 2 sentences. Internal gap 24px. 2×2 grid inside a 7/12 column. | components.md §3.2 |
-| Why choose | `#fbfaf8` + raster wash, **400px tall** (352 at ≤991, auto with `min-height: 18rem` at ≤767), padding 20px, `overflow: hidden`. Copy sits at the top. Four across with a 20px gap at ≥992 (cramped at 1024), 2×2 at 768, stacked at 390. | components.md §3.3 |
-| Implementation | 424px wide (352 / 288), media 450px (368 / 304), cover, square. H3 24px on `#361700`; body 14px at opacity .8 (10.43:1). | components.md §3.5 |
+**What StayPookie actually shipped is the opposite of this pattern**: rounded cards (`--radius-card` 1.125rem) with soft layered shadows and a hover-lift shadow change (`--shadow-card` → `--shadow-card-hover`) — see `specs/05` §6, §9. Don't read this section's Clarion observations as a description of StayPookie's own cards.
 
-### 8.3 Icon discs (Observed)
-`.revenue_icon` is a 7.5rem (**120px**) circle (radius 6rem) with a raster mint-to-cream gradient and a **4rem (64px)** inline-SVG line icon in dark brown, about 1.5px monoline with rounded caps. It shrinks to 80px at ≤991 and 72px at ≤479 (glyph 3rem, then 2.5rem). **Meraki (Provisional):** a CSS gradient disc, `linear-gradient(180deg, canvas-tint → accent-tint)` (cream top, tint bottom; specs/05 §3.4), with inline SVG icons (DECISIONS §3).
+### 8.3 Icon discs (Observed, Clarion)
+Clarion's 120px raster gradient disc, unchanged observation. StayPookie's real shipped equivalent is a CSS gradient between `--color-canvas-tint` and `--color-clay-100` with an inline SVG icon (not the originally-proposed canvas-tint→accent-tint indigo-scheme naming, which never shipped under those exact token names — see `specs/05` §3).
 
-### 8.4 Clipped corner badge (Observed; the signature motif)
-`.choose_card-badge` is a white circle (`border-radius: 62.5rem; padding: 3rem`) positioned `bottom: -2.5rem; right: -2.5rem` inside an `overflow: hidden` card, so the card corner clips it into a partial circle. It holds a 96px line icon. At ≤991: padding 2.25rem, offsets −1.4rem / −1.1rem, icon 72px. It is the **only overlap motif on the page**. Meraki reuses it on the Why Meraki cards (DECISIONS §5 #9).
+### 8.4 Clipped corner badge (Observed, Clarion)
+Unchanged Clarion observation (the white clipped-circle badge motif). Confirm against the real shipped "Why StayPookie" cards whether this motif was actually carried over, or whether it was dropped along with the square-card system it depended on — not verified in this pass.
 
-### 8.5 Compliance band (Observed)
-Sits inside the integrations section, below the logo rows, not as its own section. `#072d35`, padding 40px, `margin-top: 5rem`, `col-lg-10` (about 1146px), square. A 32px serif title with a 2-line body on the left; three 96px certification badges (gap 1.5rem) on the right. At 768 the badges are `flex: none`, which squeezes the copy to 236px (defect). It becomes a column at ≤767 and is centred at ≤479. **Meraki: not used** (no certifications; DECISIONS §5 #7).
+### 8.5 Compliance band (Observed, Clarion)
+Unchanged. StayPookie has no certification badges to show (`specs/06` §3.2 — security certifications are unconfirmed, don't claim them), so this section is correctly unused either way.
 
-### 8.6 Logo cells (Observed)
-`.logo-cell` is `11.4286rem × 5rem` (**182.9×80px**, verified-corrected), with a 1px `#e7e4da` border, a `#fbfaf8` fill and `margin-right: -1px` so neighbouring borders collapse into a single hairline. Logos are capped at `max-height: 2rem; max-width: 65%`, with 5rem edge fades. **Meraki adapts the bordered-cell geometry, without logos,** for the "How it works" chip flow (DECISIONS §5 #7).
+### 8.6 Logo cells (Observed, Clarion)
+Unchanged Clarion observation. The "How it works" chip-flow adaptation (bordered cells without logos) is still the right idea in principle; confirm it against what `homepage §how-it-works` actually renders today.
 
-### 8.7 Stat rail (Observed)
-A vertical list with gap 1rem and `margin-top: 3.5rem`. Each item has a `2px solid #3617001a` left rule and 16px padding-left. Value: serif 32/1.1; label: 16/24 at opacity .6. It becomes a row at ≤991 and 2×2 at ≤767, where labels hyphen-break ("no-/shows"). **Meraki:** the left-rule *list* motif is reused for the Problem and Attention sections, carrying **labels, not numbers** (DECISIONS §5 #2, #5).
+### 8.7 Stat rail (Observed, Clarion)
+Unchanged Clarion observation. The "left-rule list, labels not numbers" adaptation for the Problem section is still correct in spirit — StayPookie genuinely has no outcome statistics to show, same as before, just for a live product instead of a pre-launch one.
 
-### 8.8 Modal form (Observed; ref: components.md §9)
-| Part | Value |
-|---|---|
-| Card | `.modal-container`: `max-width: 560px; padding: 40px; border-radius: 16px; background: #fdfcfb; gap: 52px`. Radius 0 and full height at ≤479. |
-| Backdrop | `#131313` at opacity .5 |
-| Fields | 48px tall (`3rem`), 1px `#eeece3` border, radius 8px (`.5rem`), padding `.875rem 1rem`, `#fdfcfb`. Hover and focus change the border to `#5d4b0029`. |
-| Labels | 12px `div`s (not `<label>`), with a red `*` |
-| Validation | Blocks free-mail domains ("Please use a business email address.", `#e3342f` 13px); phone forced to `+1` |
-| Motion | Fade `.4s ease`; card slides up from `translate3d(0,100vh,0)` over `.5s cubic-bezier(.32,.72,0,1)` |
-| Success | A looping Lottie: "Clarion is calling you" |
+### 8.8 Modal form (Observed, Clarion)
+Unchanged Clarion observation (the hidden duplicated modal, business-email blocklist, forced `+1`, Lottie success state — none of this is reused).
 
-**Meraki (DECISIONS §5 #10):** reuse the **card styling inline** in the `early-access` section (560px, 40px padding, 16px radius; inputs 12px radius, Provisional). Not a modal, no domain blocking, no Lottie. Behaviour is defined in DECISIONS §6.
+**This section's original "Meraki reuses the card styling inline in the early-access section" note describes the legacy lead-capture form, which is likely dead code today** (`specs/06` §4) — superseded by the real `/checkout` buyer-details form. If the early-access form is removed per that spec's open question, this subsection becomes purely historical.
 
-### 8.9 Radius and shadow summary (Observed)
-Square (0) on every card, band, image and section. Rounded only on interactive or chrome elements: nav pill 136px, nav hover pill 50px, buttons 40px, dropdown 8px, mobile sheet 16px, hamburger 5rem, modal 16px, modal submit 12px, form fields 8px, icon discs and badges as full circles. **No shadows** render on the homepage; separation comes from colour blocks.
+### 8.9 Radius and shadow summary (Observed, Clarion)
+Unchanged — this accurately describes Clarion's own square-everything, no-shadow system. **It does not describe StayPookie**, whose shipped system is rounded cards with soft layered shadows (`specs/05` §6). Read this subsection as "what Clarion does," not "what StayPookie does" — the earlier version of this document blurred that line by calling StayPookie's (never-shipped) plan "flat and calm" too.
 
 ---
 
 ## 9. Product showcase patterns
 
-### 9.1 Vertical text tabs (Observed; ref: components.md §4.1; structure.md §3)
-- **Geometry:** inset `1fr 1fr` grid, `min-height: 45rem` (754px rendered). Photo on the left (`object-fit: cover`); dark panel on the right (`#361700`, padding `60 60 0`, `justify-content: space-between`).
-- **Panel content:** a white 48px H2 with **no subhead**, then 3 stacked serif tab labels at 32px (inactive `opacity: .4`, active 1; .3s easeOutQuart), then a 1px `#ffffff1a` divider (`padding-bottom: 2.5rem`), then the pane: one sentence (16/24, `max-width: 28.5rem`) and a white "Schedule a demo" pill **repeated in every pane**.
-- **Pane switch:** every pane is stacked in one grid cell (`grid-area: 1/1`), with `visibility` and `opacity` crossfading over 300ms, so **the height never jumps**. Webflow `data-duration-in="300" data-duration-out="100"`. Reduced motion sets `transition: none`.
-- **Media does not change per tab:** there is only one `img.platform_img` in the markup. No autoplay.
-- **Responsive:** at ≤991 it stays 2 columns but goes full-bleed with a `40 32` panel padding and 26px tabs. At ≤767 it stacks: media first (`height: 25rem`, 3:2), then the panel (`40 24 16`), with 24px tabs and a full-width CTA.
-- **Defect:** about 157px of dead space between the H2 and the tabs at 1024, caused by `space-between` plus `min-height`.
-- **Not determinable:** runtime ARIA roles (the static HTML has none) and hover styling (no hover CSS exists).
+### 9.1 Vertical text tabs (Observed, Clarion)
+Unchanged — inset 1fr/1fr split, dark panel, stacked-grid crossfade so height never jumps, single static image across all tab panes (a real Clarion limitation).
 
-### 9.2 Illustrations (Observed; ref: components.md §3.1; structure.md §2)
-The outcome cards use **light product-UI illustrations, not photos**: floating white chips with dotted connectors, mint accents and small avatar photos. Examples: a phone → app → check flow with an appointment chip; referral documents feeding into an EHR notes chip; a calendar grid with a cancelled slot and a "+$" disc. They are raster AVIFs, the chip rounding (about 8–12px) is baked into the images, and each image has a descriptive `alt`. The implementation rail mixes real photos, photos with frosted-glass UI overlays (a "Receive → Verify → Schedule → Follow-up" chip flow), and abstract chip illustrations on pale gradients.
+### 9.2 Illustrations (Observed, Clarion)
+Unchanged Clarion observation (raster AVIF product-UI illustrations).
 
-**Meraki (DECISIONS §4, §5):** all product visuals are **HTML/SVG previews built in code** (DashboardPreview, OccupancyGrid, RentLedger, TenantList, OpsList inside a PreviewFrame), each captioned "Illustrative preview · sample data", using obviously fictional Indian names and ₹ amounts.
+StayPookie's real shipped previews are HTML/SVG, built in code, each still captioned "Illustrative preview · sample data" with obviously fictional Indian names and ₹ amounts — this principle is unchanged and still correctly implemented, with one known exception: the hero currently shows the **literal visible text** "Product Screenshot Placeholder" instead of a real illustrative preview, which is a bug, not a design choice (`specs/06` §4 Q3).
 
-### 9.3 Horizontal rail (Observed; ref: components.md §5.3; responsive.md §1.7)
-| Width | Mechanism | Card | Gap | Visible |
-|---|---|---|---|---|
-| ≥992 (no reduced motion) | **Scroll-jacked.** `.carousel-pin { position: sticky; top: 0; height: 100vh }`; JavaScript sets the section height to `innerHeight + overflow` (1749 at 1440, 2000 at 1024), and vertical scroll drives `swiper.translateTo()`. Drag is disabled. | 424px, media 450 | 24 | about 3.2 cards |
-| 768 | Swiper free-mode drag, no pin | 352, media 368 | 24 | 2, the second cut off at the edge |
-| 390 | Same | 288, media 304 | 12 | 1 + a 67px peek |
-
-- Headlines are full first-person sentences: "We set it all up for you." / "We stay with you."
-- A `focusin` handler scrolls a focused off-screen card into view.
-- **There are no dots, arrows or counter at any width.**
-- Under reduced motion the pin is disabled.
-- Dependencies: Swiper `@11` (floating major version), plus GSAP and ScrollTrigger loaded **twice** and unused here.
+### 9.3 Horizontal rail (Observed, Clarion)
+Unchanged — Clarion's scroll-jacked implementation rail (sticky-pin + Swiper, no dots/arrows/counter, GSAP/ScrollTrigger loaded twice and mostly unused).
 
 ---
 
 ## 10. Feature storytelling and narrative arc
 
-### 10.1 Arc (Inferred labels from observed order; ref: structure.md §4)
-| Step | Clarion block | Persuasion job |
-|---|---|---|
-| 1 | Hero | Promise + social proof (category claim, human photo, customer logos) |
-| 2 | Outcomes | What you get: a 3-step funnel (Capture → Convert → Recover) |
-| 3 | Platform tabs | How: one platform, three modules, plus the first mid-page CTA |
-| 4 | Revenue | Proof in numbers: ROI stats next to the four jobs automated |
-| 5 | Integrations + compliance | Technical objection: it works with your stack and it is safe |
-| 6 | Implementation rail | Commercial objection: pricing model, setup, breadth, founder, support |
-| 7 | Why choose | Differentiation + trust, plus a soft CTA |
-| 8 | Final CTA | Close: echoes the hero visually, with a single action |
-| 9 | Footer | Minimal exits |
+### 10.1 Arc (Clarion, Observed/Inferred)
+Unchanged: promise → outcomes → mechanism → proof (ROI stats) → objections (technical, then commercial) → why us → ask.
 
-Pattern: **promise → outcomes → mechanism → proof → objections (technical, then commercial) → why us → ask.**
+### 10.2 Copy patterns (Observed, Clarion)
+Unchanged.
 
-### 10.2 Copy patterns (Observed; ref: structure.md §3)
-- **H2s** are 3–6 words over 1–2 lines; the final CTA is the longest at 8 words over 3 lines. Only the H1 and the rail H3s end with full stops.
-- **Subheads:** 5 of 7 section H2s have one supporting sentence (16/24). The platform and final-CTA H2s have none, and the integrations subhead runs 3 sentences.
-- **Card titles** are 1–3 words. Bodies are 1–2 sentences, often in the "X, not Y" pattern ("in hours, not weeks").
-- **Absent:** testimonials, case studies, a pricing table, an FAQ, team photos, a newsletter, an inline form.
-
-### 10.3 Meraki adaptation (DECISIONS §5)
-Meraki keeps the arc but makes four changes. It replaces "proof in numbers" with an **illustrative operational view with no stats** (#5 attention). It replaces the integrations objection with the **owner's monthly workflow** (#7 how-it-works). It turns the commercial objection into **honest early-access steps** (#8 getting-started). And it **adds** Problem (#2), detailed Features (#6), an inline Form (#10) and an FAQ (#11), none of which Clarion has. Copy rules: H2s of 3–8 words, one supporting sentence, the "X, not Y" pattern sparingly, and future/intent phrasing for the product ("is being built to", "designed to").
+### 10.3 StayPookie's adaptation (current)
+StayPookie keeps the overall arc but makes the same structural swaps this document originally proposed, now for a live, purchasable product rather than a pre-launch one: "proof in numbers" is still replaced by an illustrative operational view with no fabricated stats (StayPookie genuinely has none to show); the integrations objection is replaced by the owner's monthly workflow (how-it-works); and Clarion's "commercial objection" step (Clarion's implementation rail: pricing model, setup, support) is now answered for real, by an actual **Pricing** page and **Checkout** flow — not by early-access steps, since there's no longer anything "early" about it. Problem, detailed Features and an FAQ are still additions Clarion doesn't have.
 
 ---
 
 ## 11. CTA placement
 
-Observed button positions at 1440 (`buttons` boxes in the dump ÷ docHeight 8,239). Note that the docHeight includes the 849px of pin height added by JavaScript.
+### 11.1 Observed (Clarion), unchanged
+Two destinations only (Calendly, or the call-me modal), three labels, positioned at roughly 0%/8%/27%/84%/89%/97% down the page, with no in-content CTA across the 27%–84% stretch.
 
-| CTA | Label → destination | y | Depth |
-|---|---|---|---|
-| Nav (fixed, always visible) | "Try it out" → modal | 15 (viewport) | 0% / persistent |
-| Hero primary + secondary | "Schedule a demo" → Calendly; "Try it out" → modal | 685 | **8%** |
-| Platform tab pane (×3 in the DOM, one visible) | "Schedule a demo" → Calendly | 2248 | **27%** |
-| Why choose | "Speak with our team" → Calendly | 6924 | **84%** |
-| Final CTA | "Schedule a demo" → Calendly | 7357 | **89%** |
-| Footer "Contact" link | → modal | about 7966 | about 97% |
+### 11.2 StayPookie's real CTA map (current — supersedes the original "one destination" plan)
 
-- There are only **two destinations** (Calendly or the call-me modal) and three labels. "Schedule a demo" appears ×5 in the DOM, "Try it out" ×2 and "Speak with our team" ×1.
-- The **27% → 84% stretch has no in-content CTA** (the nav pill stays available). The middle of the page is uninterrupted argument.
+The original version of this document specified "one destination for every CTA: `#early-access`." **That's superseded.** The real, shipped site has a proper funnel with several real destinations:
 
-**Meraki (DECISIONS §5; Provisional where noted):**
-- One destination for every CTA: `#early-access`, with the label "Get early access".
-- Placements: nav CTA (persistent); hero "Get early access" plus the ghost "See how it works" → `#how-it-works`; Why Meraki (#9) CTA; the inline form itself (#10); final CTA (#12); footer "Early access" / "Contact" links.
-- Platform tabs carry **one shared** "Get early access" CTA below the tab panels, not one per pane (decided in specs/01 §7 row 4; DECISIONS cites Clarion's "per-tab description + CTA" only as the source pattern).
+| CTA | Label | Destination |
+|---|---|---|
+| Nav (persistent) | "See Plans" | `/pricing` |
+| Hero primary | "See Plans" | `/pricing` |
+| Hero secondary | "See how it works" | `#how-it-works` (same page) |
+| Pricing-teaser / pricing-page cards | "Choose Starter / Growth / Portfolio" | `/checkout?plan=…` |
+| "Talk to Setup Team" / "Talk to us" | — | `#contact` or `/contact` (currently a known bug — the anchor may not resolve; see `specs/06` §4 Q7) |
+| Final CTA | "See Plans" | `/pricing` |
+| Footer | Legal links | `/terms`, `/privacy`, `/refund-policy` |
+
+Platform/feature tabs, if still present on the homepage in their original per-tab form, should carry one shared CTA below the panels rather than one per pane — that specific piece of the original guidance is unchanged.
 
 ---
 
 ## 12. Footer
 
-Observed (ref: structure.md §9; components.md §10; responsive.md §1.10):
-- **Element:** a `section`, **not `<footer>`** (no `contentinfo` landmark). `#fbfaf8`, padding 80px (56px at ≤767).
-- **Top row:** a large wordmark on the left (`col-lg-4`, 168×40). On the right, **one** right-aligned column: label "Company" (14px at opacity .6, 4.39:1, fails AA), links About us / Careers / Contact (16/24, gap 8px, hover `#7b7468` at 4.43:1, fails AA), and LinkedIn and X icons (20px, gap 16px, hover opacity .6).
-- **Bottom row:** `margin-top: 6rem` (3.5rem at ≤991). "© 2026 Clarion. All rights reserved" on the left (14px); Terms of Use and Privacy Policy on the right (14px, gap 24px).
-- **≤991:** stacked and left-aligned, with the link column gaining a 1px `#3617001a` left rule. At ≤767 the brand column moves last.
-- **Bugs:** the social `aria-label`s are swapped. An animated-underline link style (`.footer-link-v2`, `.735s cubic-bezier(.625,.05,0,1)`) is defined but used 0 times.
-- **Absent:** newsletter, address, multi-column sitemap.
+### 12.1 Observed (Clarion), unchanged
+A `section`, not `<footer>` (no landmark); large wordmark left, one "Company" column right (About us/Careers/Contact, fails AA on hover colour), social icons with swapped `aria-label`s; bottom row with copyright and legal links.
 
-**Meraki (DECISIONS §5 #13):** a real `<footer>` with a text wordmark and three columns: Product (Platform, Features, How it works), Company (Early access, Contact → `#early-access`, FAQ) and Legal (Privacy → `/privacy`, Terms → `/terms`). Contact email and phone appear only if their env values are set. No social icons. The © year is computed.
+### 12.2 StayPookie's real shipped footer (current)
+A real `<footer>` landmark with the text wordmark, **real company name** ("StayPookie Technologies Pvt. Ltd."), and legal links to `/terms`, `/privacy`, `/refund-policy` (plus FAQ). Contact shows an email and phone — the phone is a **known placeholder** (`+91 98765 43210`) pending the real number (`specs/06` §4 Q5). The copyright line has a **known typo** (a stray double period, `specs/06` §4 Q6). No social icons (none exist to show, same reasoning as the original plan).
 
 ---
 
 ## 13. Responsive observations
 
-### 13.1 Breakpoint system (Observed; ref: responsive.md §0)
-Webflow uses desktop-first `max-width` tiers: **≤991** (tablet, nav collapses, container 88%), **≤767** (single-column grids, type step 2) and **≤479** (full-width buttons, type step 3). There are also `min-width` 1280 and 1920 tiers (used here only to change the CTA overlay stops) and a hand-written **≤670** inline query for the CTA photo. **No tier sits between 992 and 1279**, so 1024 renders the full desktop layout.
-
-### 13.2 Per breakpoint (Observed)
-| Area | 1440 | 1024 | 768 | 390 |
-|---|---|---|---|---|
-| Nav | Pill 872px, centred links | Same (pill x76) | Hamburger + CTA; pill w720 | Same; pill w358; logo 80×22 |
-| Hero h / H1 | 855 / 61.7px | 730 / 52px | 680 / 46px | 720 / 40px; 4-line subhead; stacked full-width buttons |
-| Outcome cards | 3-up, 8px gutter | 3-up (274px text) | 2 + 1 full-width | 1-up; image 200px |
-| Platform | Inset 1fr/1fr | Same (157px dead space) | Full-bleed 1fr/1fr, tabs 26px | Stacked: media 400px, then panel; tabs 24px |
-| Revenue | 4/7 split; stats vertical | H2 wraps to **3 lines** (301px column) | Stacked; stats 4-up row (hyphen breaks) | Stats 2×2; cards 1-up; disc 72px |
-| Integrations | About 7.5 logo cells visible | — | About 4 cells; compliance copy squeezed to 236px | About 2 cells; compliance stacked and centred |
-| Rail | Pinned, 1749px tall | Pinned, 2000px tall | Drag, 352px cards | Drag, 288px cards + 67px peek |
-| Why cards | 4-up, 400px tall | 4-up, 191px text, **3 of 4 titles wrap** | 2×2, 352px | 1-up, `min-height` 288px; full-width CTA |
-| Final CTA | 720px; H2 3 lines on the left half | H2 **4 lines** | 576px; 44px H2 | 800px; copy on solid teal, photo below and masked in |
-| Footer | Two columns | Same | Stacked, left rule | Same; 56px padding |
-| Doc height | 8,239 | 8,516 | 7,912 | **10,035** |
-
-### 13.3 Responsive lessons (Inferred)
-- 1024 is squeezed because of the missing 992–1279 tier. Meraki adds `xl` 1200 for 4-up grids (DECISIONS §7 breakpoints: sm 480, md 768, lg 992, xl 1200; the nav switches at lg).
-- 480–767 is under-served, because the mobile treatments start at ≤479 only. Meraki's mobile-first `min-width` queries avoid that cliff.
-- The mobile length is driven by the padding bug (§7.2).
+Unchanged — this entire section (breakpoint system, per-breakpoint table, responsive lessons) describes Clarion's own site and the general lessons StayPookie's engineering already drew from it (fluid mobile-first `min-width` queries, an `xl` 1200 tier, avoiding the 992–1279 squeeze). The actual shipped breakpoint values are in `specs/05` §13 and match what this section originally proposed (`sm` 480 / `md` 768 / `lg` 992 / `xl` 1200).
 
 ---
 
 ## 14. Animations and interactions
 
-### 14.1 Complete motion inventory (Observed; ref: components.md §12; tokens.md §5)
-| Motion | Trigger | Spec | Reduced-motion guard |
-|---|---|---|---|
-| Nav link colour | hover | `color .3s` easeOutQuart; background snaps | No |
-| Dropdown open | hover, 0 delay | Instant; chevron rotates 180° with no transition | No |
-| Hamburger → X | click | transform + opacity `.3s` easeOutQuart, ±9px / ±45° | No |
-| Mobile sheet | click | Instant (`data-duration="0"`) | n/a |
-| Button background | hover | `.3s cubic-bezier(.165,.84,.44,1)`; colour and border snap; icon filter 200ms | No |
-| Platform tab label | click | opacity .4 → 1, `.3s` easeOutQuart | — |
-| Platform pane | click | 300ms opacity crossfade in a stacked grid | **Yes** |
-| Hero logo marquee | always | `100s linear infinite`, −50% over 2 groups, about 32px/s, paused on hover | **Yes** |
-| EHR logo marquee | always | `60s linear`, left to right, 3 groups × 8 cells (seamless), about 24px/s | **Yes** |
-| Phones logo marquee | always | `44s linear`, right to left, 3 groups × 10 cells shifted by 1/4, so **the loop jumps** (Inferred) | **Yes** |
-| Implementation rail | scroll at ≥992 | Sticky pin; horizontal translate tied 1:1 to scroll | **Yes** (pin off) |
-| Modal open/close | click | Fade `.4s ease` + slide-up `.5s cubic-bezier(.32,.72,0,1)`; hidden after 500ms | No |
-| Modal success | submit | Looping Lottie | No |
-| Footer links / social | hover | colour `.3s` / opacity `.35s` | No |
-| Scroll reveal, parallax, video, count-up | — | **None** (`data-w-id` ×2, both on the Lottie; count-up script matches 0 elements) | — |
+### 14.1 Observed (Clarion), unchanged
+The full motion inventory (nav hover, dropdown, hamburger morph, button hover, tab crossfade, three marquees — one with a real loop-jump bug, the pinned rail, the modal fade/slide, the Lottie success state) is unchanged; it describes Clarion's own site.
 
-- **Motion tokens:** one easing curve, `cubic-bezier(.165,.84,.44,1)` (easeOutQuart, 15 uses), with 0.2–0.3s durations. The modal has its own curve.
-- **Reduced motion:** `clarion.css` itself has **0** `prefers-reduced-motion` rules. Every guard is in an inline embed, and they cover only the marquees, the tab fade and the pin.
-- **Dead code** (Observed selectors, Inferred effect): GSAP and ScrollTrigger loaded twice; 3 JavaScript marquee scripts and a Swiper autoplay initialiser targeting absent selectors; Phosphor linked twice and unused. The `SPEED = 60` / `80` scripts noted in structure.md belong to these dead marquees; the live speeds are the CSS values above.
+### 14.2 StayPookie's actual shipped motion (current — supersedes the original "no entrance motion, no scroll-reveal" rule)
 
-**Meraki (DECISIONS §7):** hover colour transitions (300ms on the same easeOutQuart); tab crossfade 300ms in / 100ms out; **no scroll-reveal, no marquee, no pin, no animation library**; a mobile sheet with no dependency on motion; **all motion disabled under `prefers-reduced-motion`** in a single global block.
+The original version of this document said StayPookie would add *no* scroll-reveal, marquee, pin, or entrance animation beyond simple hover transitions. **That's no longer accurate.** The real shipped motion system (`specs/05` §11) includes:
+- a **hero load-stagger** (5 elements fading/rising in with increasing delay on page load — a deliberate entrance animation Clarion doesn't have and the original plan explicitly ruled out);
+- a **checkmark draw-in** animation on the checkout success state;
+- a marquee component is still present in the codebase (pause-on-hover, reduced-motion-safe), though whether it's actually used anywhere on the live site wasn't confirmed in this pass;
+- the tab-panel crossfade technique is kept, just at different durations (200ms in / 120ms out, vs. the originally planned 300/100).
+
+`prefers-reduced-motion: reduce` is still fully respected — that principle is unchanged.
 
 ---
 
 ## 15. Accessibility observations of the reference
 
-Observed unless marked (ref: components.md §11; tokens.md §7, §8; responsive.md §3).
+Unchanged — this entire section is Clarion's own accessibility audit (muted-text contrast failures, missing button focus styles, the broken skip link targeting a non-existent `<main>`, the un-ARIA'd modal, duplicate form IDs, mismatched logo alts, swapped social labels). None of it describes StayPookie.
 
-| Area | Observation | Severity |
-|---|---|---|
-| Contrast: muted text | `#361700` at **opacity .6** blends to about `#83705e`. **4.32:1** on `#f6f5ec` (card bodies, stat labels), **4.39:1** on `#fbfaf8` (footer label), about 4.37:1 on the choose-card wash. **All fail AA** for normal text (14–16px). | High (systemic) |
-| Contrast: footer link hover | `#7b7468` on `#fbfaf8` = **4.43:1**, fails AA | Medium |
-| Contrast: inactive tabs | White at .4 on `#361700` = **3.58:1**. Passes only as large text (32px desktop, 24px mobile). | Low (passes large-text) |
-| Contrast: passes | Body 15.73:1; H2 14.23:1; white on teal 14.63:1; buttons 8.78–16.41:1; nav hover 4.74:1 | — |
-| Focus: buttons | **No `:focus-visible` rule for `.button-primary`**, so it falls back to the browser default | High |
-| Focus: links and tabs | `.nav-link:focus-visible` changes colour only. Webflow resets `outline: 0` on `.w-tab-link`, `.w-dropdown-toggle`, `.w-dropdown-link` and `.w-nav-button` focus, so tab focus may be invisible (Inferred). Only the skip link, the hamburger and the dropdown items have a 2px `#71604e` outline. | High |
-| Skip link | Targets `#main`, but **no `<main>` exists**; its handler calls `querySelector('main')` and would throw (Inferred). | High |
-| Landmarks | No `<main>`, no `<footer>` / `contentinfo`. `role="banner"` and `role="navigation"` are present; `<html lang="en">` is present. | Medium |
-| Heading order | The modal `h3` comes before the `h1` in DOM order (twice). Integration labels are `h3`s inside `<a>` elements with no `href`. | Medium |
-| Modal | A plain `div`: no `role="dialog"`, no `aria-modal`, no focus management. The close control is an `<img alt="">` (not focusable). Esc and backdrop clicks do close it. | High |
-| Form | Labels are `div`s (accessible names come from placeholders, Inferred). The duplicated modal produces duplicate IDs (`firstName`, `email`, `submitBtn`, the form ID). | High |
-| Images | 65 of 120 images have empty or no alt (mostly decorative). Logo alts are **mismatched** (for example, weinfuse → "Epic"; the HITRUST badge → "HIPAA compliant"). Duplicated marquee groups are not `aria-hidden`, so logos are announced 2–3 times. | Medium |
-| Social links | `aria-label`s swapped between LinkedIn and X | Low |
-| Controls | The dropdown toggle and hamburger are `div`s (runtime ARIA could not be confirmed). The hamburger target is **40×43px**. | Medium |
-| Motion | Marquees run for more than 5s with hover-pause only, and no pause control (WCAG 2.2.2, Inferred). Reduced-motion coverage is partial (§14). | Medium |
-| Current page | No visible current-page state in the nav | Low |
+For StayPookie's own, separately-computed contrast findings against its real shipped palette — which found its own (different) set of AA failures — see `specs/05` §3.3.
 
 ---
 
 ## 16. Reference defects not to replicate
 
-| # | Defect | Evidence | Meraki rule |
-|---|---|---|---|
-| 1 | Section-padding variable overridden on `h1,h2,h3` instead of `:root`, so it never scales | responsive.md §0.3 | `--spacing-section` defined globally (§7.2) |
-| 2 | Gutter dips to 20.5px at 1024 (96% vs 88% widths) | responsive.md §0.4 | Fluid `padding-inline` clamp |
-| 3 | No tier between 992 and 1279: 4-up cards with 191px text, 3–4-line H2s at 1024 | responsive.md §3 #3 | `xl` 1200 for 4-up |
-| 4 | Mobile treatments only at ≤479; 480–767 is a hybrid, patched with a custom 670px query | responsive.md §3 #4 | Mobile-first `min-width` queries |
-| 5 | Phones marquee shifts by 1/4 across 3 groups, so the loop jumps | responsive.md §3 #5 | No marquee |
-| 6 | Rail has no position indicator below 992 | responsive.md §3 #6 | Add a visible position cue (**Provisional**: dots or an "n / 4" counter) |
-| 7 | LCP hero image is `loading="lazy"` | responsive.md §3 #7 | Hero has no photo; any above-the-fold image is eager |
-| 8 | Hamburger 40×43px | responsive.md §3 #8 | ≥44×44 targets |
-| 9 | Hyphen breaks in stat labels | responsive.md §3 #9 | No stats; use non-breaking hyphens where a hyphen is needed |
-| 10 | Compliance copy squeezed to 236px at 768 | responsive.md §3 #10 | Stack below lg rather than squeeze |
-| 11 | About 157px of dead space in the tab panel at 1024 | responsive.md §3 #11 | Content-driven height, no `space-between` filler |
-| 12 | Mobile page 10,035px (1.22× desktop) | responsive.md §3 #12 | Fluid padding; keep the mobile page lean |
-| 13 | `body` line-height token = 16px | tokens.md §1.4 | Body 1.5 set at the root |
-| 14 | Heading weight 500 requested, only 400 loaded | tokens.md §1.1 | Load exactly the weights used (`next/font`) |
-| 15 | Modal H3 grows on tablet (28 → 36 → 32px) | responsive.md §2 | No heading grows at a narrower width |
-| 16 | Two button systems (40px pills + a 12px-radius submit) | components.md §2.1 | One pill system, including the form submit |
-| 17 | Muted text via opacity .6, which fails AA | tokens.md §7 | Solid `--color-ink-muted` |
-| 18 | No button focus style; `outline: 0` resets | tokens.md §8 | Visible `:focus-visible` everywhere |
-| 19 | Skip link to a missing `<main>`; no `<footer>` | components.md §11 | Real landmarks |
-| 20 | Div modal, img close, div labels, duplicated DOM / IDs | components.md §9, §11 | Inline form, real `<label for>`, rendered once |
-| 21 | Wrong logo alts; swapped social labels; non-hidden duplicate marquee groups | components.md §6, §11 | No logos; no social icons |
-| 22 | Nav link background snaps (only `color` transitions); dropdown chevron snaps | components.md §1.2–1.3 | Transition `background-color` and `color` together |
-| 23 | Unterminated CSS comment swallows the dropdown overlay rule | components.md §1.3 | No dropdown; lint the CSS |
-| 24 | GSAP/ScrollTrigger ×2, dead marquee/autoplay/count-up scripts, Phosphor ×2 unused, floating `swiper@11` | components.md §0, §5.1 | No animation or carousel libraries; pinned versions only (DECISIONS §3) |
-| 25 | Scroll-jacked rail adds about 849–1,232px of "dead" vertical scroll | components.md §5.3 | Native scroll-snap below lg, static row at lg and up |
-| 26 | White pill has almost no edge on cream sections; mobile sheet edge invisible | components.md §1.1; responsive.md §1.1 | **Provisional:** 1px `--color-line` border on the pill and sheet |
-| 27 | No visible current-page state in the nav | components.md §1.2 | Anchor nav: optional active-section state (implementation decision) |
-| 28 | Business-email blocklist; phone forced to `+1` | components.md §9 | Not applicable (DECISIONS §5 #10, §6) |
+Unchanged — this is the "do not repeat Clarion's mistakes" checklist (28 items: the section-padding bug, gutter dip, missing 992–1279 tier, marquee loop-jump, missing touch targets, broken skip link, two inconsistent button systems, opacity-based muted text, no button focus style, and more). Each "StayPookie rule" column entry is still the right engineering rule; where a specific token name in that column (e.g. `--color-ink-muted`) now points at a different real hex value than originally planned, see `specs/05` for the current value — the *rule* (solid colour, not opacity) is what this table is really recording, and it still holds.
 
 ---
 
-## 17. Elements to adapt for Meraki
+## 17. Elements adapted for StayPookie
 
-Consistent with DECISIONS §5 (section map) and §7 (tokens). All rows are **Provisional** until the owner approves Phase B.
+The section map below is updated for the real, shipped CTAs and brand name. Treat any remaining reference to "Meraki," "early access," or a single `#early-access` destination elsewhere in this table as superseded by §11.2 and `specs/01` §7 — the structural/visual adaptation each row describes is otherwise still accurate.
 
-| # | Meraki section (`id`) | Clarion pattern adapted (Observed values) | How Meraki adapts it |
+| # | Section | Clarion pattern adapted (Observed) | How StayPookie adapts it (current) |
 |---|---|---|---|
-| 0 | Nav (—) | Fixed white pill: `top: 8px`, max 54.5rem (872px), 56px tall, 136px radius; logo left, absolutely centred links, dark pill CTA right; hamburger ≤991 with the CTA kept in the pill; 90vw 16px-radius sheet with scroll lock | Exactly 4 links: Product (`#platform`), Features (`#features`), How it works (`#how-it-works`), Contact (`#early-access`). CTA "Get early access" → `#early-access`. **No dropdown, no auth links.** Mobile sheet with focus trap, Esc closes it, body scroll lock, CTA stays in the pill. Text wordmark. |
-| 1 | Hero (`hero`) | Full-bleed dark band, vertical gradient to the deep accent, centred bottom-anchored H1 `clamp(2.5rem, 1.75rem + 2.34vw, 4rem)`/1.1, 1–2 line subhead (max about 591px), white pill + ghost pill, gap 16px, stacked full-width ≤479 | Dark accent gradient band (no photo), H1 "Run your hostel. Not your paperwork.", CTAs "Get early access" (white) and "See how it works" (ghost → `#how-it-works`). A large DashboardPreview rises out of the hero's bottom edge (half on dark, half on page bg), labelled "Illustrative preview · sample data". No logo marquee. |
-| 2 | Problem (`problem`) | Centred section header (outcomes style) + the 2px left-rule list motif from the stat rail | Text-led: a centred header, then 4 "where information lives today" items (Notebook, Spreadsheet, Chat messages, Memory), each with a 2px left rule and a one-line pain. No stats, no card grid. |
-| 3 | Outcomes (`outcomes`) | 3 tinted square cards, 24px padding, 250px illustration area, serif title, 14px body, 8px gutter; 2+1 at md, stacked at base | Know your occupancy / Track rent with clarity / Keep operations organized. Each card has a distinct HTML/SVG mini-UI (bed grid; rent ledger rows; tenant/property record card). Body text in solid muted ink. |
-| 4 | Platform tabs (`platform`) | Inset 1fr/1fr split; dark panel with large serif tabs (inactive .4 → 1, .3s); 1px divider; per-tab description + CTA; stacked-grid crossfade 300 in / 100 out so height never jumps; stacks media-first ≤767 | 4 tabs: Rooms & occupancy / Tenants & allocations / Rent & payments / Property operations. **The left media swaps per tab** to the matching preview. WAI-ARIA tabs (roving tabindex, arrow keys, `aria-controls`). Mobile: stacked; tabs become a horizontal scroll or a list above the panel. |
-| 5 | Attention (`attention`) | Full-bleed tint band, asymmetric 4/7 split; left H2 + subhead + list with 2px left rules; right content | The left list holds **labels, not numbers**: Vacant beds, Dues outstanding, Move-ins/outs this week, Open issues (only if maintenance is confirmed; otherwise "Notes to follow up"). On the right, a full DashboardPreview with a sample-data label. |
-| 6 | Features (`features`) | No Clarion equivalent; derived from the §9.1 split geometry and the §8.2 card imagery | Up to 3 alternating rows (Occupancy & rooms; Rent & payment records; Tenant & property records). Square edges, preview on a tinted panel, H3 + 2–3 bullets of *intended* capability. No multi-property row. Must not duplicate the tab copy. |
-| 7 | How it works (`how-it-works`) | Centred header (`col-lg-8`, gap 2rem) + bordered-cell row (1px `#e7e4da`, collapsed borders, 80px cells) | Chip flow of the owner's month: New tenant → Allocate bed → Record rent → Follow up dues → Move-out, in `--color-line` cells. **No logos, no compliance band.** An optional "Your data" note only with true statements. |
-| 8 | Getting started (`getting-started`) | Dark full-bleed band; centred header; tall cards with sentence headlines ("We…/You…"); 24px gap (12px under 768) | 4 honest early-access steps (Request early access → We get in touch → Try Meraki early and share feedback → Help shape what we build). Native scroll-snap rail below 992, 4-up row at ≥992. **No pin.** |
-| 9 | Why Meraki (`why`) | Tinted band; 4 cards 400px tall, 20px padding, 20px gap; clipped white circle badge (`padding: 3rem`, offset −2.5rem) at the bottom-right; centred dark CTA (`margin-top: 3.5rem`) | Built for hostels & PGs / Everything in one place / Clear view of occupancy & dues / Shaped with operators. CTA "Get early access". 4-up only from xl (1200); 2×2 at md. No comparisons, no "enterprise-grade". |
-| 10 | Early access (`early-access`) | Modal card: 560px, 40px padding, 16px radius, `#fdfcfb` fill; 48px fields | Placed **inline**. Fields, consent, honeypot and honest states per DECISIONS §5 #10 and §6. Button "Request early access" in the shared pill system; inputs 12px radius. |
-| 11 | FAQ (`faq`) | No equivalent; centred header style + 1px hairline dividers | 8 questions from the brief, with answers bound to the DECISIONS §2 statuses. Accessible accordion (button + `aria-expanded`, or native `<details>`). |
-| 12 | Final CTA (`final-cta`) | Full-bleed band, diagonal 139° gradient (accent 12% → transparent 55%), left-aligned 3-line H2 (`max-width: 50ch`), one white pill; text on solid colour on mobile | "Make hostel management simpler." Gradient + subtle CSS abstract or a cropped preview at the right; CTA → `#early-access`. Mobile: copy on solid accent. |
-| 13 | Footer (—) | Minimal: large wordmark left, link column right, legal row 6rem below; stacks with a left rule ≤991 | 3 columns (Product / Company / Legal), contact only from env, no social icons, © year computed (§12). |
-
-**Cross-cutting adaptations:**
-- Warm cream bases with one deep accent.
-- Light display serif + Geist.
-- Square cards and bands, no shadows, pill controls.
-- Hard section cuts, plus width beats (inset against full-bleed).
-- Header-to-content 56px.
-- One easing curve.
-- Dark punctuation bands (hero, platform panel, getting-started, final CTA).
+| 0 | Nav | Fixed white pill, logo left, centred links, CTA right, hamburger ≤991 with the CTA kept in the pill | 6 links (Home, Pricing, How it Works, FAQ, About, Contact) — more than the original 4, because Pricing and About are now real pages. CTA "See Plans" → `/pricing`. Mobile sheet with focus trap, Esc, body scroll lock. Text wordmark reads "StayPookie." |
+| 1 | Hero | Full-bleed dark band, bottom-anchored H1, white + ghost CTA pair | H1 "Run your hostel. Not your paperwork." CTAs "See Plans" (primary) and "See how it works" (ghost, same-page anchor). A product preview should rise out of the hero — currently shows a literal "Product Screenshot Placeholder" bug instead of a real illustrative preview (fix pending, `specs/06` §4). |
+| 2 | Problem | Centred header + 2px left-rule list motif | Unchanged in spirit: 4 "where information lives today" pain items, no stats. |
+| 3 | Outcomes/features | 3 tinted cards with distinct mini-illustrations | "Know your occupancy / Track rent with clarity / Keep operations organized" or equivalent, now describing **live** capabilities in present tense, not "being built to" phrasing (`specs/01` §10). |
+| 4 | Platform tabs (if still present) | Inset split, dark panel, large serif tabs, stacked-grid crossfade | If this section exists on the current homepage, confirm its CTA is a single shared link rather than one per pane, and that tab copy describes real, live features. |
+| 5 | Attention / roles | Asymmetric split, left-rule label list | "Built for every role" (Owner/Manager/Student) is the real current equivalent — confirm whether this literally replaced the old "attention" section or sits alongside it. |
+| 6 | Features (detail) | Alternating rows, tinted media panel | Real feature detail rows, grouped (Billing/Operations/Communication per `specs/01` §1), present tense throughout. |
+| 7 | How it works | Centred header + bordered-cell flow | The owner's real month with StayPookie: add property → invite staff/residents → billing/requests run automatically → one view across properties. |
+| 8 | Getting started / after you buy | Dark band, tall cards with sentence headlines | Now describes **what happens after checkout**, not "early access" steps — i.e. the 24-hour manual account-setup promise (`specs/06` §4), consistently worded with `/checkout`, `/pricing` and `/terms`. |
+| 9 | Why StayPookie | Tinted band, 4 cards, clipped badge motif | Real differentiators; CTA "See Plans" → `/pricing`. |
+| 10 | Pricing | *(no Clarion equivalent — Clarion has no pricing page; this is the section the original document explicitly said StayPookie would never have, see §18)* | Full 3-tier comparison, real prices, GST disclosure, one "Choose [Plan]" CTA per tier → `/checkout?plan=…`. This is a genuinely new section with no Clarion-derived pattern to credit. |
+| 11 | Checkout | *(no Clarion equivalent — reusing only the modal-form *card styling*, inline rather than as a modal)* | Plan confirm → buyer details → Razorpay → confirmation, with the 24-hour setup promise stated consistently. |
+| 12 | FAQ | No Clarion equivalent; centred header style + hairline dividers | 8 questions, answers matching `specs/01` §9 (now confident/present-tense, not hedged). |
+| 13 | Final CTA | Full-bleed diagonal gradient band, left-aligned H2, one pill | "See Plans" → `/pricing`. |
+| 14 | Footer | Minimal wordmark + link column | Real `<footer>`, real company name, contact (placeholder phone pending replacement), legal links including `/refund-policy`. |
 
 ---
 
 ## 18. Elements not to copy
 
-| Category | Do not copy | Source |
-|---|---|---|
-| Brand | The name "Clarion", the wordmark SVG, the favicon, and the exact palette as an identity (`#361700`/`#3c210c` browns, `#072d35` teal, `#f6f5ec`/`#fbfaf8` creams). Borrow the *relationships* only. | structure.md §6 |
-| Fonts | **Moderat Serif Trial** (a trial licence). **Bpmf Zihi Kai Std** (a CJK family; use a purpose-built Latin serif). | tokens.md §1.1 |
-| Healthcare copy | EHR, referrals, patients, no-shows, refills, payer logic, escalations, "Built by a doctor", every verbatim line ("The front office that runs itself", "revenue engine", "Why leading practices choose…") | structure.md §6 |
-| Statistics | "71% reduction in no-shows", "99% decrease in hold time", "2x referral conversion", "60% calls resolved", "Cut no-shows in half". **Meraki shows no numeric outcome claims.** | structure.md §6 |
-| Logos and badges | 19 customer logos, about 18 integration logos, and the HITRUST/HIPAA/SOC 2 badges. No third-party logos at all, and no substitute Indian compliance claims (DPDP, ISO and so on) presented as certifications. | structure.md §6; components.md §3.4 |
-| Imagery | Every photo, every raster illustration, the avatar names inside illustrations, and the `gradient.avif` / `integrations.avif` textures. Gradients are rebuilt in CSS. | structure.md §6 |
-| Commercial claims | "You only pay when a call is handled" / per-resolution pricing | structure.md §6 |
-| Flows | The AI "call me" modal, business-email blocklist, `+1` phone forcing, Lottie success state, Calendly destinations | components.md §9 |
-| Engineering | Webflow markup, Swiper/GSAP/Lottie, the scroll-jack script, duplicated libraries, dead scripts | components.md §0, §5 |
+Unchanged from the original — none of this needs correction; it's a "never copy Clarion's own brand/IP" list:
 
-**Analysis suggestions superseded by DECISIONS.** The analyses floated ideas that Meraki must **not** adopt, because they claim capabilities, data or channels that are Planned, Unknown or Not planned (DECISIONS §2):
-- "Book a demo" / "Talk to us on WhatsApp" CTAs, and a WhatsApp contact line;
-- a Pricing link, "Pay per occupied bed", "₹0 setup fee", "Refund policy";
-- "Paid via UPI ✓" chips and UPI/Razorpay/Cashfree/Tally/WhatsApp integration rows;
-- KYC/agreements and complaints/notices as core modules or tabs;
-- "Hindi and English", "Live in a day", "We import your Excel register";
-- a stat rail with numbers or count-ups, and testimonials;
-- a "For: Boys' PG / Girls' PG…" dropdown;
-- a `+91`-only phone field with Gmail blocking;
-- the `@phosphor-icons/web` stylesheet (Meraki uses inline SVG only);
-- an IntersectionObserver entrance fade (DECISIONS §7 says no scroll-reveal);
-- a full-bleed photo hero (only if licensed photography is supplied; see §21).
+| Category | Do not copy |
+|---|---|
+| Brand | The name "Clarion," its wordmark, favicon, and exact palette as an identity. |
+| Fonts | Moderat Serif Trial (trial licence); Bpmf Zihi Kai Std (CJK family). |
+| Healthcare copy | EHR/patient/referral vocabulary, every verbatim marketing line. |
+| Statistics | Clarion's specific ROI numbers. StayPookie still shows no fabricated numeric outcome claims — that rule is unchanged (`specs/01` §10). |
+| Logos and badges | Clarion's customer logos, integration logos, compliance badges. |
+| Imagery | Clarion's photos, illustrations, raster textures. |
+| Commercial claims | Clarion's own pricing model language ("pay when a call is handled"). |
+| Flows | Clarion's AI call-me modal, email blocklist, `+1`-forcing, Lottie success state, Calendly destinations. |
+| Engineering | Webflow markup, Swiper/GSAP/Lottie, the scroll-jack script, dead/duplicated scripts. |
+
+### 18.1 Superseded rejection — read this before trusting the list below
+
+The original version of this document also listed ideas the Phase A analysis floated and the (then-current, pre-launch) decisions explicitly rejected as *out of scope for Meraki*, verbatim:
+
+> "a Pricing link, 'Pay per occupied bed', '₹0 setup fee', 'Refund policy'... 'Paid via UPI ✓' chips and UPI/Razorpay/Cashfree/Tally/WhatsApp integration rows..."
+
+**This rejection is superseded and must not be followed today.** A pricing page, a refund policy, and "online payment via Razorpay" are now all real, live, required parts of this site (`specs/01` §7.2, `specs/06` §3.1/§4) — the rejection made sense only under the premise that no product or pricing existed yet, which was never actually true. Treat a Pricing link and Razorpay-related copy as **required**, not forbidden. The rest of that original list — a WhatsApp contact line, a "For: Boys' PG/Girls' PG" dropdown, Tally/bank integrations, a `+91`-only phone field with Gmail blocking, an IntersectionObserver entrance fade — is **still correctly rejected**, for reasons unrelated to the pricing mistake (no such integrations exist; the field-validation ideas were simply bad; and StayPookie's real shipped motion does now include an entrance effect, just not that specific Clarion-derived technique — see §14.2).
 
 ---
 
 ## 19. Deliberate deviations
 
-All **Provisional** (DECISIONS §5, §7).
-
-| # | Deviation | Reference behaviour (Observed) | Meraki decision | Reason |
-|---|---|---|---|---|
-| 1 | **UI-led hero instead of a photo** | Full-bleed photo of a person + vertical teal gradient | Accent gradient band + a DashboardPreview rising out of the hero bottom (labelled "Illustrative preview · sample data"). This deliberately breaks the reference's "no overlap" rule once. | No licensed photography exists, and the product UI is the clearest promise. The photo-led variant stays available if the owner supplies licensed photos. |
-| 2 | **No logo marquee** | 19 customer logos scrolling over the hero bottom at opacity .6 | None, and no "trusted by" area | No customers exist; inventing social proof is forbidden. It also removes ambient motion. |
-| 3 | **No scroll-pinned rail** | Sticky pin + JavaScript translate (1749–2000px section height), Swiper + GSAP | Native `scroll-snap` rail below 992; static 4-up row at ≥992; a visible position cue below 992 | Accessibility (no scroll hijack, keyboard-friendly), performance (no libraries) and only 4 cards |
-| 4 | **Per-tab media swap** | One static photo for all 3 tabs | The left media swaps to the matching preview per tab, crossfaded 300ms in the same stacked-grid technique | A real state change makes the tabs informative; the reference's static image wastes half the block |
-| 5 | **Solid muted colour for AA** | Muted text = ink at opacity .6 → 4.32–4.39:1 (fails AA) | Solid `--color-ink-muted` `#5E574D` (quick check 6.77:1 / 6.31:1 on the two canvases; recorded formally in 05) | WCAG 2.x AA 4.5:1 for normal text |
-| 6 | **44px touch targets** | Buttons 42px; hamburger 40×43 | Buttons 42px visual with a **44px** minimum on touch; hamburger ≥44×44 | Touch ergonomics guidance (44px) |
-| 7 | **Visible focus** | No button focus style; `outline: 0` resets on tabs and dropdown; links change colour only | `:focus-visible` 2px outline, offset 2px, on every interactive element, with the colour verified against both light and dark surfaces | Keyboard accessibility (WCAG 2.4.7) |
-| 8 | **Preview frames 12px radius** | Everything non-interactive is square; UI-chip rounding only inside raster images | Product preview frames use a 12px radius and a 1px line border (no shadow); cards and bands stay square | Product UI needs some rounding to read as UI, kept subtle and limited to previews |
-| 9 | Inline form, not a modal | A hidden, duplicated div modal | Inline `early-access` section reusing the modal card styling | An honest, discoverable, accessible conversion point |
-| 10 | Problem, Features, FAQ added; proof-in-numbers removed | Arc without Problem/FAQ; ROI stats | DECISIONS §5 section map | Early-stage honesty; owner audience questions |
-| 11 | Fluid spacing scale, mobile-first tiers, `xl` 1200 | Padding bug, gutter dip, no 992–1279 tier | `--spacing-section` and `--spacing-gutter` clamps defined globally; sm/md/lg/xl tiers | Fixes reference defects 1–4 |
-| 12 | One serif family | Two near-identical serifs (one a trial build) | Newsreader 300/400 | Licensing; one fewer font download |
-| 13 | No nav dropdown | Hover-only dropdown with 8 sub-pages | 4 anchor links | No sub-pages exist |
-| 14 | Single CTA destination | Calendly + modal, 3 labels | Everything → `#early-access`, "Get early access" | No demo booking exists; simpler funnel |
+| # | Deviation | Reference behaviour (Observed) | Current StayPookie reality |
+|---|---|---|---|
+| 1 | UI-led hero instead of a photo | Full-bleed photo hero | Still the approach taken — a product-preview visual rather than a stock photo. Currently shipped with a bug (literal "Product Screenshot Placeholder" text instead of a real preview; `specs/06` §4). |
+| 2 | No logo marquee | 19 customer logos scrolling | Still correct — no real customers/logos exist to show, regardless of how real the product itself is. |
+| 3 | No scroll-pinned rail | Sticky pin + JS translate | Still correct — native scroll-snap, no scroll-hijacking. |
+| 4 | Per-tab media swap (if tabs are still used) | One static image for all tabs | Still the right idea if a tabbed section exists on the current homepage — confirm it's implemented that way. |
+| 5 | Solid muted colour instead of opacity | Opacity .6 fails AA | Done (`--color-dust`), but recomputing it against the real palette found it *still* fails AA on two of three real backgrounds (`specs/05` §3.3) — the mechanism was fixed, the result needs another look. |
+| 6 | 44px touch targets | 42px buttons, 40×43 hamburger | Still the target; not independently re-verified in this pass. |
+| 7 | Visible focus | No button focus style in Clarion | Shipped: 2px outline, `--focus-ring` (clay-600 on light, cream on dark). |
+| 8 | Rounded preview frames | Square raster chips in Clarion | Superseded by a bigger shift: StayPookie's whole card system is rounded with soft shadows (`specs/05` §6), not just previews. |
+| 9 | Inline form, not a modal | A hidden, duplicated Clarion modal | The *principle* (inline, accessible, no modal) carried into the checkout flow; the original early-access form this specifically referred to is likely legacy/dead now (`specs/06` §4). |
+| 10 | Problem, Features, FAQ added; proof-in-numbers removed | Clarion has ROI stats, no Problem/FAQ | Still correct — StayPookie shows no fabricated stats, still has Problem/Features/FAQ sections. |
+| 11 | Fluid spacing scale, mobile-first tiers | Clarion's section-padding bug, gutter dip, missing 992–1279 tier | Shipped with StayPookie's own real values (`specs/05` §5, §13), not the exact clamp values originally proposed, but the same fix pattern. |
+| 12 | One serif family | Clarion's two near-identical trial/CJK serifs | Shipped as **Fraunces**, not the originally-planned Newsreader (`specs/05` §4). |
+| 13 | No nav dropdown | Clarion's hover-only dropdown | Still correct — StayPookie has no sub-pages needing a dropdown. |
+| 14 | **Single CTA destination** | Calendly + modal, 3 labels | **Superseded.** StayPookie now has a real funnel with several destinations — Pricing, Checkout, Contact (§11.2) — not one disabled early-access form. |
 
 ---
 
 ## 20. Inspection limitations and unresolved observations
 
-### 20.1 Capture-wide
-- **Stills only.** Motion feel, loop seams, pinned-scroll feel and touch momentum were not observed over time.
-- **No tab clicks were captured.** The per-tab pane content is known from the markup only.
-- **Widths not captured:** 480–767, 1025–1279 and ≥1920. Behaviour there is inferred from the CSS.
-- `docHeight` at 1440 and 1024 includes the JavaScript-set pin height; a no-JS layout was not captured.
-- The dumps do not record element attributes, so the **runtime ARIA** that Webflow adds (tabs, dropdown, hamburger) is unknown.
-
-### 20.2 From structure.md (§7 and the verification log)
-- Whether the platform photo changes per tab via script. Very likely not, since there is a single `img`, but it was not clicked.
-- The rest positions of the rail (the captures show mid-scroll states).
-- Whether Bpmf weight 500 is synthesised or renders the 400 face.
-- Hover states of the logo cells, tabs and cards (not captured).
-- Nav on scroll: no visible change in any capture, but there is no trace of a scrolled-state class.
-- Bpmf's OFL licence is inferred, not checked.
-- *Resolved by other analyses:* the hero marquee edge mask is **not applied**, because it targets an absent class (tokens.md §2.2, verified-corrected). The structure.md `SPEED = 60 / 80` values belong to dead JavaScript marquees; the live speeds are the CSS `60s` / `44s` (components.md §6).
-
-### 20.3 From tokens.md (§8 and the verification log)
-- The Latin glyph provenance of Bpmf Zihi Kai Std. The visual match to Moderat is a judgement from screenshots.
-- Exact gradient stops of the icon discs and washes: these are raster images, so only pixel samples exist.
-- Image corner radii are not in the dump; "square" comes from the screenshots and from the CSS having no radius on those classes.
-- Hover and focus states other than the dark button and nav link come from the CSS only.
-- Which overlay wins at 390 between the ≤479 CSS (`…64%`) and the inline ≤670 rule (`…100%`). Cascade order suggests the inline rule; not confirmed.
-- The rendered height of the mobile sheet: `calc(100svh - 4rem)` is declared, but the screenshot shows it ending around y 720 of 844.
-- The choose-card effective background varies across the raster wash, so its contrast (about 4.37:1) is approximate.
-
-### 20.4 From components.md (§14 and the verification log)
-- Whether the outcome-card AVIFs are animated.
-- The exact keyboard tab order, and whether the dropdown opens on keyboard focus.
-- Platform tab hover: there is no hover CSS, so presumably none.
-- Swiper's resolved minor version (`swiper@11` floats).
-- Marquee speeds are computed from dump boxes, not measured over time.
-- Lottie and modal smoothness; the double-bound handlers and the skip-link TypeError are inferred from source, not executed.
-- The nav-link background snap is inferred from `transition-property: color`.
-
-### 20.5 From responsive.md (§4 and the verification log)
-- Which srcset candidate was fetched, so whether the soft mobile hero comes from srcset choice or lazy loading.
-- Mobile menu behaviour with "By specialty" expanded, and its bottom edge.
-- Landscape phone layouts; safe-area and notch handling.
-- Whether the nav CTA keeps 96px at ≤479 because of its variant class or a shrink-to-fit parent.
-- The phones-marquee loop jump: the maths is confirmed, but the jump was not observed in motion.
+Unchanged — this entire section describes what the Clarion capture itself couldn't show (motion over time, uncaptured viewport ranges, unclicked tab panes, unconfirmed ARIA roles, unconfirmed font-weight synthesis, etc.). None of it concerns StayPookie's own product.
 
 ---
 
 ## 21. Open questions raised by this analysis
 
-These come from DECISIONS §8 (the items relevant to UI/UX) plus concerns found while synthesising the reference. None of them blocks Phase B's build.
+Updated: several of the original items are now resolved by real decisions; closed ones are marked so the list doesn't keep asking settled questions.
 
-1. **Imagery** (DECISIONS §8.3). No photos or logo exist. Default is the UI-led hero (deviation 1). A Clarion-style photo hero and final-CTA photo need licensed photography of an Indian hostel/PG context. Until a logo is supplied, the wordmark is text.
-2. **Brand colour and name** (DECISIONS §8.4). The deep indigo + warm creams and the name "Meraki" are provisional.
-3. **Onboarding reality** (DECISIONS §8.2). The Getting-started rail copy depends on the actual early-access process.
-4. **Product scope** (DECISIONS §8.6). Maintenance/complaints and multi-property are Unknown. They affect the Attention list label ("Open issues" vs "Notes to follow up") and whether a fourth Feature row could ever appear.
-5. **Hindi/regional language** (DECISIONS §8.8). This affects font subsets: Newsreader and Geist have no Devanagari, so a Noto Devanagari pairing would be needed.
-6. **Concern: inactive tab-label opacity on the Meraki accent.** Reusing the reference's `.4` opacity gives about **3.45:1** on `#172A46` and **3.19:1** on `#1F375C` (quick check), which passes only as large text (≥24px regular). The tab clamp floor is exactly 24px, so the margin is thin. **Recommendation (Provisional):** inactive labels at ≥.6 opacity (5.88:1 / 5.15:1) or a solid muted-on-dark colour. **Adopted:** .6 (specs/05 §3.3, §20).
-7. **Concern: nav pill edge on cream sections.** The reference pill has no border or shadow and nearly disappears over light bands. DECISIONS §7 forbids marketing shadows but allows 1px line borders on previews. **Recommendation (Provisional):** a 1px `--color-line` border on the pill and the mobile sheet. Owner/design approval needed.
-8. **Concern: platform-pane CTA.** DECISIONS §5 #4 cites Clarion's "per-tab description + CTA" as the source pattern but does not state whether Meraki's panes carry a CTA. **Recommendation:** at most one shared "Get early access" link below the panes, not one per pane (§11). **Adopted** in specs/01 §7 row 4 and specs/03 §6.2.
-9. **Concern: rail position cue.** DECISIONS §5 #8 specifies the scroll-snap rail but no indicator. The reference's lack of one is a defect (16 #6). **Recommendation (Provisional):** dots or an "n / 4" counter below 992.
-10. **Muted-on-dark** `rgba(250,249,246,.78)` (DECISIONS §7) calculates to about 8.86:1 on `#172A46` and 7.55:1 on `#1F375C` (quick check). It still needs formal recording in 05 alongside every other text/background pair.
+1. ~~Imagery and brand colour/name~~ — **Resolved.** Brand name is "StayPookie," final. The real shipped palette is in `specs/05`, not a provisional indigo scheme. Imagery is still mostly illustrative/placeholder-pending (the hero bug in §9.2/§19 row 1) rather than licensed photography — that part is still genuinely open.
+2. ~~Onboarding reality~~ — **Resolved in principle, inconsistent in execution.** The real process is: buy on `/checkout`, get manually set up within 24 hours. The remaining open item is purely a copy-consistency bug (some pages still say "2 hours"/"day one") — tracked in `specs/06` §4 Q2, not a UX design question anymore.
+3. ~~Product scope (maintenance/complaints, multi-property)~~ — **Resolved.** Both are real, live features (`specs/06` §3.1) — no longer "Unknown," and should be shown as a selling point, not hedged.
+4. **Still open: Hindi/regional-language support.** Unconfirmed for both the real product and this site (`specs/06` §3.2) — this site ships English-only for now.
+5. **Still open, and worth re-checking against the live site rather than assuming either way:** whether the inactive-tab-opacity concern this document originally raised (Clarion's own .4 opacity failing large-text contrast on a dark panel) was ever relevant to StayPookie's shipped tabs component, given the tab section's exact current implementation wasn't independently re-verified in this documentation pass.
+6. **Still open:** whether the nav pill has a visible border on cream sections in the real shipped CSS (the original concern was that Clarion's borderless pill nearly disappears over light bands) — not independently re-verified here.
+7. **Resolved by the real route map, not by a shared anchor CTA:** the original "platform-pane CTA" and "single CTA destination" concerns are superseded by §11.2's real funnel.
+8. **Still open:** whether the getting-started/after-you-buy rail has a visible position cue (dots or "n / 4") at narrow widths — not independently re-verified here.
+
+---
+
+## 22. Independent design audit of the shipped homepage (2026-11-11)
+
+**Method.** Unlike §§1–21, this section is not a comparison against Clarion or any third-party site. It is a direct read of StayPookie's own real homepage source — `src/app/page.tsx` and every component in `src/components/sections/` (Hero, Problem, Features, Roles, HowItWorks, PricingTeaser, Faq, FinalCta, plus the inline About section) — evaluated purely on its own visual and structural merits. `specs/05`'s token audit (§3.3 contrast findings) is a separate, already-tracked workstream; this section does not repeat it and focuses on layout, pacing, repetition and content structure instead.
+
+### 22.1 Findings (Observed, direct from source)
+
+| # | Finding | Evidence |
+|---|---|---|
+| 1 | **Every content section uses one identical template**: centred eyebrow pill → centred `h2` → centred lead paragraph → a grid of cards. Problem, Features, Roles, HowItWorks, PricingTeaser and FAQ all follow this with no layout variation — seven sections in a row read as one repeating block rather than a paced page. | `Problem.tsx`, `Features.tsx`, `Roles.tsx`, `HowItWorks.tsx`, `PricingTeaser.tsx`, `Faq.tsx` |
+| 2 | **Real product photography exists and is entirely unused.** `src/assets/photos/` contains `hero-hostel-room.jpg`, `cta-phone-call.jpg`, and four `step-*.jpg` files. No component in `src/components/sections/` references any of them — the whole homepage is built from icon chips and text, with zero real imagery. | `src/assets/photos/*`, confirmed via `grep -rl "assets/photos" src` returning no matches in `sections/` |
+| 3 | **Decorative "status" footer repeated across unrelated sections, carrying no real information.** Problem cards append "Resolved on day 1 with dedicated account setup"; Features cards append "Active in all paid tiers" / "Live feature"; HowItWorks cards append "Step X of 4". Four different sections each add a bottom micro-copy line whose only job is vague reassurance — repeated across roughly 15 cards it reads as filler, not signal. | `Problem.tsx` (bottom quote block), `Features.tsx` (bottom status line), `HowItWorks.tsx` (progress connector line) |
+| 4 | **Status-tag colours (`tag-info`/`tag-success`/`tag-attention`/`tag-error`, i.e. slate-ink/moss/amber/brick) are applied decoratively, not just as real state**, on Problem cards, Feature cards, Role badges and HowItWorks step tags. This dilutes the one place these colours carry genuine meaning: the Paid/Due/Overdue chips in the hero's illustrative ledger preview. | `Problem.tsx` `getTagClass`, `Features.tsx` `getTagClass`, `Roles.tsx` `getRoleBadgeClass`, `HowItWorks.tsx` step `tag` |
+| 5 | **No visual hierarchy between sections.** Every section header (`h2` + lead paragraph) uses the identical scale and centred treatment, so Problem (the core motivation) and Pricing (the money section) look exactly as visually "important" as FAQ — nothing signals which section the page wants the visitor to weight most. | Shared header pattern across all section components |
+| 6 | **Hero product mockup is dense on first view**: a 4-tile stat bar, a 2-column bed-allocation matrix + rent ledger, and a status ribbon all appear in one scene, inside window chrome, above the fold — competing with the headline and primary CTA for attention before the visitor has read what the product does. | `Hero.tsx` lines ~88–413 |
+| 7 | **Four near-identical calls to the same destination with no escalation in framing**: Hero primary "See Plans" → `/pricing`; HowItWorks closing CTA "See Plans & Pricing" → `/pricing`; PricingTeaser CTA "View full plans" → `/pricing`; FinalCta "See Plans" → `/pricing`. All four are the same destination with only cosmetic label changes — no variation in framing between an early nudge and a late, decisive close. | `Hero.tsx`, `HowItWorks.tsx`, `PricingTeaser.tsx`, `FinalCta.tsx` CTA labels/hrefs |
+| 8 | **Two-thirds of the Features content is click-gated.** Billing/Operations/Communication groups are tabs; only one group's cards render at a time, so a visitor who doesn't click sees only a third of the real feature set — weak for a page whose job is to demonstrate depth. | `Features.tsx` `activeGroup` state, single `currentGroup` rendered |
+| 9 | **Motion is front-loaded, then stops.** Only Hero (load-stagger) and Problem (scroll-triggered reveal via `IntersectionObserver`) have entrance animation; Features, Roles, HowItWorks, PricingTeaser and FAQ render with no reveal motion, only static hover transitions — the page feels "alive" for the first two sections and flat for the rest. | `Hero.tsx` `hero-stagger-*` classes, `Problem.tsx` `IntersectionObserver`; absence of equivalent logic in the later section components |
+| 10 | **Roles section gives Owner, Manager/Warden and Student equal visual weight** (identical card size, same grid column share) despite the Owner being the actual buyer of the product and the Student being unable to purchase anything — the page's real audience isn't visually prioritised over a role that only observes. | `Roles.tsx` `roles.columns.map(...)` — one undifferentiated card markup for all three roles |
+
+### 22.2 Suggested improvements (not yet actioned — track in `specs/04`)
+
+| # | Addresses finding(s) | Suggestion |
+|---|---|---|
+| 1 | 1, 2 | Break the template in 2–3 sections — e.g. Problem or Roles as a photo-left/text-right split using the real hostel/step photos from `src/assets/photos/`, instead of another centred card grid. |
+| 2 | 2 | Use at least one real photo (hero room or a step photo) somewhere on the homepage before shipping any further copy changes — it's the single cheapest fix for the page's current "icon-kit" sameness. |
+| 3 | 3 | Remove the repeated decorative footer lines on Problem/Features/HowItWorks cards. Keep real status micro-copy only where it is actually status (the hero's live ledger). |
+| 4 | 4 | Reserve moss/amber/slate-ink/brick tag colours for genuine state differences; give purely illustrative/decorative cards a neutral clay/sand treatment instead, so colour keeps meaning where it still appears. |
+| 5 | 5 | Give Problem and Pricing visually heavier treatment (larger heading scale, or a tinted full-width band) than lighter sections like FAQ, so the page has peaks and valleys instead of uniform weight throughout. |
+| 6 | 6 | Trim the hero mockup to its two strongest elements (stat bar + ledger); move the bed-allocation matrix down into the Features section as supporting proof rather than cramming everything above the fold. |
+| 7 | 7 | Collapse the four `/pricing` CTAs to two with genuinely different framing — one early, exploratory nudge and one late, decisive close — and free the other two slots for a different action (e.g. "Talk to Setup Team" earlier in the page, not only at HowItWorks). |
+| 8 | 8 | Default-expand the three feature groups stacked (or show one open plus a jump-to tab control) instead of hiding two-thirds of the real feature set behind a click. |
+| 9 | 9 | Extend the `Problem.tsx` scroll-reveal pattern (it already exists and works) to Features, Roles, HowItWorks and PricingTeaser, so motion pacing is consistent for the whole scroll, not just the first two sections. |
+| 10 | 10 | Make the Owner card the lead/larger card in the Roles grid (e.g. wider column span or elevated styling), since Owner is the real buyer persona. |

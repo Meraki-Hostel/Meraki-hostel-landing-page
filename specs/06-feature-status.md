@@ -1,28 +1,32 @@
 # 06 — Feature status register
 
-Product: **Meraki** (temporary brand name). It is a hostel and PG management SaaS for owners and operators in India.
-Last updated: 2026-10-29. Phase: A (documentation only).
+Product: **StayPookie** (final brand name; renamed from the working name "Meraki" before this site's current build). It is a hostel and PG management SaaS for owners and operators in India.
+Last updated: 2026-11-11. This repo is the **marketing + plan-purchase website only**. The real product — owner/manager/student dashboards, database, API, auth, billing — is a separate, already-live codebase. This register describes that real product's capabilities (what this site is allowed to claim) and, separately, this site's own shipped pages.
 
-This file is the **single source of truth** for what Meraki can and cannot do. Landing-page copy, the FAQ, previews, metadata, sales messages and anything else that describes the product must agree with it. If copy and this file disagree, this file wins. Fix the copy, or update this file with evidence first (see [How to update](#6-how-to-update-this-document)).
+This file is the **single source of truth** for what StayPookie can and cannot do, for the purpose of this site's copy. Landing-page copy, the FAQ, previews, metadata, sales messages and anything else that describes the product must agree with it. If copy and this file disagree, this file wins. Fix the copy, or update this file with evidence first (see [How to update](#6-how-to-update-this-document)).
 
 Related: [specs/01-product-requirements.md](01-product-requirements.md) · [specs/02-ui-ux-reference.md](02-ui-ux-reference.md) · [specs/03-technical-architecture.md](03-technical-architecture.md) · [specs/04-implementation-plan.md](04-implementation-plan.md) · [specs/05-design-system.md](05-design-system.md)
 
 ---
 
-## 1. Evidence basis (read this first)
+## 0. Addendum (2026-11-11) — this register was rewritten from scratch
 
-| Check | Result (2026-10-29) |
+**The version of this file before today was wrong at the root, not just out of date.** It was built from a founder brief plus an inspection of this one (at-the-time-empty) folder, and concluded from that empty folder that *no part of the product existed anywhere*. In fact the real product was already built and running in a separate codebase the whole time; this folder was never the product, only ever meant to be its marketing site. That mistake produced a feature register that called live, working capabilities (online payment, multi-property management, staff roles, deposits, receipts) "Not planned" or "Unknown," and justified a lead-capture-only, no-pricing scope that no longer matches what this site is for.
+
+Everything below is rewritten against the real evidence: the actual backend/frontend codebases (not a founder brief) and the actual shipped pages of this site (confirmed by git log and direct file inspection, not an "empty repo" assumption). The status legend, the "Evidence required" discipline and the claims checklist are kept — that framework is sound. What changed is what it's checking against.
+
+---
+
+## 1. Evidence basis
+
+| Check | Result (2026-11-11) |
 |---|---|
-| Repository inspection of the repository root | **The directory was empty.** There was no source code, no `package.json`, no git repository, no env files, no tests and no docs. The only files now present are the Phase A docs (`CLAUDE.md`, `specs/`). |
-| Product application (owner dashboard, API, database, auth) | **Does not exist.** |
-| UI mockups / designs | **None exist**, and there is no UI mockup either. Every product visual on the landing page will be an *illustrative preview built from sample data*. |
-| Lead-capture backend / destination | **Does not exist.** The destination is unconfigured. |
-| Brand assets (logo, photography), contact details, domain, legal text | **None exist.** |
-| Customers, pilots, testimonials, usage metrics | **None known.** None may be stated or implied. |
+| The real product (owner/manager/student dashboards, API, database, auth) | **Exists and is live**, in a separate backend + frontend codebase, not in this repo. This repo has no dashboard, database or product auth of its own, and isn't supposed to. |
+| This repo's own pages | A Next.js site with a homepage, `/pricing`, `/checkout`, `/about`, `/contact`, `/privacy`, `/terms`, `/refund-policy` (plus a stray duplicate `/refund` — see §4), confirmed by direct file inspection and git log (commits `c9ca4ae`, `697ad32`, `8238f50`, `3a5672e`, `cabf640`). |
+| Product capability evidence | The real backend's module set and plan catalogue (rooms/beds, students, payments, complaints, leave, visitors, maintenance, inventory, staff, announcements, events, analytics, search, emergency; the subscription plan catalogue). Treat the real backend as the source of truth for capability claims — not a founder brief, and not this folder's own (non-existent) code. |
+| Customers, pilots, testimonials, usage metrics | **None known to this site.** None may be stated or implied, regardless of how real the underlying product is — see §5. |
 
-Consequence: **no capability in this register is "Implemented & verified" or "Partially implemented".** The highest status any product capability holds today is *Planned*.
-
-Sources: the founder brief, as summarised in the Phase A decisions brief (2026-10-29, §2 and §8), and the repository inspection (Phase A capture, 2026-10-29). The decisions brief is not kept in the repo: every founder-brief item it carried is recorded in this file itself as of 2026-10-29, so "Brief" in the Evidence column means "founder brief, as recorded here".
+Consequence: a capability is "Implemented & verified" here when it's a real, shipped part of the backend/frontend product, independent of whether this marketing site's own code mentions it yet.
 
 ---
 
@@ -30,159 +34,137 @@ Sources: the founder brief, as summarised in the Phase A decisions brief (2026-1
 
 | Status | Meaning | Evidence required | Landing-page treatment |
 |---|---|---|---|
-| **Implemented & verified** | Works in a deployed or runnable build, and someone has checked it. | A link to code, a PR and a passing test or recorded manual check (see §6). | May be described in the present tense ("Meraki shows…"). |
-| **Partially implemented** | Some of it exists, but it is incomplete, unverified or behind a flag. | Code/PR link plus a note on what is missing. | Describe only the verified part, with a qualifier ("early version", "in early access"). |
-| **Planned** | The founder brief names it as intended product direction. **It is not a commitment to availability or a date.** | Founder brief reference. | Intent phrasing only: "Meraki is being built to…", "designed to…", "in early access we're working on…". Visuals may appear only as an *Illustrative preview · sample data*. |
-| **Unknown – needs confirmation** | Not decided. The owner must answer the question in the row. | None yet. | Do not feature it. Mention it only in FAQ-safe wording ("We're exploring it; tell us in the early-access form"). |
-| **Not planned (do not claim)** | Explicitly out of scope. | Founder brief / decisions brief. | Never imply it. When the FAQ addresses it, the answer is a plain "No". |
+| **Implemented & verified** | Live and working in the real product today. | A named module/feature in the real backend, or a plan-catalogue entry, confirmed by inspection. | Present tense, confidently: "StayPookie tracks…", "Online payment is live". Never hedge a real capability with "designed to" or "being built." |
+| **Partially implemented** | Exists but incomplete, or built without a working destination/integration (used here mainly for this *site's own* unfinished pieces, e.g. the legacy lead form). | Code reference plus a note on what's missing. | Describe only the verified part. |
+| **Unknown – needs confirmation** | Not confirmed against the real backend one way or the other. | None yet. | Do not feature it. FAQ-safe wording only if asked directly ("tell us in the contact form"). |
+| **Not planned (do not claim)** | Confirmed out of scope for the real product. | A real, confirmed absence (not an assumption from an empty folder). | Never imply it. |
 
-Web-delivery items in §4 use one extra label, **Not started (Phase B)**. It means the item is scheduled for the Phase B build ([specs/04](04-implementation-plan.md)) and no work exists yet. The decisions brief calls the same thing "To be built in Phase B".
-
-Rules that apply to every status:
-
-- "Planned" never becomes present-tense copy. "Meraki tracks your rent" is forbidden. "Meraki is being built to help you track rent" is allowed.
-- No dates, no "coming soon in Q_", no "launching in…", unless the owner has supplied a confirmed date that is recorded in the change log.
-- No numbers that describe outcomes, customers, beds managed, time saved or similar. Meraki has no data.
+Rules:
+- A capability stays *Unknown* until someone actually checks the real backend/frontend (or asks the team) — don't downgrade something to Unknown just because this site's own code doesn't reference it.
+- No dates, no "coming soon," no outcome statistics ("saves 10 hours/week") unless the real product has published, verified numbers.
+- Never claim a feature is plan-gated unless the real plan catalogue actually gates it (see §3.1 payments row — this is the one row the live site currently gets wrong).
 
 ---
 
-## 3. Product capability register
+## 3. Product capability register (the real product)
 
-Columns: **Status** · **Evidence** · **May say** (the landing page and FAQ) · **Must not say** · **Owner question** (what resolves the status).
+### 3.1 Core operations — real, live backend
 
-"Brief" = founder brief, as summarised in the Phase A decisions brief §2 (2026-10-29). "Empty repo" = repository inspection on 2026-10-29 found an empty directory.
-
-### 3.1 Core operations (from the decisions brief §2)
-
-| Capability | Status | Evidence | May say | Must not say | Owner question to resolve |
-|---|---|---|---|---|---|
-| Room & bed inventory | **Planned** | Brief; empty repo | "Meraki is being built to keep every room and bed in one place." Illustrative bed grid with sample data. | "Manage all your rooms today", any count of rooms or beds managed | Which unit types are needed in v1 (room, bed, floor, sharing type)? |
-| Occupancy & vacancy tracking | **Planned** | Brief; empty repo | "Designed to show which beds are occupied and which are free." The "Vacant beds" *label* (no number) in the attention list. | Real-time or live occupancy claims, occupancy percentages presented as results | Is vacancy derived only from allocations, or are bookings/reservations needed? |
-| Tenant records & room allocations | **Planned** | Brief; empty repo | "Being built to keep tenant details and bed allocations together." Sample tenant list with obviously fictional Indian names. | Tenant self-onboarding, KYC/verification, police-verification support | Which tenant fields are required? (See §3.2 document storage for ID proofs.) |
-| Monthly rent tracking (recording what's due and what's paid) | **Planned** | Brief; empty repo | "Designed to help you record monthly rent and see what's due." | "Collect rent", "get paid faster", "automatic rent", any reconciliation claim | Fixed monthly cycle per tenant or one common due date? Pro-rating on mid-month moves? |
-| Payment records & outstanding dues | **Planned**. Records are entered **manually by the operator**. Meraki does **not** collect money. | Brief; empty repo | "Record payments you receive and see outstanding dues in one place." Sample ledger rows in ₹ with the preview label. | Payment processing, UPI/online collection, "auto-matched payments", bank sync | Which payment modes should a record capture (cash/UPI/bank transfer as a *label* only)? |
-| Property operational records | **Planned** | Brief; empty repo | "Being built to keep property records and day-to-day notes organised." | Compliance or licensing management, any regulatory claim | What exactly counts as an "operational record" in v1 (notices, inventory, expenses, staff notes)? |
-| Maintenance requests & complaints | **Unknown – needs confirmation** (the brief says "where supported") | Brief (qualified); empty repo | Do not feature it as core. If it is mentioned at all: FAQ-safe wording only. In the attention list, use "Notes to follow up", **not** "Open issues", until confirmed (see [specs/02](02-ui-ux-reference.md) §17 row 5 (attention) and [specs/01](01-product-requirements.md) §7). | "Track and resolve complaints", "tenants raise requests", ticket counts | Is maintenance/complaint tracking in v1 scope? Operator-entered only, or tenant-raised? |
-| Multi-property management | **Unknown – needs confirmation** | Empty repo; open question 6 | FAQ: "We're exploring it; tell us in the early-access form." The form asks for "Number of properties" to learn demand. | "Manage all your properties from one dashboard", portfolio views. The feature showcase omits the multi-property row. | Is multi-property in v1? Is it per-account or per-property billing (if pricing exists)? |
-| Automatic UPI reconciliation | **Not planned (do not claim)** | Brief | FAQ: "No. Payments are recorded by you." | Any form of automatic matching, UPI statement import, "reconcile in one click" | — (decided; it reopens only via the change log) |
-| Online rent collection / payment gateway | **Not planned (do not claim)** | Brief | Nothing. Do not raise it in copy. If a FAQ is needed, answer as for UPI. | "Pay rent online", "payment links", gateway or bank names, "cashless" | — |
-| Tenant-facing app / portal; tenant applications | **Not planned (do not claim)** | Brief | FAQ: "Meraki is for owners and operators." | "Tenants can log in / pay / apply", "tenant app", "online booking for tenants" | — |
-| Integrations (WhatsApp, Tally, banks, accounting, etc.) | **Not planned (do not claim)** | Brief | Nothing. The "How it works" section shows Meraki's own workflow with no third-party logos. | Any integration section, partner logos, "works with WhatsApp/Tally/your bank", "send reminders on WhatsApp" | — |
-| Owner authentication / accounts | **Not implemented (no app exists)**: the decisions brief's wording, kept verbatim (see open question Q-A) | Empty repo | Nothing. Early access goes through the form. | "Log in", "Sign up", "Create account", "Start free" links or buttons anywhere (nav, hero, footer) | When an app exists: phone OTP, email or both? |
-
-### 3.2 Additional capabilities (added in Phase A because owners commonly ask about them; none are in the brief)
-
-All of these are **Unknown – needs confirmation**. They exist so that copywriters have an explicit "do not claim" boundary.
-
-| Capability | Status | Evidence | May say | Must not say | Owner question to resolve |
-|---|---|---|---|---|---|
-| Staff roles & permissions (manager, warden, staff logins) | **Unknown – needs confirmation** | Not in brief; empty repo; open question 6 | Nothing, or FAQ-safe: "Tell us how your team works in the early-access form." | "Give your manager access", "role-based permissions", "multi-user" | Is single-owner login enough for v1? If not, which roles and what each can see or do? |
-| Reports & exports (CSV/PDF/Excel of dues, occupancy, payments) | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing. Previews may show summary tiles labelled as sample data, but no "Export" or "Download report" buttons. | "Export to Excel/Tally", "monthly reports", "GST-ready", "accountant-ready" | Which reports or exports are needed, in which format, and for whom (owner, accountant)? |
-| Notifications & reminders (rent-due reminders to the owner or tenants; SMS/WhatsApp/email) | **Unknown – needs confirmation** (WhatsApp/SMS delivery would also need an integration, which is **Not planned**) | Not in brief; empty repo | The problem section may name "repetitive follow-ups" as a *pain*. It must not promise to automate them. | "Automatic reminders", "Meraki reminds your tenants", "never chase rent again", any channel name | Are in-app due lists enough, or are outbound reminders wanted? Through which channel? |
-| Document storage (tenant ID proofs such as Aadhaar, PAN; agreements; photos) | **Unknown – needs confirmation**. **High sensitivity**: identity documents are personal data under the DPDP Act 2023, and Aadhaar has extra handling restrictions. A decision needs owner and legal review of storage, access, retention and deletion. | Not in brief; empty repo | Nothing. The sample tenant data in previews must not show ID numbers or document thumbnails. | "Store ID proofs securely", "digital KYC", "Aadhaar verification", "police verification", any security or encryption claim | Is document storage in scope? If yes: which documents, who can view them, the retention period, where data is hosted, and the consent wording. |
-| Security deposits (record, adjust, refund on move-out) | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing beyond the generic "payment records". | "Deposit tracking", "automatic refunds/deductions" | Should deposits be a distinct record type in v1? |
-| Electricity / utility / extra charges (meter-based or fixed add-ons) | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing. Sample ledger rows show rent only. | "Electricity billing", "split utility bills" | Are add-on charges recorded alongside rent in v1? |
-| Rent receipts (generate or share receipts) | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing. | "Send receipts", "digital rent receipts", "HRA receipts" | Are receipts needed? Printable only, or shared? |
-| Mobile app (native Android/iOS) | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing. Do not show app-store badges or phone-app mockups as the product. (A responsive marketing page is not a mobile app.) | "Download the app", "available on Android/iOS", "manage on the go with our app" | Is v1 a responsive web app, a native app or both? |
-| Hindi / regional language support (UI and/or landing page) | **Unknown – needs confirmation** (open question 8; it affects font subsets in [specs/05](05-design-system.md)) | Not in brief; empty repo | Nothing. The landing page is English-only in Phase B (**Provisional**, pending Q8). | "Available in Hindi", "use Meraki in your language" | Is Hindi or another regional language needed for the landing page, the product or both? Which languages? |
-| Pricing / plans / free trial | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing. The CTA is "Get early access" / "Request early access" only. | Any price, "free", "free trial", "free during early access", "no credit card", plan names, a pricing section | Will early access be free? When and how will pricing be communicated? |
-| Data security, hosting location, backups | **Unknown – needs confirmation** | Empty repo (no infrastructure exists) | Only true statements about the **early-access form** (what is collected, why, how to withdraw), via /privacy. | "Bank-grade security", "encrypted", "data stored in India", "daily backups", "DPDP compliant", certifications | Hosting region, backup policy and security commitments, once the product exists. |
-| Offline use | **Unknown – needs confirmation** | Not in brief; empty repo | Nothing. | "Works offline" | Is offline or poor-connectivity use a requirement? |
-
----
-
-## 4. Landing-page & web capabilities (Phase B deliverables)
-
-Updated 2026-10-29 after the Phase B build. Evidence is the code in this repository plus `npm run build`, `npm run lint`, `npm run typecheck`, `npm test` (41 tests) and a Playwright QA pass at 360/390/768/1024/1440 (0px horizontal overflow, no dead links, 19/19 interaction checks).
-
-| Item | Status | Evidence | Notes / constraints | Blocking owner input |
+| Capability | Status | Evidence | May say | Must not say |
 |---|---|---|---|---|
-| Marketing landing page (12 sections, order and ids per [specs/01](01-product-requirements.md) §7) | **Implemented & verified** (not deployed) | `src/app/page.tsx`, `src/components/sections/*`; build prerenders `/` as static | Every product visual carries a visible "Illustrative preview · sample data" caption (13/13 checked in QA). Copy and tokens are Provisional (D-5). | Brand colours and final name |
-| Early-access lead capture (`POST /api/lead` + form) | **Partially implemented — built, deliberately disabled** | `src/app/api/lead/route.ts`, `src/lib/lead-config.ts`, `src/components/sections/EarlyAccessForm.tsx`; route tests in `src/app/api/lead/__tests__/route.test.ts`; live `next start` returns 503 `not_configured` | Enabled only when **all three** hold (D-1/D-2): valid `LEAD_WEBHOOK_URL`, valid `NEXT_PUBLIC_CONTACT_EMAIL`, and `privacy.reviewStatus === "reviewed"` in `src/config/legal.ts`. Until then the form renders inside a disabled fieldset with "Our early-access form isn't connected yet." The destination must reply JSON `{ok:true}` after storing the lead (plain Zapier Catch Hooks cannot); anything else is a 502. Success shows only on 200 + `{ok:true}`; never faked, including for honeypot hits. PII is never logged (tested). | Webhook destination, contact email, privacy review |
-| Privacy notice page (`/privacy`) | **Implemented — draft, pending review** | `src/app/privacy/page.tsx`, `src/config/legal.ts` | Shows "Draft — pending review". States that no retention period has been decided and that the storage service will be named before the form opens (D-6). Not legal advice. | Owner/legal review, retention period, processor name |
-| Terms page (`/terms`) | **Implemented — draft placeholder, pending review** | `src/app/terms/page.tsx` | Says terms will be published before the product is available. No invented terms. | Terms text before product launch |
-| Analytics / tracking | **None** | No analytics code, cookies or third-party scripts | If one is added later, update /privacy first and record it here. | Whether analytics is wanted |
-| SEO metadata | **Implemented** | `src/app/layout.tsx`, `robots.ts`, `sitemap.ts`, `opengraph-image.tsx`, `icon.tsx` | Title "{name} — Hostel & PG Management Software". No canonical, no sitemap entries until `NEXT_PUBLIC_SITE_URL` is set. Without it, OG image URLs fall back to `http://localhost:3000` (Next warns at build) except on Vercel, which supplies its own URL. | Domain |
-| Hosting / deployment, git | **Deferred by owner (D-8)** | — | Needs a server-capable host (Vercel, or Netlify with the Next.js runtime) so `/api/lead` can run. Static export is rejected. | Hosting choice; `git init` |
-| Contact details (email/phone) in footer and fallbacks | **Not configured** | None supplied | Rendered only from env vars. Never invented. | Real contact email |
-| Login / sign-up links | **Excluded** (no app exists) | Nav and footer contain no auth links | — | — |
+| Rooms, beds & occupancy (single/double/triple/quad, waitlists) | **Implemented & verified** | Real backend: rooms/beds modules | "StayPookie shows live room and bed occupancy, including waitlists." | Nothing is held back here — it's real. |
+| Tenant admission, profiles & move-out | **Implemented & verified** | Real backend: students module (admission, profile, move-out lifecycle) | "Admit a resident, manage their profile, and process move-out — all in StayPookie." | — |
+| Automatic monthly rent (pro-rated first month, configurable due date, optional late fees) | **Implemented & verified** | Real backend: payments/charges module | "Rent is generated automatically every month, pro-rated on the way in, with an optional late fee after a grace period." | — |
+| **Online rent payment via Razorpay** | **Implemented & verified — live on every paid tier.** The real backend applies no plan-based gating to this feature; only property/bed/staff *counts* are tier-limited. | Real backend: payments module, Razorpay Checkout integration; plan catalogue has no payment-feature gate | "Residents can pay rent online via Razorpay — on Starter, Growth and Portfolio alike." | **"Online payment is a Portfolio-only feature"** — this is the live site's current, incorrect claim on `/pricing`. It must be fixed to match this row, not the other way around (see §4). |
+| Manual payment recording, PDF receipts, deposits & refunds | **Implemented & verified** | Real backend: payments module | "Record cash/UPI/bank payments by hand, generate PDF receipts, and track refundable deposits." | — |
+| Complaints, with status history | **Implemented & verified** | Real backend: complaints module | "Residents file complaints; status changes are tracked." | — |
+| Leave requests, with status history | **Implemented & verified** | Real backend: leave module | — | — |
+| Visitor management, with status history | **Implemented & verified** | Real backend: visitors module | — | — |
+| Maintenance tickets | **Implemented & verified** | Real backend: maintenance module | — | — |
+| Inventory tracking | **Implemented & verified** | Real backend: inventory module | — | — |
+| Staff management across roles (manager, warden, accountant, housekeeping, security, cook, maintenance) | **Implemented & verified** | Real backend: staff module | "Add staff across every role your property needs." | — |
+| Targeted notices / announcements | **Implemented & verified** | Real backend: announcements module | — | — |
+| Emergency alerts | **Implemented & verified** | Real backend: emergency module | — | — |
+| Owner analytics across a whole portfolio | **Implemented & verified** | Real backend: analytics module | "Owners see analytics across every property in their organization." | — |
+| **Multi-property management under one organization** | **Implemented & verified — live today.** | Real backend: properties/organization scoping (an owner sees every property in their org) | "Run two properties or twenty-five, from one account." | **"We're exploring it" / "Unknown"** — the previous version of this file said this; it was wrong. |
+| Automatic bank/UPI statement reconciliation (distinct from *accepting* an online payment) | **Unknown – needs confirmation.** Accepting a Razorpay payment is not the same claim as automatically matching bank/UPI statement lines. | Not confirmed either way | Do not feature it. If asked: confirm with the team before answering. | "StayPookie automatically reconciles your bank statement" |
+| Third-party integrations (WhatsApp, Tally, accounting tools) | **Not planned (do not claim)** — not on the real feature list | Real feature list has no such integration | Nothing. No integrations section, no partner logos. | Any integration claim |
+| Owner/manager/student authentication & accounts | **Implemented & verified**, in the real product. **This site has no login of its own, by design** (see §4 and `CLAUDE.md`): access is manually provisioned after purchase. | Real backend: auth module (JWT, role-scoped) | On this site: "We'll set up your account and email your login" — never "Log in" or "Sign up" links here. | A login/signup link anywhere on this marketing site |
+| Student-facing portal (pay rent, raise complaints, request leave, read notices) | **Implemented & verified**, as part of the real application. **Out of scope for this marketing site** — it's not something this site needs to show or link to. | Real backend/frontend: student role | — | Implying this site itself has a tenant-facing area |
+
+### 3.2 Additional capabilities
+
+| Capability | Status | Evidence | May say | Must not say |
+|---|---|---|---|---|
+| Security deposits (record, adjust, refund on move-out) | **Implemented & verified** | Real backend: payments module (deposits/refunds) | — | — |
+| Rent receipts (PDF) | **Implemented & verified** | Real backend: payments module | — | — |
+| Reports / exports (CSV, PDF, beyond receipts) | **Unknown – needs confirmation.** Owner analytics is confirmed; specific export formats are not. | Not confirmed | Nothing beyond "owner analytics." | "Export to Tally/Excel", "GST-ready reports" |
+| Notifications / reminders beyond in-app notices (SMS/WhatsApp to residents) | **Not planned (do not claim)** — not on the real feature list; would also require an integration (see 3.1) | Real feature list has no such channel | The in-app notices/emergency-alerts claims above are enough. | "Automatic WhatsApp rent reminders" |
+| Document storage (tenant ID proofs, agreements) | **Unknown – needs confirmation.** High sensitivity (DPDP Act 2023) if it exists — confirm before claiming. | Not confirmed | Nothing. | Any ID-proof/KYC/Aadhaar claim |
+| Electricity / utility / metered add-on charges | **Unknown – needs confirmation.** "One-off charges" exist generically in payments; utility-specific metering is not separately confirmed. | Not confirmed | Nothing beyond generic "one-off charges" if that's confirmed. | "Electricity billing", "split utility bills" |
+| Mobile app (native Android/iOS) | **Unknown – needs confirmation.** The real frontend is a responsive web app; a native app is not confirmed. | Not confirmed | Nothing. A responsive site is not a mobile app. | "Download the app" |
+| Hindi / regional-language support | **Unknown – needs confirmation**, for both the real product and this marketing site. This site ships English-only today. | Not confirmed | Nothing. | "Available in Hindi" |
+| Pricing / plans | **Implemented & verified — live on this site today.** | `/pricing` page, real backend plan catalogue | See §4 and `specs/01` for the exact figures. | A 4th tier, a free trial, a discount code, or annual billing — none of these exist; don't invent them. |
+| Data security / hosting / backups, certifications | **Partially known.** The real backend runs in production against a real database. Specific security certifications (ISO/SOC2/"DPDP compliant" as a certified claim) are **not confirmed**. | Production backend confirmed to exist and run; certifications not confirmed | Only true, specific statements (e.g. what `/privacy` actually discloses). | "Bank-grade security", "DPDP compliant" (as a certification), "ISO/SOC 2 certified" |
+| Offline use | **Unknown – needs confirmation** | Not confirmed | Nothing | "Works offline" |
+
+---
+
+## 4. This site's own pages (Phase B+ deliverables, shipped)
+
+Evidence: direct file inspection of `src/app/` on 2026-11-11, plus git log (`c32ed7b` → `cabf640`).
+
+| Item | Status | Evidence | Notes / known bugs |
+|---|---|---|---|
+| Design system & brand identity | **Implemented & verified** | `c9ca4ae`; `src/app/globals.css` matches the real product's ivory/clay/espresso palette | See `specs/05`. |
+| Homepage (hero, problem, features, roles, how-it-works, pricing teaser, FAQ, final CTA) | **Implemented & verified** | `697ad32`; `src/app/page.tsx` | **Known bugs, not yet fixed:** (1) hero visual shows the literal visible text "Product Screenshot Placeholder" to real visitors — must be replaced with a proper empty-state visual, never visible placeholder text; (2) homepage/FAQ copy claims online payment is "live on every paid tier" in some places (correct, keep) but implies a 2-hour contact / day-one-operational SLA in others (wrong, see `/checkout` row); (3) "Talk to Setup Team" links to a `#contact` anchor that may not resolve to a real section id on this page — verify, and either add the id or point the link at `/contact`. |
+| `/pricing` (3-tier comparison, GST disclosure) | **Implemented & verified**, with one factual bug | `8238f50`; `src/app/pricing/page.tsx` | Real tiers and limits are correct (see `specs/01` §2). **Bug: the feature comparison table lists "Online rent collection" as Portfolio-only** — per §3.1 above, the real backend does not gate this feature by plan. Fix the table to list it for every tier; don't invent a replacement Portfolio-only perk — Portfolio's real differentiator is priority (phone + dedicated rep) support, which the page already states correctly. |
+| `/checkout` (plan confirm → buyer details → Razorpay → confirmation) | **Implemented, with a real payment-integrity bug, not just a copy bug** | `3a5672e`; `src/app/checkout/page.tsx` (confirmed by direct code inspection, 2026-11-11) | **Confirmed bug:** the confirmation screen is driven entirely client-side. The Razorpay `handler` callback sets `isSuccess = true` directly with no server-side order creation or payment verification anywhere in `src/app/api/` (only `/api/lead` exists). Worse, when `NEXT_PUBLIC_RAZORPAY_KEY_ID` is unset or the SDK fails to load, the code falls back to a `setTimeout` that shows the success screen anyway, explicitly commented "Fallback to simulated integration response" / "Simulates secure round-trip payment handling." This means a visitor can currently reach the "payment received" confirmation with no real payment having happened. It directly contradicts the "never fake a successful payment" rule this very file and `CLAUDE.md` both state, and mirrors the exact anti-pattern the real backend and the legacy lead-capture form (`specs/03` §9) were both built to avoid. Also note: buyer details (name/email/phone/hostel/city) are only ever sent to Razorpay as `prefill`/`notes` on the client-created order object — there is no server-side capture of them independent of a real, completed Razorpay transaction, so an abandoned or faked "purchase" leaves no record anywhere for the team to act on. Fixing this (real order creation + webhook/signature verification server-side) is a code change tracked in `specs/04`, not something this documentation pass resolves. The 24-hour-SLA wording-consistency issue described in the original version of this row is also still real and unfixed (homepage/FAQ said "2 hours"/"day one" in places) — see `specs/04`. |
+| `/about` | **Implemented & verified** | `cabf640`; `src/app/about/page.tsx` | Keep factual; no invented founding story or team bios unless real ones are supplied. |
+| `/contact` | **Implemented & verified** | `cabf640`; `src/app/contact/page.tsx` | Uses a placeholder phone number (see below). |
+| `/terms`, `/privacy`, `/refund-policy` | **Implemented — explicit drafts, pending legal review** | `cabf640`; each page is marked "placeholder — needs legal review before launch" | That marking is correct and must stay until a real legal review happens — don't quietly remove the draft notice. |
+| `/refund` | **Likely stray duplicate of `/refund-policy`** — near-identical content, different component name, and `brand.ts`'s `footerLegal` links only to `/refund-policy`, so nothing in the site currently links to `/refund`. | Direct file diff, 2026-11-11 | This is a code question (which route to delete), not a copy question — flagged here, not fixed by this documentation pass. See `specs/03` and `specs/04`. |
+| Placeholder phone number (`+91 98765 43210`) | **Known placeholder, live in production** on the footer, `/contact`, `/privacy` and `/refund-policy` | `brand.ts` `contactPlaceholder.phone`; confirmed live on staypookie.com | Needs the real business number before this is launch-ready. Not a documentation fix. |
+| Footer copyright line | **Known typo**: renders with a double period ("Pvt. Ltd.. All rights reserved.") | Confirmed live on staypookie.com | Code fix, not a copy/claims issue — flagged here for `specs/04`. |
+| `/api/lead` + the `earlyAccess` block in `site-content.ts` | **Legacy, likely dead** — built for an earlier lead-capture-only version of this site, before the purchase flow existed. | `c32ed7b` (original lead-capture build); superseded by `/checkout` | Confirm nothing still links to it; if nothing does, remove it rather than keep dead code (a code change, not a spec change). |
+| Analytics / tracking on this site | **None** | No analytics code found | Unchanged from before. |
 
 ---
 
 ## 5. Claims checklist (run before shipping any copy or UI change)
 
-Copywriters and implementers must tick every item for every PR that touches user-visible text, previews, metadata or the FAQ. Paste the checklist into the PR description.
-
 **Capabilities**
-- [ ] Every capability mentioned appears in §3 and the wording matches its "May say" column.
-- [ ] *Planned* items use intent phrasing ("being built to", "designed to"). Nothing Planned is written in the present tense as if live.
-- [ ] Nothing *Unknown* is featured. If it is mentioned at all, the wording is FAQ-safe.
-- [ ] Nothing *Not planned* is implied: no UPI reconciliation, online collection, payment gateway, tenant app/portal or integrations.
-- [ ] No "Log in", "Sign up", "Start free trial" or "Download the app" anywhere.
+- [ ] Every capability mentioned appears in §3 with the right status, and nothing *Unknown* or *Not planned* is claimed as live.
+- [ ] Real, live capabilities (§3.1/§3.2) are written in confident present tense — never hedged with "being built," "designed to," or "we're exploring it." Those phrases are banned for anything in this register marked *Implemented & verified*.
+- [ ] Online payment is described as available on **every paid tier**, consistently, everywhere it's mentioned (homepage, FAQ, `/pricing`'s own comparison table).
+- [ ] Multi-property management is described as a live capability, not a maybe.
+- [ ] No "Log in" / "Sign up" link anywhere on this site — access is manually provisioned, and copy should say so plainly where relevant (e.g. the checkout confirmation step), not imply instant self-serve access.
 
 **Proof and numbers**
-- [ ] No customer counts, bed or property counts, "trusted by", logos, testimonials, quotes, case studies, ratings, awards or press mentions.
-- [ ] No outcome statistics (percentages, "2x", hours saved, "cut dues by…").
-- [ ] No prices, "free", trial terms or launch dates (unless recorded in the change log with owner confirmation).
-
-**Previews and sample data**
-- [ ] Every product preview shows the visible caption **"Illustrative preview · sample data"**.
-- [ ] Sample data uses obviously fictional Indian names and ₹ amounts. It contains no real people, no ID numbers (Aadhaar/PAN) and no real phone numbers or emails. Sample property names must not combine a plausible business name with a real city (use e.g. "Example Residency (demo)").
-- [ ] Bed states in previews are Occupied / Vacant only. No reserved/booked or notice-period states (bookings/reservations and notice periods are unconfirmed; see the occupancy row's owner question).
-- [ ] Preview UI has no controls that suggest unconfirmed features (e.g. "Export", "Send reminder", "Pay now", "Add property" when multi-property is Unknown).
-- [ ] The attention list says "Notes to follow up", not "Open issues", unless maintenance/complaints has moved to Planned or higher.
+- [ ] No customer counts, "trusted by," logos, testimonials, ratings, case studies, or outcome statistics — none exist for this product's marketing site, regardless of how real the backend is.
+- [ ] No prices beyond the real three tiers in `specs/01` §2, no free trial, no discount code, no annual-billing option, unless one is confirmed to actually exist.
+- [ ] The account-setup/login turnaround is stated as **24 hours**, identically, on every page that mentions it (homepage, FAQ, `/pricing`, `/checkout`, `/terms`).
 
 **Contact, legal and data**
-- [ ] No invented email, phone, address, domain, social handle or company registration details. Contact details render only from env vars.
-- [ ] The form copy matches the real lead-capture state (unconfigured → honest notice; success only on an acknowledged 200).
-- [ ] No security or compliance claims ("encrypted", "DPDP compliant", "data stored in India", certifications).
-- [ ] /privacy accurately lists the fields the form actually collects. If the fields changed, /privacy was updated in the same PR.
-- [ ] Any new third-party script (analytics, fonts from a CDN, embeds) is reflected in /privacy and in §4 of this file.
+- [ ] Contact details shown are either real or clearly marked placeholder internally (not presented to a visitor as if verified) — the current phone number is a known placeholder pending a real one.
+- [ ] `/terms`, `/privacy` and `/refund-policy` keep their "placeholder — needs legal review" notice until a real review happens.
+- [ ] No security/compliance certification claims ("DPDP compliant," "bank-grade," ISO/SOC2) unless actually certified.
+- [ ] Checkout only shows a success state after a real, verified payment confirmation — never faked, including in dev/demo.
 
-**Brand and reference**
-- [ ] The brand name, tagline and CTA labels come from the central brand config (`src/config/brand.ts`, planned), not from hard-coded strings.
-- [ ] Nothing from the Clarion Health reference is copied: no brand name, healthcare copy, logos, photos, illustrations, statistics or trial fonts (ref: structure.md §6 *Do not copy*; see [specs/02](02-ui-ux-reference.md)).
-
-**FAQ**
-- [ ] Each FAQ answer is consistent with the current status in §3 (for example, the UPI answer is "No. Payments are recorded by you.").
+**Brand**
+- [ ] "StayPookie" throughout — no leftover "Meraki" anywhere in copy, metadata, or sample data labels.
 
 ---
 
 ## 6. How to update this document
 
-Feature status changes go **here first**. Copy, the FAQ and previews change afterwards, in the same or a later PR.
+Feature status changes go **here first**. Copy, the FAQ and previews change afterwards, in the same or a later change.
 
-1. **Evidence is mandatory.** A status may move up only with evidence linked in the *Evidence* column:
-   - **Implemented & verified**: a link to the code (file path at a commit), the merged PR, **and** a passing automated test or a dated manual verification note (who, when, environment, steps). All three are required.
-   - **Partially implemented**: code/PR links plus a one-line statement of what is missing or unverified.
-   - **Planned**: a reference to the founder or owner decision (date, and where it was recorded).
-   - **Unknown → anything**: the owner's answer to the row's question, dated and recorded in the change log.
-   - **→ Not planned**: the owner's decision, dated.
-2. **Update the row's "May say" / "Must not say" columns** to match the new status, using the legend in §2.
-3. **Downgrades are allowed and must be immediate.** If a feature is removed, broken or rolled back, lower its status and fix the copy in the same change.
-4. **Add a change-log entry** (§8) with the date, the row(s), the old status → new status, the evidence link and the author.
-5. **Run the claims checklist** (§5) against the live copy and the FAQ after any status change.
-6. Do not edit statuses based on intent, a demo, a design mockup or a verbal promise. Only shipped and verified behaviour counts as implemented.
-7. If this file and the decisions brief or another spec disagree, raise it as an open question (§7). Do not silently pick one.
+1. **Evidence is mandatory.** A status moves only with a named source: a real backend module/plan-catalogue entry (for product capabilities), or a file/commit reference (for this site's own pages). "Founder brief" and "empty folder" are no longer valid evidence sources — this register's own history shows what that produces.
+2. Update the row's "May say" / "Must not say" columns to match.
+3. **Downgrades are allowed and must be immediate.** If a feature is removed or rolled back in the real product, lower its status and fix the copy in the same change.
+4. Add a change-log entry (§8) with the date, the row(s), the old status → new status, the evidence, and the author.
+5. Run the claims checklist (§5) against the live copy and FAQ after any status change.
+6. Do not edit statuses based on intent, a demo, or a verbal promise. Only confirmed real-product behaviour counts.
 
 ---
 
 ## 7. Open questions
 
-Numbered Q1–Q8 to match the Phase A decisions brief §8. Q-A and Q-B are register-specific.
-
 | # | Question | Rows affected |
 |---|---|---|
-| Q1 | Lead destination (webhook → Google Sheet/CRM/automation tool, or email) and a fallback contact email/phone. The destination must reply JSON `{ok:true}` after storing the lead (specs/03 §9.2), which plain Zapier Catch Hooks cannot. It blocks *live* lead capture, not the build. | §4 lead capture, contact details |
-| Q2 | The real onboarding process for early access (who makes contact, how setup happens). | Getting Started copy; pricing row |
-| Q3 | Imagery and logo: none exist. The default is a UI-led hero and a text wordmark. | §4 landing page |
-| Q4 | Brand colour approval and the final brand name ("Meraki" is temporary). | All copy; brand config |
-| Q5 | Privacy notice and terms text, grievance contact, data retention: owner/legal review (DPDP Act 2023). | §4 privacy/terms; §3.2 document storage |
-| Q6 | Confirm product scope: maintenance/complaints, multi-property, staff roles. All are currently Unknown. | §3.1 maintenance, multi-property; §3.2 staff roles |
-| Q7 | Initialise git before Phase B? Hosting choice (Vercel/Netlify)? Domain? | §4 hosting, domain |
-| Q8 | Is Hindi/regional language support needed? | §3.2 language row |
-| Q-A | **Vocabulary concern.** The decisions brief lists owner authentication as "Not implemented (no app exists)" and the web items as "To be built in Phase B". Neither is in the five-class vocabulary. This register keeps the brief's auth wording verbatim and uses "Not started (Phase B)" for web items, as Phase A instructed. Proposal: when product scoping happens, classify owner auth as *Planned* (any owner-facing SaaS needs it), subject to owner confirmation. | §3.1 auth; §4 |
-| Q-B | Which of the §3.2 additions (deposits, utilities, receipts, reports, reminders, document storage) does the owner want in v1? Answers will move rows out of *Unknown*. | §3.2 |
+| **Q0 (highest priority — not a copy bug, a payment-integrity bug)** | **`/checkout` shows a payment-success confirmation without any real server-side payment verification, and fakes success outright when Razorpay isn't configured.** Needs real order creation + webhook/signature verification server-side before this site can be trusted to gate real account provisioning on it. | §4 `/checkout` |
+| Q1 | Fix the `/pricing` comparison table so online payment is listed for every tier, not Portfolio-only. | §4 `/pricing` |
+| Q2 | Standardize the account-setup/login turnaround to 24 hours everywhere (homepage/FAQ currently say 2 hours / day-one in places). | §4 homepage, `/checkout` |
+| Q3 | Replace the visible "Product Screenshot Placeholder" text in the hero with a real empty-state visual. | §4 homepage |
+| Q4 | Resolve the `/refund` vs `/refund-policy` duplicate (delete the unlinked one). | §4 |
+| Q5 | Replace the placeholder phone number with the real business number before launch. | §4 |
+| Q6 | Fix the footer copyright double-period typo. | §4 |
+| Q7 | Confirm the `#contact` anchor actually resolves, or repoint "Talk to Setup Team" / "Talk to us" to `/contact`. | §4 homepage, `/pricing` |
+| Q8 | Get real legal review of `/terms`, `/privacy`, `/refund-policy` before launch. | §4 |
+| Q9 | Confirm whether `/api/lead` and the `earlyAccess` content block are still referenced anywhere; remove if dead. | §4 |
+| Q10 | Confirm automatic bank/UPI statement reconciliation, document storage, utility billing, mobile app, and Hindi support with the real product team before claiming any of them. | §3.1, §3.2 |
+| Q11 | Reconfirm GST treatment on every future price change (currently: exclusive, 18% GST, billed monthly — already correct on `/pricing`). | §3.2 pricing |
 
 ---
 
@@ -190,7 +172,6 @@ Numbered Q1–Q8 to match the Phase A decisions brief §8. Q-A and Q-B are regis
 
 | Date | Change | Rows | Evidence | Author |
 |---|---|---|---|---|
-| 2026-10-29 | Initial register created in Phase A. All product capabilities set per the decisions brief §2: six *Planned*, two *Unknown*, four *Not planned*, auth *Not implemented*. Added §3.2 rows (all *Unknown*) and §4 web items (*Not started (Phase B)*; analytics *None*). | All | Repository inspection 2026-10-29: the directory was empty and no UI mockup exists. Founder brief as summarised in the Phase A decisions brief (Phase A capture, 2026-10-29). | Phase A documentation |
-| 2026-10-29 | Owner answers recorded (specs/01 §0, D-1–D-8). Lead capture: built in Phase B but **disabled** until webhook, real contact email and a reviewed privacy notice all exist. `/privacy` and `/terms`: drafts marked for review. Maintenance, multi-property and staff roles stay *Unknown*, not presented as live. Git and hosting deferred. | §4 lead capture, privacy/terms | Owner message 2026-10-29 | Phase B |
-| 2026-10-29 | Phase B build: landing page **Implemented & verified** (not deployed); lead capture **Partially implemented** (built, disabled behind the three-condition gate); /privacy and /terms implemented as drafts. | §4 | Code + build/lint/typecheck/tests + Playwright QA (see §4) | Phase B |
-| 2026-10-29 | D-9 animations (marquees, pinned rail) and D-10 Unsplash stock photos added to the landing page. No status change: photos are generic stock and never presented as customers or properties. | §4 | Code + QA | Phase B |
+| 2026-10-29 | Initial register created in Phase A, against a founder brief and an empty-folder inspection. All product capabilities set to *Planned*/*Unknown*/*Not planned*. (Superseded — see 2026-11-11 entry.) | All | Founder brief; empty-repo inspection | Phase A documentation |
+| 2026-10-29 | Phase B build: landing page implemented (lead-capture only, disabled pending config). | §4 (then numbered differently) | Code + tests | Phase B |
+| 2026-11-11 | **Full rewrite.** Brand finalized to StayPookie. Every core-operations and most additional-capabilities rows flipped from Planned/Unknown/Not-planned to Implemented & verified, against the real backend as evidence instead of a founder brief. Added `specs/01` pricing as a real, live requirement. Rewrote §4 to describe this site's actual shipped pages (homepage, pricing, checkout, about, contact, legal) instead of a lead-capture-only page, with known bugs flagged (payment-gating copy, SLA inconsistency, placeholder hero text, refund-route duplicate, placeholder phone, copyright typo, dead anchor). | All | Real backend module/plan-catalogue inspection; direct `src/app/` file inspection; git log `c32ed7b`..`cabf640`; two live-site audits of staypookie.com (this week) | Documentation pass, 2026-11-11 |
