@@ -23,7 +23,7 @@ export function Hero() {
     >
       <div className="container-page">
         {/* Content Column */}
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           {/* Eyebrow badge (Stagger 1) */}
           <div className="hero-stagger-1 flex justify-center">
             <span className="inline-flex items-center gap-2 rounded-tag bg-clay-100 px-3.5 py-1.5 font-body text-caption font-semibold uppercase tracking-wider text-clay-600 shadow-xs">
@@ -35,10 +35,10 @@ export function Hero() {
           {/* Main Headline (Stagger 2) */}
           <h1
             id="hero-heading"
-            className="hero-stagger-2 mt-6 font-heading text-h1 font-medium tracking-tight text-espresso leading-[1.1]"
+            className="hero-stagger-2 mt-6 font-heading text-h1 font-medium tracking-tight text-espresso leading-[1.15]"
           >
             {hero.headlineProblem}
-            <span className="mt-2 block text-clay-600">
+            <span className="mt-1 block text-clay-600">
               {hero.headlineResolution}
             </span>
           </h1>
@@ -122,17 +122,17 @@ export function Hero() {
                       <span className="font-body text-caption text-dust">
                         Occupancy
                       </span>
-                      <span className="tag tag-success text-[0.7rem] px-1.5 py-0.5">
+                      <span className="tag tag-success text-micro px-1.5 py-0.5">
                         5 Vacant
                       </span>
                     </div>
-                    <p className="mt-1 font-heading text-[1.5rem] font-medium text-espresso">
+                    <p className="mt-1 font-heading text-h3 font-medium text-espresso">
                       43{" "}
                       <span className="text-caption text-dust font-normal">
                         / 48 Beds
                       </span>
                     </p>
-                    <p className="mt-0.5 font-body text-[0.75rem] text-moss font-medium">
+                    <p className="mt-0.5 font-body text-caption text-moss font-medium">
                       90% Occupancy Rate
                     </p>
                   </div>
@@ -142,14 +142,14 @@ export function Hero() {
                       <span className="font-body text-caption text-dust">
                         Collected This Month
                       </span>
-                      <span className="tag tag-success text-[0.7rem] px-1.5 py-0.5">
+                      <span className="tag tag-success text-micro px-1.5 py-0.5">
                         92%
                       </span>
                     </div>
-                    <p className="mt-1 font-heading text-[1.5rem] font-medium text-espresso">
+                    <p className="mt-1 font-heading text-h3 font-medium text-espresso">
                       ₹3,44,000
                     </p>
-                    <p className="mt-0.5 font-body text-[0.75rem] text-dust">
+                    <p className="mt-0.5 font-body text-caption text-dust">
                       ₹3,72,500 Expected
                     </p>
                   </div>
@@ -159,14 +159,14 @@ export function Hero() {
                       <span className="font-body text-caption text-dust">
                         Pending Dues
                       </span>
-                      <span className="tag tag-attention text-[0.7rem] px-1.5 py-0.5">
+                      <span className="tag tag-attention text-micro px-1.5 py-0.5">
                         4 Tenants
                       </span>
                     </div>
-                    <p className="mt-1 font-heading text-[1.5rem] font-medium text-amber">
+                    <p className="mt-1 font-heading text-h3 font-medium text-amber">
                       ₹28,500
                     </p>
-                    <p className="mt-0.5 font-body text-[0.75rem] text-dust">
+                    <p className="mt-0.5 font-body text-caption text-dust">
                       Follow-ups active
                     </p>
                   </div>
@@ -176,14 +176,14 @@ export function Hero() {
                       <span className="font-body text-caption text-dust">
                         Move-outs
                       </span>
-                      <span className="tag tag-info text-[0.7rem] px-1.5 py-0.5">
+                      <span className="tag tag-info text-micro px-1.5 py-0.5">
                         This Week
                       </span>
                     </div>
-                    <p className="mt-1 font-heading text-[1.5rem] font-medium text-espresso">
+                    <p className="mt-1 font-heading text-h3 font-medium text-espresso">
                       2 Beds
                     </p>
-                    <p className="mt-0.5 font-body text-[0.75rem] text-dust">
+                    <p className="mt-0.5 font-body text-caption text-dust">
                       Scheduled cleanings
                     </p>
                   </div>
@@ -212,18 +212,18 @@ export function Hero() {
                       <div className="rounded-btn border border-line bg-cream p-2.5">
                         <div className="flex items-center justify-between font-body text-caption font-semibold text-espresso">
                           <span>Room 101</span>
-                          <span className="text-[0.6875rem] text-moss">
+                          <span className="text-micro text-moss">
                             Full
                           </span>
                         </div>
                         <div className="mt-2 flex gap-1.5">
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed A
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed B
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed C
                           </span>
                         </div>
@@ -233,15 +233,15 @@ export function Hero() {
                       <div className="rounded-btn border border-amber/40 bg-amber/5 p-2.5">
                         <div className="flex items-center justify-between font-body text-caption font-semibold text-espresso">
                           <span>Room 102</span>
-                          <span className="text-[0.6875rem] font-semibold text-amber">
+                          <span className="text-micro font-semibold text-amber">
                             1 Free
                           </span>
                         </div>
                         <div className="mt-2 flex gap-1.5">
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed A
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm border border-amber/40 bg-cream text-[0.6875rem] font-semibold text-amber">
+                          <span className="flex-1 py-1 text-center rounded-sm border border-amber/40 bg-cream text-micro font-semibold text-amber">
                             Vacant
                           </span>
                         </div>
@@ -251,15 +251,15 @@ export function Hero() {
                       <div className="rounded-btn border border-line bg-cream p-2.5">
                         <div className="flex items-center justify-between font-body text-caption font-semibold text-espresso">
                           <span>Room 103</span>
-                          <span className="text-[0.6875rem] text-moss">
+                          <span className="text-micro text-moss">
                             Full
                           </span>
                         </div>
                         <div className="mt-2 flex gap-1.5">
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed A
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed B
                           </span>
                         </div>
@@ -269,21 +269,21 @@ export function Hero() {
                       <div className="rounded-btn border border-line bg-cream p-2.5">
                         <div className="flex items-center justify-between font-body text-caption font-semibold text-espresso">
                           <span>Room 201</span>
-                          <span className="text-[0.6875rem] text-moss">
+                          <span className="text-micro text-moss">
                             Full
                           </span>
                         </div>
                         <div className="mt-2 flex gap-1.5">
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed A
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed B
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed C
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed D
                           </span>
                         </div>
@@ -293,15 +293,15 @@ export function Hero() {
                       <div className="rounded-btn border border-amber/40 bg-amber/5 p-2.5">
                         <div className="flex items-center justify-between font-body text-caption font-semibold text-espresso">
                           <span>Room 202</span>
-                          <span className="text-[0.6875rem] font-semibold text-amber">
+                          <span className="text-micro font-semibold text-amber">
                             1 Free
                           </span>
                         </div>
                         <div className="mt-2 flex gap-1.5">
-                          <span className="flex-1 py-1 text-center rounded-sm border border-amber/40 bg-cream text-[0.6875rem] font-semibold text-amber">
+                          <span className="flex-1 py-1 text-center rounded-sm border border-amber/40 bg-cream text-micro font-semibold text-amber">
                             Vacant
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed B
                           </span>
                         </div>
@@ -311,18 +311,18 @@ export function Hero() {
                       <div className="rounded-btn border border-line bg-cream p-2.5">
                         <div className="flex items-center justify-between font-body text-caption font-semibold text-espresso">
                           <span>Room 203</span>
-                          <span className="text-[0.6875rem] text-moss">
+                          <span className="text-micro text-moss">
                             Full
                           </span>
                         </div>
                         <div className="mt-2 flex gap-1.5">
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed A
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed B
                           </span>
-                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-[0.6875rem] font-medium text-moss">
+                          <span className="flex-1 py-1 text-center rounded-sm bg-moss/15 text-micro font-medium text-moss">
                             Bed C
                           </span>
                         </div>
@@ -341,7 +341,7 @@ export function Hero() {
                           Logged with receipt details
                         </p>
                       </div>
-                      <span className="tag tag-success text-[0.7rem]">
+                      <span className="tag tag-success text-micro">
                         Live Records
                       </span>
                     </div>
@@ -352,7 +352,7 @@ export function Hero() {
                           <p className="font-body font-medium text-espresso">
                             Aarav Sharma
                           </p>
-                          <p className="text-[0.75rem] text-dust">
+                          <p className="text-caption text-dust">
                             Room 101-A · Nov 02
                           </p>
                         </div>
@@ -367,7 +367,7 @@ export function Hero() {
                           <p className="font-body font-medium text-espresso">
                             Rohan Gupta
                           </p>
-                          <p className="text-[0.75rem] text-dust">
+                          <p className="text-caption text-dust">
                             Room 103-A · Due Nov 05
                           </p>
                         </div>
@@ -382,7 +382,7 @@ export function Hero() {
                           <p className="font-body font-medium text-espresso">
                             Sneha Iyer
                           </p>
-                          <p className="text-[0.75rem] text-dust">
+                          <p className="text-caption text-dust">
                             Room 201-C · Due Oct 28
                           </p>
                         </div>
