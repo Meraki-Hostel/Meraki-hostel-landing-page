@@ -24,8 +24,6 @@ type PlanInfo = {
   badge?: string;
   basePrice: number;
   baseFormatted: string;
-  gstAmount: number;
-  gstFormatted: string;
   totalAmount: number;
   totalFormatted: string;
   properties: string;
@@ -40,10 +38,8 @@ const PLANS: Record<PlanId, PlanInfo> = {
     name: "Starter",
     basePrice: 1999,
     baseFormatted: "₹1,999",
-    gstAmount: 360,
-    gstFormatted: "₹360",
-    totalAmount: 2359,
-    totalFormatted: "₹2,359",
+    totalAmount: 1999,
+    totalFormatted: "₹1,999",
     properties: "2 properties",
     beds: "120 beds",
     staff: "10 staff",
@@ -56,10 +52,8 @@ const PLANS: Record<PlanId, PlanInfo> = {
     badge: "Most Popular",
     basePrice: 4999,
     baseFormatted: "₹4,999",
-    gstAmount: 900,
-    gstFormatted: "₹900",
-    totalAmount: 5899,
-    totalFormatted: "₹5,899",
+    totalAmount: 4999,
+    totalFormatted: "₹4,999",
     properties: "6 properties",
     beds: "400 beds",
     staff: "40 staff",
@@ -71,10 +65,8 @@ const PLANS: Record<PlanId, PlanInfo> = {
     name: "Portfolio",
     basePrice: 14999,
     baseFormatted: "₹14,999",
-    gstAmount: 2700,
-    gstFormatted: "₹2,700",
-    totalAmount: 17699,
-    totalFormatted: "₹17,699",
+    totalAmount: 14999,
+    totalFormatted: "₹14,999",
     properties: "25 properties",
     beds: "2,500 beds",
     staff: "250 staff",
@@ -285,7 +277,7 @@ function CheckoutFlow() {
               <div className="flex items-center justify-between border-b border-line/60 py-3">
                 <span className="text-dust font-medium">Monthly Amount</span>
                 <span className="font-semibold text-espresso">
-                  {selectedPlan.totalFormatted} (incl. 18% GST)
+                  {selectedPlan.totalFormatted}
                 </span>
               </div>
               <div className="flex items-center justify-between pt-3">
@@ -491,7 +483,7 @@ function CheckoutFlow() {
                               {p.baseFormatted}
                             </span>
                             <span className="font-body text-caption text-dust block">
-                              /mo + GST
+                              /mo
                             </span>
                           </div>
                         </div>
@@ -735,11 +727,6 @@ function CheckoutFlow() {
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between text-dust">
-                      <span>GST (18%)</span>
-                      <span>{selectedPlan.gstFormatted}</span>
-                    </div>
-
                     <div className="border-t border-line/60 pt-3 flex items-baseline justify-between">
                       <div>
                         <span className="font-heading text-body font-semibold text-espresso block">
@@ -823,8 +810,8 @@ function CheckoutFlow() {
                     <div className="flex items-center justify-center gap-2 font-body text-caption text-dust">
                       <Icon name="shield" size={15} className="text-moss" />
                       <span>
-                        256-bit encrypted Razorpay Checkout. Full GST tax
-                        invoice provided.
+                        256-bit encrypted Razorpay Checkout. Payment receipt
+                        provided.
                       </span>
                     </div>
                   </div>

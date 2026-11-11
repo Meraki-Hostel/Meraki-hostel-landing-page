@@ -149,7 +149,7 @@ Same anchor-id discipline as before (every anchor must resolve; no `href="#"`); 
 
 | Route | Purpose | Status |
 |---|---|---|
-| `/pricing` | Full 3-tier comparison: Starter ₹1,999/mo (2 properties/120 beds/10 staff), Growth ₹4,999/mo "Most Popular" (6/400/40), Portfolio ₹14,999/mo (25/2,500/250, + priority phone/dedicated-rep support). Prices exclude 18% GST, billed monthly. **No tier gates a feature** — only property/bed/staff counts. One "Choose [Plan]" CTA per tier → `/checkout?plan=…`; a "Talk to us" link for anything bigger/different instead of inventing a 4th tier. | **Live, with one bug**: the comparison table currently lists online payment as Portfolio-only — fix to list it on every tier (`specs/06` §4 Q1). |
+| `/pricing` | Full 3-tier comparison: Starter ₹1,999/mo (2 properties/120 beds/10 staff), Growth ₹4,999/mo "Most Popular" (6/400/40), Portfolio ₹14,999/mo (25/2,500/250, + priority phone/dedicated-rep support), billed monthly, no GST charged (no GST registration — see CLAUDE.md "Project identity"). **No tier gates a feature** — only property/bed/staff counts. One "Choose [Plan]" CTA per tier → `/checkout?plan=…`; a "Talk to us" link for anything bigger/different instead of inventing a 4th tier. Price display itself is currently flagged off site-wide (`flags.showPricing`, `specs/06` §5) while StayPookie sources design partners. | **Live, with one bug**: the comparison table currently lists online payment as Portfolio-only — fix to list it on every tier (`specs/06` §4 Q1). |
 | `/checkout` | Plan confirm → buyer details (name, email, phone, org/hostel name, property count, city) → Razorpay Checkout/Payment Link → confirmation. Confirmation (and every nearby page) states: **"Payment received. Our team will set up your StayPookie account and email your login within 24 hours."** Pay button disables + shows a spinner on click (no double charges). Success only shown after Razorpay actually confirms. | **Live, with one bug**: the 24-hour figure isn't consistent everywhere yet (`specs/06` §4 Q2). |
 | `/about` | Short, factual: what StayPookie is, who it's for. No invented founding story/team bios unless real. | Live |
 | `/contact` | Pre-sales/support form (name, email/phone, message) | Live; placeholder phone number pending replacement |
@@ -188,7 +188,7 @@ Unchanged in substance from the original FR-16–19 (accessible disclosure butto
 | FR-50 | Shows exactly the three real tiers (§7.2) with correct prices, limits and feature lists. No invented 4th tier, free trial, discount code, or annual-billing option. |
 | FR-51 | **No feature is plan-gated except by property/bed/staff count.** In particular, online payment via Razorpay must be listed as included on every tier — currently a bug (see `specs/06` §4 Q1), must be fixed. |
 | FR-52 | One "Choose [Plan]" CTA per tier, linking to `/checkout?plan=<starter|growth|portfolio>`. |
-| FR-53 | States plainly that prices exclude 18% GST and are billed monthly. |
+| FR-53 | States plainly that subscriptions are billed monthly. No GST charge, GST invoice, or GSTIN claim anywhere — StayPookie has no GST registration (see CLAUDE.md "Project identity"). |
 | FR-54 | States, near the CTAs, what happens after payment (see FR-61) — the same wording as `/checkout` and `/terms`. |
 
 ### 8.5 Checkout (`/checkout`)

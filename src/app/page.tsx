@@ -56,9 +56,6 @@ export default function Home() {
               occupancy and rent records, backed by personal setup assistance
               from our team.
             </p>
-            <p className="mt-4 font-body text-small font-semibold text-espresso">
-              Operated by {brand.companyName}
-            </p>
           </div>
         </div>
       </section>

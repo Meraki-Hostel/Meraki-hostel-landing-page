@@ -11,7 +11,7 @@ export const legal = {
   privacy: {
     reviewStatus: "draft" as ReviewStatus,
     title: "Privacy Policy",
-    intro: `This Privacy Policy outlines how ${name} (${brand.companyName}) handles customer and operational data when you visit our website, subscribe to a plan, or use our property management platform.`,
+    intro: `This Privacy Policy outlines how ${name} handles customer and operational data when you visit our website, subscribe to a plan, or use our property management platform.`,
     sections: [
       {
         heading: "1. Information We Collect",
@@ -51,7 +51,7 @@ export const legal = {
   terms: {
     reviewStatus: "draft" as ReviewStatus,
     title: "Terms of Service",
-    intro: `These Terms of Service govern your purchase, subscription, and use of ${name}, operated by ${brand.companyName}.`,
+    intro: `These Terms of Service govern your purchase, subscription, and use of ${name}.`,
     sections: [
       {
         heading: "1. Services & Assisted Onboarding",
@@ -64,9 +64,9 @@ export const legal = {
         heading: "2. Subscription & Billing",
         body: [
           flags.showPricing
-            ? "Subscription fees are billed monthly in advance for the selected tier (Starter ₹1,999/mo, Growth ₹4,999/mo, or Portfolio ₹14,999/mo). All quoted prices exclude 18% GST."
-            : "Subscription fees are billed monthly in advance for the selected tier. Current pricing is shared directly during onboarding; all quoted prices exclude 18% GST.",
-          "A valid GST tax invoice is issued for every monthly billing cycle containing your provided GSTIN for input tax credit.",
+            ? "Subscription fees are billed monthly in advance for the selected tier (Starter ₹1,999/mo, Growth ₹4,999/mo, or Portfolio ₹14,999/mo)."
+            : "Subscription fees are billed monthly in advance for the selected tier. Current pricing is shared directly during onboarding.",
+          "A payment receipt is issued for every monthly billing cycle.",
         ],
       },
       {
@@ -94,7 +94,7 @@ export const legal = {
   refund: {
     reviewStatus: "draft" as ReviewStatus,
     title: "Refund & Cancellation Policy",
-    intro: `This Refund and Cancellation Policy applies to all subscription plan purchases made on staypookie.com, operated by ${brand.companyName}.`,
+    intro: `This Refund and Cancellation Policy applies to all subscription plan purchases made on staypookie.com.`,
     sections: [
       {
         heading: "1. Subscription Billing & Cancellation",

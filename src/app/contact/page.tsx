@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { brand, getContact } from "@/config/brand";
+import { getContact } from "@/config/brand";
 import { Icon } from "@/components/ui/Icon";
 
 type ContactFormData = {
@@ -321,18 +321,6 @@ export default function ContactPage() {
                     >
                       {contact.phone}
                     </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-btn bg-clay-100 text-clay-600">
-                    <Icon name="building" size={16} />
-                  </span>
-                  <div>
-                    <span className="font-semibold text-espresso block">
-                      Entity
-                    </span>
-                    <span className="text-bark">{brand.companyName}</span>
                   </div>
                 </div>
               </div>

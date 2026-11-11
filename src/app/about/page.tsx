@@ -144,7 +144,7 @@ export default function AboutPage() {
           </p>
         </section>
 
-        {/* Section 4: Legal Entity & Contact */}
+        {/* Section 4: Contact & Operating Details */}
         <section
           aria-labelledby="company-heading"
           className="mt-14 border-t border-line/60 pt-8"
@@ -153,16 +153,10 @@ export default function AboutPage() {
             id="company-heading"
             className="font-heading text-h4 font-medium text-espresso"
           >
-            Company & Entity Details
+            Contact & Operating Details
           </h2>
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2 font-body text-small text-bark">
-            <div>
-              <span className="font-semibold text-espresso block">
-                Legal Operating Entity
-              </span>
-              <span>{brand.companyName}</span>
-            </div>
             <div>
               <span className="font-semibold text-espresso block">
                 Primary Contact Email

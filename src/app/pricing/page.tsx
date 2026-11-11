@@ -16,7 +16,6 @@ type PlanDefinition = {
   badge?: string;
   price: string;
   cadence: string;
-  gstNote: string;
   popular?: boolean;
   limits: {
     properties: string;
@@ -34,7 +33,6 @@ const plans: readonly PlanDefinition[] = [
     name: "Starter",
     price: "₹1,999",
     cadence: "/ month",
-    gstNote: "+ 18% GST",
     limits: {
       properties: "2 properties",
       beds: "120 beds",
@@ -55,7 +53,6 @@ const plans: readonly PlanDefinition[] = [
     popular: true,
     price: "₹4,999",
     cadence: "/ month",
-    gstNote: "+ 18% GST",
     limits: {
       properties: "6 properties",
       beds: "400 beds",
@@ -75,7 +72,6 @@ const plans: readonly PlanDefinition[] = [
     name: "Portfolio",
     price: "₹14,999",
     cadence: "/ month",
-    gstNote: "+ 18% GST",
     limits: {
       properties: "25 properties",
       beds: "2,500 beds",
@@ -240,17 +236,6 @@ export default function PricingPage() {
             your bed count, and our team sets up your account and emails your
             login within 24 hours.
           </p>
-
-          {/* GST Clarification Banner */}
-          {flags.showPricing ? (
-            <div className="mt-6 inline-flex items-center gap-2 rounded-btn border border-line bg-cream px-4 py-2 font-body text-small text-dust shadow-xs">
-              <span className="font-semibold text-espresso">GST Note:</span>
-              <span>
-                All prices exclude 18% GST. Billed monthly. Tax invoices
-                provided with GSTIN for input credit.
-              </span>
-            </div>
-          ) : null}
         </div>
 
         {/* 3-Tier Pricing Cards Grid */}
@@ -282,11 +267,6 @@ export default function PricingPage() {
                   >
                     {plan.name}
                   </span>
-                  {flags.showPricing ? (
-                    <span className="font-body text-caption font-medium text-dust">
-                      {plan.gstNote}
-                    </span>
-                  ) : null}
                 </div>
 
                 <h2 className="mt-4 font-heading text-h2 font-medium text-espresso">
@@ -309,12 +289,6 @@ export default function PricingPage() {
                     </span>
                   )}
                 </div>
-
-                {flags.showPricing ? (
-                  <p className="mt-1 font-body text-caption text-dust">
-                    Prices exclude 18% GST
-                  </p>
-                ) : null}
 
                 {/* Capacity Limits Badge Box */}
                 <div className="mt-6 rounded-btn border border-line/80 bg-sand/40 p-3.5">
@@ -411,7 +385,6 @@ export default function PricingPage() {
             </h2>
             <p className="mt-3 font-body text-lead text-dust">
               Compare limits and capabilities across all plans.
-              {flags.showPricing ? " Prices exclude 18% GST." : ""}
             </p>
           </div>
 
@@ -434,17 +407,12 @@ export default function PricingPage() {
                         {p.name}
                       </div>
                       {flags.showPricing ? (
-                        <>
-                          <div className="mt-1 font-heading text-lead font-semibold text-clay-600">
-                            {p.price}
-                            <span className="font-body text-caption text-dust font-normal">
-                              /mo
-                            </span>
-                          </div>
-                          <div className="mt-1 font-body text-micro text-dust">
-                            excl. 18% GST
-                          </div>
-                        </>
+                        <div className="mt-1 font-heading text-lead font-semibold text-clay-600">
+                          {p.price}
+                          <span className="font-body text-caption text-dust font-normal">
+                            /mo
+                          </span>
+                        </div>
                       ) : (
                         <div className="mt-1 font-heading text-lead font-semibold text-clay-600">
                           {pricingFallbackLabel}

@@ -70,8 +70,8 @@ The hero shows this literal text to real visitors. Replace with a real illustrat
 ### F5 — Placeholder phone number
 `+91 98765 43210` is live on the footer, `/contact`, `/privacy` and `/refund-policy`. Replace with StayPookie's real business number before launch.
 
-### F6 — Footer copyright typo
-Renders as "...Pvt. Ltd.. All rights reserved." (double period). Fix to a single period.
+### F6 — Footer copyright typo (resolved)
+Was "...Pvt. Ltd.. All rights reserved." (double period). Fixed by dropping the "Pvt. Ltd." suffix entirely — there is no registered private limited company (see CLAUDE.md "Project identity"); the line now reads "© StayPookie. All rights reserved."
 
 ### F7 — `/refund` vs `/refund-policy`
 Near-duplicate pages (`specs/03` §8.2); only `/refund-policy` is linked anywhere. Delete `/refund` unless something still depends on it.

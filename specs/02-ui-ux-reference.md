@@ -298,7 +298,7 @@ Platform/feature tabs, if still present on the homepage in their original per-ta
 A `section`, not `<footer>` (no landmark); large wordmark left, one "Company" column right (About us/Careers/Contact, fails AA on hover colour), social icons with swapped `aria-label`s; bottom row with copyright and legal links.
 
 ### 12.2 StayPookie's real shipped footer (current)
-A real `<footer>` landmark with the text wordmark, **real company name** ("StayPookie Technologies Pvt. Ltd."), and legal links to `/terms`, `/privacy`, `/refund-policy` (plus FAQ). Contact shows an email and phone — the phone is a **known placeholder** (`+91 98765 43210`) pending the real number (`specs/06` §4 Q5). The copyright line has a **known typo** (a stray double period, `specs/06` §4 Q6). No social icons (none exist to show, same reasoning as the original plan).
+A real `<footer>` landmark with the logo + text wordmark (just "StayPookie" — there is no registered private limited company to name, see CLAUDE.md "Project identity"), and legal links to `/terms`, `/privacy`, `/refund-policy` (plus FAQ). Contact shows a real email (`hello@staypookie.com`) and a phone — the phone is a **known placeholder** (`+91 98765 43210`) pending the real number (`specs/06` §4 Q5). The copyright line's former double-period typo is fixed now that it reads "© StayPookie" instead of a "Pvt. Ltd." suffix. No social icons (none exist to show, same reasoning as the original plan).
 
 ---
 

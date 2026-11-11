@@ -8,7 +8,6 @@ export type NavLink = { label: string; href: string };
  */
 export const brand = {
   name: "StayPookie",
-  companyName: "StayPookie Technologies Pvt. Ltd.",
   tagline: "Run your hostel. Not your paperwork.",
   title: "Hostel & PG Management Software for India",
   description:
@@ -46,7 +45,6 @@ export const brand = {
     phone: "+91 98765 43210",
   },
   social: [] as { label: string; href: string }[],
-  logo: null,
 } as const;
 
 /** Contact details return configured env vars, falling back to the real

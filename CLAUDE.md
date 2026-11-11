@@ -9,6 +9,7 @@ Persistent guidance for Claude Code and contributors. Keep this file short; deta
 - **Problem it sells against:** operators track occupancy, tenants, rent and operations across notebooks, spreadsheets, chat messages and memory — scattered records, manual rent tracking, unclear occupancy, repeated follow-ups.
 - **Stage:** the real product is live. StayPookie's actual application (owner/manager/student dashboards, database, API, auth, billing) is a separate, fully-built codebase — not this repo. **This repo is the marketing + purchase site only**: it describes the real product and lets a visitor buy a plan. It has no dashboard and no product data of its own.
 - **Positioning:** "Run your hostel. Not your paperwork."
+- **Legal entity: there is no registered private limited company.** StayPookie is not incorporated and has no GST registration. Never write or imply otherwise anywhere on the site (footer, legal pages, copyright line, checkout, an "Entity" field, etc.) — no "Pvt. Ltd." / "Private Limited" suffix on the name, no GST charge or GST tax invoice promise. `brand.ts` has no `companyName` field for this reason; use `brand.name` ("StayPookie") everywhere a legal name might otherwise go. If this status changes, update it here and search the repo for "Pvt. Ltd." and "GST" before re-adding either.
 
 ## Product boundaries
 
@@ -27,7 +28,7 @@ Three real monthly tiers, defined in the real backend's plan catalogue — treat
 - **Starter** — ₹1,999/mo: 2 properties, 120 beds, 10 staff.
 - **Growth** — ₹4,999/mo ("Most Popular"): 6 properties, 400 beds, 40 staff.
 - **Portfolio** — ₹14,999/mo: 25 properties, 2,500 beds, 250 staff; adds priority (phone + dedicated rep) support.
-- Prices exclude 18% GST, billed monthly. No tier gates a *feature* like online payment — tier limits are property/bed/staff counts only.
+- Billed monthly, no GST charged (no GST registration — see "Project identity"). No tier gates a *feature* like online payment — tier limits are property/bed/staff counts only.
 - Purchase flow: plan confirm → buyer details → Razorpay Checkout/Payment Link → confirmation. The confirmation screen and every page near a Pay button must state the same thing: **account setup and login are emailed within 24 hours of payment** — this number must match everywhere (pricing, checkout, Terms). Never let two pages promise different turnaround times.
 
 ## Current state (2026-11-11)
@@ -37,7 +38,6 @@ Three real monthly tiers, defined in the real backend's plan catalogue — treat
   - Homepage/FAQ copy says online payment is available on every tier; the pricing page's feature table still lists it as Portfolio-only — **fix the pricing table to match** (online payment is NOT plan-gated; see "Pricing & purchase" above).
   - Homepage/FAQ promise the team "connects within 2 hours" / "operational day one"; Pricing, Checkout and Terms say "within 24 hours" — **standardize everywhere on 24 hours**.
   - The hero product mockup shows the literal visible text "Product Screenshot Placeholder" to real visitors — replace with a proper empty-state visual, never visible placeholder text.
-  - Footer copyright line has a stray double period ("Pvt. Ltd.. All rights").
   - "Talk to Setup Team" / "Talk to us" links point to a `#contact` anchor that may not resolve to a real section id — verify and fix, or point to `/contact` instead.
   - The placeholder phone number (+91 98765 43210) is live on the footer, `/contact`, `/privacy` and `/refund-policy` — replace with the real number before launch.
   - Both `src/app/refund/` and `src/app/refund-policy/` exist — `brand.ts`'s footer links to `/refund-policy`, so check whether `/refund` is a stray duplicate and remove it rather than shipping two routes for the same policy.
