@@ -26,7 +26,7 @@
 
 | Concern | Lives in | Notes |
 |---|---|---|
-| Name and words | `src/config/brand.ts` | Already correctly says `name: "StayPookie"`, `companyName: "StayPookie Technologies Pvt. Ltd."`, real nav (Home, Pricing, How it Works, FAQ, About, Contact), real CTA labels ("See Plans", "Choose Plan"), `footerLegal` links, and a `contactPlaceholder` (phone is a known placeholder — see `specs/06`). |
+| Name and words | `src/config/brand.ts` | Already correctly says `name: "StayPookie"`, `companyName: "StayPookie Technologies Pvt. Ltd."`, real nav (Home, Pricing, How it Works, FAQ, About, Contact), real CTA labels ("See Plans", "Choose Plan"), `footerLegal` links, a real `contact.email` (hello@staypookie.com, a live domain mailbox), and a `contactPlaceholder.phone` (still a known placeholder — see `specs/06`). |
 | Section copy and sample data | `src/config/site-content.ts` | Copy interpolates `brand.name`; FAQ, tab data, illustrative sample data (flagged `illustrative: true`) live here. |
 | Colours, type, spacing, radii, breakpoints, easing | `@theme` in `src/app/globals.css` | All tokens in §§3–9 below. |
 | Font families | `src/app/layout.tsx` (next/font) | **Fraunces** (display) and **Figtree** (body/sans), mapped to `--font-display`/`--font-heading` and `--font-sans`/`--font-body` in `@theme inline`. |

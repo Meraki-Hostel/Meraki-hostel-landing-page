@@ -87,7 +87,7 @@ src/
     api/lead/route.ts       # Legacy lead-capture endpoint from before /checkout existed (see §9 below) — likely dead, confirm before touching
     icon.tsx, opengraph-image.tsx, robots.ts, sitemap.ts, not-found.tsx
   config/
-    brand.ts                # Real: name "StayPookie", companyName, nav (Home/Pricing/How it Works/FAQ/About/Contact), CTAs, footerLegal, contactPlaceholder (phone is a known placeholder — specs/06 §4 Q5)
+    brand.ts                # Real: name "StayPookie", companyName, nav (Home/Pricing/How it Works/FAQ/About/Contact), CTAs, footerLegal; `contact.email` is a real, live mailbox (hello@staypookie.com), `contactPlaceholder.phone` is still a known placeholder — specs/06 §4 Q5
     site-content.ts          # Section copy, FAQ, sample/demo data (flagged illustrative: true); still contains an `earlyAccess` block — confirm it's unused (specs/06 §4 Q9)
     legal.ts                 # Draft legal text + review status
   components/

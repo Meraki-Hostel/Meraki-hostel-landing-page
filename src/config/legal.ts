@@ -38,14 +38,14 @@ export const legal = {
       {
         heading: "4. Contacting Us",
         body: [
-          `If you have questions regarding this Privacy Policy or wish to request data updates, please contact our team at ${brand.contactPlaceholder.email} or by phone at ${brand.contactPlaceholder.phone}.`,
+          `If you have questions regarding this Privacy Policy or wish to request data updates, please contact our team at ${brand.contact.email} or by phone at ${brand.contactPlaceholder.phone}.`,
         ],
       },
     ] satisfies LegalSection[],
     contactHeading: "Contacting us regarding your privacy",
     contactWithEmail:
       "To update your details, request data access, or submit questions about this privacy notice, contact us at",
-    contactMissing: `For privacy inquiries, please contact our support team at ${brand.contactPlaceholder.email}.`,
+    contactMissing: `For privacy inquiries, please contact our support team at ${brand.contact.email}.`,
   },
 
   terms: {
@@ -120,7 +120,7 @@ export const legal = {
       {
         heading: "4. Requesting a Refund or Cancellation",
         body: [
-          `To submit a refund or cancellation request, please email ${brand.contactPlaceholder.email} with your order confirmation and registered phone number, or reach our support hotline at ${brand.contactPlaceholder.phone}.`,
+          `To submit a refund or cancellation request, please email ${brand.contact.email} with your order confirmation and registered phone number, or reach our support hotline at ${brand.contactPlaceholder.phone}.`,
         ],
       },
     ] satisfies LegalSection[],

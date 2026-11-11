@@ -37,19 +37,24 @@ export const brand = {
     { label: "Refund Policy", href: "/refund-policy" },
     { label: "FAQ", href: "/#faq" },
   ] as const satisfies readonly NavLink[],
-  contactPlaceholder: {
+  /** Real, live contact details — not placeholders. */
+  contact: {
     email: "hello@staypookie.com",
+  },
+  /** Still pending the real value — see CLAUDE.md "Current state". */
+  contactPlaceholder: {
     phone: "+91 98765 43210",
   },
   social: [] as { label: string; href: string }[],
   logo: null,
 } as const;
 
-/** Contact details return configured env vars or official placeholder values. */
+/** Contact details return configured env vars, falling back to the real
+ * email and (pending) placeholder phone number above. */
 export function getContact() {
   const { contactEmail, contactPhone } = getPublicEnv();
   return {
-    email: contactEmail || brand.contactPlaceholder.email,
+    email: contactEmail || brand.contact.email,
     phone: contactPhone || brand.contactPlaceholder.phone,
   };
 }
