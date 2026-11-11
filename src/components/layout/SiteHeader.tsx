@@ -1,20 +1,32 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { NavLink } from "@/config/brand";
+import { brand, type NavLink } from "@/config/brand";
 
-type SiteHeaderProps = {
-  name: string;
-  links: readonly NavLink[];
-  cta: NavLink;
-  /** "/" on the home page; "/" prefix makes anchors work from /privacy and /terms too. */
+export type SiteHeaderProps = {
+  name?: string;
+  links?: readonly NavLink[];
+  cta?: NavLink;
+  /** "/" on the home page; "/" prefix makes anchors work from /privacy, /terms, and /refund too. */
   base?: "" | "/";
 };
 
 const DESKTOP_QUERY = "(min-width: 62rem)";
 
-/** Fixed pill nav (specs/05 §12). Below 992px the links move into a sheet. */
-export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
+/**
+ * Shared Site Header
+ * - Logo wordmark in warm serif Fraunces
+ * - Nav links: Home, Pricing, How it Works, FAQ, About, Contact
+ * - CTA button: "See Plans"
+ * - Mobile responsive drawer sheet with focus trapping and accessible ARIA attributes
+ * - Card radius 1.125rem, button radius 0.75rem, soft layered shadows
+ */
+export function SiteHeader({
+  name = brand.name,
+  links = brand.nav,
+  cta = brand.primaryCta,
+  base = "/",
+}: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -25,11 +37,13 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
     if (returnFocus) toggleRef.current?.focus();
   }, []);
 
-  // While open: lock scroll, make the page behind inert, close on Esc / outside click / desktop width.
+  // Lock scroll, inert background, handle Esc / click outside / desktop resize while mobile sheet is open
   useEffect(() => {
     if (!open) return;
     const root = document.documentElement;
-    const behind = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+    const behind = Array.from(
+      document.querySelectorAll<HTMLElement>("main, footer"),
+    );
     root.style.overflow = "hidden";
     behind.forEach((el) => (el.inert = true));
     sheetRef.current?.querySelector<HTMLElement>("a")?.focus();
@@ -55,11 +69,13 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
     };
   }, [open, close]);
 
-  // Keep Tab inside the header (toggle + sheet + CTA) while the sheet is open.
+  // Trap focus within header while drawer is open
   const trapFocus = (event: React.KeyboardEvent<HTMLElement>) => {
     if (!open || event.key !== "Tab" || !headerRef.current) return;
     const focusable = Array.from(
-      headerRef.current.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"),
+      headerRef.current.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])",
+      ),
     ).filter((el) => el.offsetParent !== null);
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -72,26 +88,33 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
     }
   };
 
-  const href = (link: string) => `${base}${link}`;
+  const href = (link: string) =>
+    link.startsWith("#") ? `${base}${link}` : link;
 
   return (
     <header
       ref={headerRef}
       onKeyDown={trapFocus}
-      className="fixed inset-x-0 top-2 z-50 px-4 md:px-6"
+      className="fixed inset-x-0 top-3 z-50 px-4 md:px-6"
     >
-      <div className="relative mx-auto flex h-14 max-w-[54.5rem] items-center justify-between rounded-nav border border-line bg-surface pr-2 pl-4 lg:pr-2.5 lg:pl-6">
-        <a href={href("#hero")} className="inline-flex min-h-11 items-center rounded-sm font-display text-[1.375rem] leading-none text-ink no-underline" aria-label={`${name} home`}>
+      <div className="relative mx-auto flex h-16 max-w-[68rem] items-center justify-between rounded-card border border-line bg-cream/95 px-4 shadow-card backdrop-blur-md md:px-6">
+        {/* Wordmark logo in Fraunces serif */}
+        <a
+          href={href("#hero")}
+          className="inline-flex min-h-11 items-center font-heading text-[1.4375rem] font-medium tracking-tight text-espresso no-underline transition-colors duration-(--dur-ui) ease-standard hover:text-clay-600 focus-visible:rounded-btn"
+          aria-label={`${name} home`}
+        >
           {name}
         </a>
 
-        <nav aria-label="Primary" className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
-          <ul className="flex gap-1">
+        {/* Desktop Navigation */}
+        <nav aria-label="Primary" className="hidden lg:block">
+          <ul className="flex items-center gap-1">
             {links.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <a
                   href={href(link.href)}
-                  className="inline-flex items-center rounded-full px-4 py-[11px] text-body leading-none font-medium text-ink no-underline transition-colors duration-(--dur-base) ease-out-quart hover:bg-line pointer-coarse:min-h-11"
+                  className="inline-flex min-h-11 items-center rounded-btn px-3.5 py-2 font-body text-body font-medium text-bark no-underline transition-colors duration-(--dur-ui) ease-standard hover:bg-clay-100 hover:text-clay-600 focus-visible:rounded-btn"
                 >
                   {link.label}
                 </a>
@@ -100,14 +123,20 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-1">
-          <a href={href(cta.href)} className="btn btn-primary-dark">
+        {/* Right CTA & Mobile Toggle */}
+        <div className="flex items-center gap-2">
+          <a
+            href={href(cta.href)}
+            className="btn btn-primary rounded-btn font-medium"
+          >
             {cta.label}
           </a>
+
+          {/* Mobile hamburger button */}
           <button
             ref={toggleRef}
             type="button"
-            className="relative inline-flex size-11 items-center justify-center rounded-full text-ink lg:hidden"
+            className="relative inline-flex size-11 items-center justify-center rounded-btn border border-line bg-cream text-espresso transition-colors duration-(--dur-ui) ease-standard hover:bg-clay-100 hover:text-clay-600 lg:hidden"
             aria-expanded={open}
             aria-controls="nav-sheet"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -118,8 +147,12 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
                 <span
                   key={bar}
                   className={[
-                    "absolute left-0 h-[1.5px] w-5 bg-ink transition duration-(--dur-base) ease-out-quart",
-                    bar === 0 ? "top-0" : bar === 1 ? "top-[6px]" : "top-[12px]",
+                    "absolute left-0 h-[1.5px] w-5 bg-espresso transition-all duration-(--dur-ui) ease-standard",
+                    bar === 0
+                      ? "top-0"
+                      : bar === 1
+                        ? "top-[6px]"
+                        : "top-[12px]",
                     open && bar === 0 ? "translate-y-[6px] rotate-45" : "",
                     open && bar === 1 ? "opacity-0" : "",
                     open && bar === 2 ? "-translate-y-[6px] -rotate-45" : "",
@@ -131,20 +164,21 @@ export function SiteHeader({ name, links, cta, base = "/" }: SiteHeaderProps) {
         </div>
       </div>
 
+      {/* Mobile drawer sheet */}
       <div
         id="nav-sheet"
         ref={sheetRef}
         hidden={!open}
-        className="mx-auto mt-2 max-h-[calc(100svh-5.5rem)] max-w-[54.5rem] overflow-y-auto rounded-sheet border border-line bg-canvas p-2 lg:hidden"
+        className="mx-auto mt-2 max-h-[calc(100svh-6rem)] max-w-[68rem] overflow-y-auto rounded-card border border-line bg-cream p-4 shadow-dropdown transition-all duration-(--dur-ui) ease-standard lg:hidden"
       >
         <nav aria-label="Primary (mobile)">
-          <ul>
+          <ul className="space-y-1">
             {links.map((link) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <a
                   href={href(link.href)}
                   onClick={() => close(false)}
-                  className="flex min-h-12 items-center rounded-xl px-4 py-3 text-lead font-medium text-ink no-underline hover:bg-canvas-tint"
+                  className="flex min-h-12 items-center rounded-btn px-4 py-3 font-body text-lead font-medium text-espresso no-underline transition-colors duration-(--dur-ui) ease-standard hover:bg-clay-100 hover:text-clay-600"
                 >
                   {link.label}
                 </a>

@@ -5,5 +5,7 @@ import { getPublicEnv } from "@/lib/env";
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getPublicEnv().siteUrl;
   if (!siteUrl) return [];
-  return ["/", "/privacy", "/terms"].map((path) => ({ url: new URL(path, siteUrl).toString() }));
+  return ["/", "/privacy", "/terms"].map((path) => ({
+    url: new URL(path, siteUrl).toString(),
+  }));
 }
