@@ -22,7 +22,7 @@ export function FinalCta() {
           {/* One line restating the outcome */}
           <h2
             id="final-cta-heading"
-            className="font-heading text-h2 md:text-[2.75rem] font-medium tracking-tight text-espresso leading-[1.15] max-w-2xl mx-auto"
+            className="font-heading text-h2 font-medium tracking-tight text-espresso leading-[1.15] max-w-2xl mx-auto"
           >
             {finalCta.headline}
           </h2>

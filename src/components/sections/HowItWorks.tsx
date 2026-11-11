@@ -55,7 +55,7 @@ export function HowItWorks() {
                   <div className="flex size-11 items-center justify-center rounded-btn bg-clay-100 font-heading text-h3 font-medium text-clay-600 shadow-xs">
                     {item.step}
                   </div>
-                  <span className="tag tag-info text-[0.7rem] px-2 py-0.5">
+                  <span className="tag tag-info text-micro px-2 py-0.5">
                     {item.tag}
                   </span>
                 </div>

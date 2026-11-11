@@ -472,7 +472,7 @@ function CheckoutFlow() {
                                   {p.name}
                                 </span>
                                 {p.badge ? (
-                                  <span className="tag tag-attention text-[0.6875rem] py-0.5 px-2">
+                                  <span className="tag tag-attention text-micro py-0.5 px-2">
                                     {p.badge}
                                   </span>
                                 ) : null}
@@ -745,7 +745,7 @@ function CheckoutFlow() {
                         <span className="font-heading text-body font-semibold text-espresso block">
                           Total Due Today
                         </span>
-                        <span className="font-body text-[0.6875rem] text-dust">
+                        <span className="font-body text-micro text-dust">
                           Billed monthly · Cancel anytime
                         </span>
                       </div>
@@ -813,7 +813,7 @@ function CheckoutFlow() {
                         </span>
                       )}
                     </button>
-                    <p className="mt-2 text-center font-body text-[0.6875rem] text-dust">
+                    <p className="mt-2 text-center font-body text-micro text-dust">
                       Instant charge prevention active. Button locks on click.
                     </p>
                   </div>

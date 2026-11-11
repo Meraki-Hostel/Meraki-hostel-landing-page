@@ -72,7 +72,7 @@ export function PricingTeaser() {
                 </h3>
 
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="font-heading text-[2.25rem] font-medium text-espresso">
+                  <span className="font-heading text-price font-medium text-espresso">
                     {plan.price}
                   </span>
                   <span className="font-body text-small text-dust">

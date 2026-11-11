@@ -46,7 +46,7 @@ export function Faq() {
               className="card group rounded-card border border-line bg-cream p-5 md:p-6 shadow-sm transition-all duration-(--dur-ui) ease-standard hover:shadow-card open:shadow-card"
             >
               <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-heading text-h3 text-espresso [&::-webkit-details-marker]:hidden">
-                <span className="text-[1.125rem] md:text-[1.25rem] font-medium leading-snug">
+                <span className="text-faq-q leading-snug">
                   {item.q}
                 </span>
                 <span className="flex size-8 flex-none items-center justify-center rounded-btn bg-sand text-bark transition-transform duration-(--dur-ui) ease-standard group-open:rotate-180 group-open:bg-clay-100 group-open:text-clay-600">

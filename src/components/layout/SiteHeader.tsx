@@ -101,7 +101,7 @@ export function SiteHeader({
         {/* Wordmark logo in Fraunces serif */}
         <a
           href={href("#hero")}
-          className="inline-flex min-h-11 items-center font-heading text-[1.4375rem] font-medium tracking-tight text-espresso no-underline transition-colors duration-(--dur-ui) ease-standard hover:text-clay-600 focus-visible:rounded-btn"
+          className="inline-flex min-h-11 items-center font-heading text-h3 font-medium tracking-tight text-espresso no-underline transition-colors duration-(--dur-ui) ease-standard hover:text-clay-600 focus-visible:rounded-btn"
           aria-label={`${name} home`}
         >
           {name}

@@ -118,7 +118,7 @@ export function Features() {
                   <span>{group.title}</span>
                   <span
                     className={[
-                      "ml-1.5 rounded-tag px-1.5 py-0.5 text-[0.7rem] font-semibold leading-none",
+                      "ml-1.5 rounded-tag px-1.5 py-0.5 text-micro font-semibold leading-none",
                       isActive ? "bg-cream/20 text-cream" : "bg-sand text-dust",
                     ].join(" ")}
                   >

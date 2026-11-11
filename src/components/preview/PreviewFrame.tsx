@@ -34,7 +34,7 @@ export function PreviewFrame({
         className="overflow-clip rounded-preview border border-line bg-surface text-preview text-ink"
       >
         <div className="flex h-10 items-center gap-3 border-b border-line bg-canvas px-4">
-          <span className="font-display text-[0.9375rem] leading-none">
+          <span className="font-display text-button leading-none">
             {brand.name}
           </span>
           <span className="truncate text-ink-muted">{SAMPLE_PROPERTY}</span>

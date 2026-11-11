@@ -289,7 +289,7 @@ export default function PricingPage() {
                 </h2>
 
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="font-heading text-[2.5rem] font-medium text-espresso leading-none">
+                  <span className="font-heading text-price font-medium text-espresso leading-none">
                     {plan.price}
                   </span>
                   <span className="font-body text-small text-dust">
@@ -311,7 +311,7 @@ export default function PricingPage() {
                       <span className="block font-heading text-body font-semibold text-espresso">
                         {plan.limits.properties.split(" ")[0]}
                       </span>
-                      <span className="block font-body text-[0.6875rem] text-dust">
+                      <span className="block font-body text-micro text-dust">
                         Properties
                       </span>
                     </div>
@@ -319,7 +319,7 @@ export default function PricingPage() {
                       <span className="block font-heading text-body font-semibold text-espresso">
                         {plan.limits.beds.split(" ")[0]}
                       </span>
-                      <span className="block font-body text-[0.6875rem] text-dust">
+                      <span className="block font-body text-micro text-dust">
                         Beds
                       </span>
                     </div>
@@ -327,7 +327,7 @@ export default function PricingPage() {
                       <span className="block font-heading text-body font-semibold text-espresso">
                         {plan.limits.staff.split(" ")[0]}
                       </span>
-                      <span className="block font-body text-[0.6875rem] text-dust">
+                      <span className="block font-body text-micro text-dust">
                         Staff
                       </span>
                     </div>
@@ -342,7 +342,7 @@ export default function PricingPage() {
                   <ul className="space-y-3 font-body text-small text-bark">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2.5">
-                        <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-moss/10 text-moss font-bold text-[0.6875rem]">
+                        <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-moss/10 text-moss font-bold text-micro">
                           ✓
                         </span>
                         <span>{feature}</span>
@@ -424,7 +424,7 @@ export default function PricingPage() {
                           /mo
                         </span>
                       </div>
-                      <div className="mt-1 font-body text-[0.6875rem] text-dust">
+                      <div className="mt-1 font-body text-micro text-dust">
                         excl. 18% GST
                       </div>
                       <div className="mt-4">
