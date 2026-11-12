@@ -35,7 +35,7 @@ export function SiteFooter() {
                 src={logo.src}
                 alt=""
                 aria-hidden="true"
-                className="h-7 w-auto"
+                className="h-10 w-auto"
               />
               <p className="font-heading text-h3 font-medium leading-none tracking-tight text-espresso">
                 {brand.name}

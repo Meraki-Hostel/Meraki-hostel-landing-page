@@ -110,7 +110,7 @@ export function SiteHeader({
             src={logo.src}
             alt=""
             aria-hidden="true"
-            className="h-8 w-auto"
+            className="h-11 w-auto"
             priority
           />
           {name}

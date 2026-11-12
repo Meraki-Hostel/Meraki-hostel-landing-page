@@ -16,31 +16,35 @@ export default function OpengraphImage() {
   const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 40,
+        padding: 80,
+        background: "#f6efe4",
+        color: "#3b2622",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          padding: 80,
-          background: "#f6efe4",
-          color: "#3b2622",
+          gap: 24,
+          flex: 1,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <img src={logoSrc} width={64} height={64} alt="" />
-          <div style={{ fontSize: 44, fontWeight: 500 }}>{brand.name}</div>
+        <div style={{ fontSize: 68, lineHeight: 1.1, letterSpacing: -2 }}>
+          {brand.tagline}
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <div style={{ fontSize: 76, lineHeight: 1.1, letterSpacing: -2 }}>
-            {brand.tagline}
-          </div>
-          <div style={{ fontSize: 30, color: "#5a4540" }}>{brand.title}</div>
-        </div>
+        <div style={{ fontSize: 30, color: "#5a4540" }}>{brand.title}</div>
       </div>
-    ),
+      {/* The logo is a lockup (mascot + wordmark), so keep its 4:3 proportions. */}
+      <img src={logoSrc} width={400} height={300} alt="" />
+    </div>,
     size,
   );
 }
